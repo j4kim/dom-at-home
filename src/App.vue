@@ -22,8 +22,8 @@ html,body{
   height: 100vh; 
   width: 100vw;
   display: grid;
-  grid-template-columns: repeat(9, auto);
-  grid-template-rows: repeat(16, auto);
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(16, 1fr);
 
   /* adpated from https://stackoverflow.com/a/20593342/8345160 */
   height: 100vh; 
