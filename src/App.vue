@@ -22,8 +22,6 @@ html,body{
   margin:0;
 }
 .grid{
-  height: 100vh; 
-  width: 100vw;
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   grid-template-rows: repeat(16, 1fr);
