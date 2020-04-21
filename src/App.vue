@@ -21,6 +21,7 @@ export default {
   data(){
     return {
       headDirection: [0,-1],
+      nextDirection: [0,-1],
       snakeParts: [
         [5,10],
         [5,11],
@@ -45,24 +46,27 @@ export default {
     }
   },
   methods:{
-    moveLeftOrRight(offsetX){
-      let moveRight = offsetX > window.innerWidth/2
-      this.headDirection = [moveRight ? 1 : -1, 0]
+    moveLeftOrRight(x){
+      let moveRight = x > window.innerWidth/2
+      this.nextDirection = [moveRight ? 1 : -1, 0]
     },
-    moveUpOrDown(offsetY){
-      let moveDown = offsetY > window.innerHeight/2
-      this.headDirection = [0, moveDown ? 1 : -1]
+    moveUpOrDown(y){
+      let moveDown = y > window.innerHeight/2
+      this.nextDirection = [0, moveDown ? 1 : -1]
     },
-    move(e){
+    changeDirection(e){
       if (this.headDirection[0] === 0) {
         this.moveLeftOrRight(e.screenX)
       } else {
         this.moveUpOrDown(e.screenY)
       }
+    },
+    move(e){
+      this.headDirection = this.nextDirection
       let headPos = this.snakeParts[0]
       let newHeadPos = [
-        headPos[0] + this.headDirection[0],
-        headPos[1] + this.headDirection[1]
+        headPos[0] + this.nextDirection[0],
+        headPos[1] + this.nextDirection[1]
       ]
       this.snakeParts.unshift(newHeadPos)
       this.snakeParts.pop()
@@ -74,9 +78,12 @@ export default {
       if (!this.inGame) {
         this.inGame = true
       } else {
-        this.move(e)
+        this.changeDirection(e)
       }
     }
+  },
+  created(){
+    setInterval(this.move, 500)
   }
 }
 </script>
