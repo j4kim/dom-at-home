@@ -2,10 +2,10 @@
   <div id="app" @click="$el.requestFullscreen()">
     <div class="grid">
       <component
-        v-for="part in snakeParts"
-        :is="part.component"
-        :key="part.id"
-        :x="part.x" :y="part.y"
+        v-for="o in sceneObjects"
+        :is="o.component"
+        :key="o.id"
+        :x="o.x" :y="o.y"
       >
       </component>
     </div>
@@ -20,22 +20,24 @@ export default {
   data(){
     return {
       snakeParts: [
-        {
-          x:5, y:10,
-          component: "dom-head",
-          id: 1
-        },
-        {
-          x:5, y:11,
-          component: "dom-beard",
-          id: 2
-        },
-        {
-          x:5, y:12,
-          component: "dom-beard",
-          id: 3
-        }
+        [5,10],
+        [5,11],
+        [5,12],
       ]
+    }
+  },
+  computed: {
+    sceneObjects(){
+      let objects = []
+      this.snakeParts.forEach((part, i) => {
+        objects.push({
+          x: part[0],
+          y: part[1],
+          component: i === 0 ? "dom-head" : "dom-beard",
+          id: i
+        })
+      })
+      return objects
     }
   }
 }
