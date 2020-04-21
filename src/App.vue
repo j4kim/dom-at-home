@@ -34,7 +34,7 @@ export default {
         [5,11],
         [5,12],
       ],
-      inGame: true,
+      inGame: false,
       interval: undefined
     }
   },
@@ -107,15 +107,14 @@ export default {
     },
     handleClick(e){
       if (!this.inGame) {
+        this.requestFullscreen()
         this.inGame = true
+        this.interval = setInterval(this.move, 500)
       } else {
         this.changeDirection(e)
       }
     }
   },
-  created(){
-    this.interval = setInterval(this.move, 500)
-  }
 }
 </script>
 
