@@ -107,8 +107,6 @@ html,body{
 
   /* adpated from https://stackoverflow.com/a/20593342/8345160 */
   height: 100vh;
-  max-height: 177.78vw; /* 16/9 = 1.778 */
-  width: 56.25vh; /* 9/16 = .5625  */
   max-width: 100vw;
   margin: auto;
   position: absolute;
