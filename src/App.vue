@@ -1,13 +1,12 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="head.png">
-    <h1>Welcome to Your Vue.js App</h1>
+    <dom-head/>
   </div>
 </template>
 
-<style scoped>
-  img {
-    width:400px;
-    image-rendering: pixelated;
-  }
-</style>
+<script>
+import DomHead from "@/DomHead"
+export default {
+  components: { DomHead }
+}
+</script>
