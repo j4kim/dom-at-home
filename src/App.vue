@@ -59,6 +59,12 @@ export default {
       } else {
         this.moveUpOrDown(e.screenY)
       }
+      let headPos = this.snakeParts[0]
+      let newHeadPos = [
+        headPos[0] + this.headDirection[0],
+        headPos[1] + this.headDirection[1]
+      ]
+      this.snakeParts.unshift(newHeadPos)
     },
     handleClick(e){
       if (!this.inGame) {
