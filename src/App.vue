@@ -4,7 +4,7 @@
       <dom-head class="dom-head"/>
       <div class="beard b1" />
       <div class="beard b2" />
-      <div class="beard b3" />
+      <img src="beard-end.png" class="b3" />
     </div>
   </div>
 </template>
@@ -58,5 +58,7 @@ html,body{
 .b3{
   grid-column: 4;
   grid-row: 7;
+  width:100%;
+  image-rendering: pixelated;
 }
 </style>
