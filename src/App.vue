@@ -4,3 +4,10 @@
     <h1>Welcome to Your Vue.js App</h1>
   </div>
 </template>
+
+<style scoped>
+  img {
+    width:400px;
+    image-rendering: pixelated;
+  }
+</style>
