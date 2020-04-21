@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" @click="$el.requestFullscreen()">
     <div class="grid">
       <dom-head class="dom-head"/>
       <div class="beard b1" />
