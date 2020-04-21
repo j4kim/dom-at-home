@@ -6,6 +6,7 @@
         :is="o.component"
         :key="o.id"
         :x="o.x" :y="o.y"
+        :direction="o.direction"
       >
       </component>
     </div>
@@ -19,6 +20,7 @@ export default {
   components: { DomHead, DomBeard },
   data(){
     return {
+      headDirection: [-1,0],
       snakeParts: [
         [5,10],
         [5,11],
@@ -34,6 +36,7 @@ export default {
           x: part[0],
           y: part[1],
           component: i === 0 ? "dom-head" : "dom-beard",
+          direction: this.headDirection,
           id: i
         })
       })
