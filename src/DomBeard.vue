@@ -1,6 +1,5 @@
 <template>
   <div :style="{
-    background: '#33221c',
     gridColumn: x, gridRow: y
   }" />
 </template>

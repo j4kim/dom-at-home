@@ -7,6 +7,7 @@
         :key="o.id"
         :x="o.x" :y="o.y"
         :direction="o.direction"
+        class="scene-object"
       >
       </component>
     </div>
@@ -106,5 +107,9 @@ html,body{
   left:0;right:0; /* horizontal center */
 
   background: lightblue;
+}
+.scene-object{
+  background: #2a1e1b;
+  outline: 1px solid #2a1e1b;
 }
 </style>
