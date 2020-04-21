@@ -26,14 +26,15 @@ html,body{
   grid-template-rows: repeat(16, 1fr);
 
   /* adpated from https://stackoverflow.com/a/20593342/8345160 */
-  height: 100vh; 
-  width: 56.25vh; /* height:width ratio = 9/16 = .5625  */
-  max-width: 100vw;
+  height: 100vh;
   max-height: 177.78vw; /* 16/9 = 1.778 */
+  width: 56.25vh; /* 9/16 = .5625  */
+  max-width: 100vw;
   margin: auto;
   position: absolute;
   top:0;bottom:0; /* vertical center */
   left:0;right:0; /* horizontal center */
+  
   background: lightblue;
 }
 .dom-head{
