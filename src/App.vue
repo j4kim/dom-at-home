@@ -19,10 +19,13 @@
 </template>
 
 <script>
+import { random } from "lodash"
 import DomHead from "@/DomHead"
 import DomBeard from "@/DomBeard"
+import Bonus from "@/Bonus"
+
 export default {
-  components: { DomHead, DomBeard },
+  components: { DomHead, DomBeard, Bonus },
   data(){
     return {
       columns: 9,
@@ -35,7 +38,8 @@ export default {
         [5,12],
       ],
       inGame: false,
-      interval: undefined
+      interval: undefined,
+      bonus: undefined
     }
   },
   computed: {
@@ -50,6 +54,14 @@ export default {
           id: i
         })
       })
+      if (this.bonus) {
+        objects.push({
+          x: this.bonus[0],
+          y: this.bonus[1],
+          component: "bonus",
+          id: "bonus"
+        })
+      }
       return objects
     }
   },
@@ -102,6 +114,15 @@ export default {
         this.snakeParts.pop()
       }
     },
+    popBonus(){
+      let x, y, ok = false
+      while (!ok) {
+        x = random(1, this.columns)
+        y = random(1, this.lines)
+        ok = !this.snakeCollision([x,y])
+      }
+      this.bonus = [x,y]
+    },
     requestFullscreen(){
       this.$el.requestFullscreen()
     },
@@ -110,6 +131,7 @@ export default {
         this.requestFullscreen()
         this.inGame = true
         this.interval = setInterval(this.move, 500)
+        this.popBonus()
       } else {
         this.changeDirection(e)
       }
