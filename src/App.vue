@@ -39,7 +39,7 @@ export default {
       ],
       inGame: false,
       interval: undefined,
-      bonus: undefined
+      bonusPosition: undefined
     }
   },
   computed: {
@@ -54,10 +54,10 @@ export default {
           id: i
         })
       })
-      if (this.bonus) {
+      if (this.bonusPosition) {
         objects.push({
-          x: this.bonus[0],
-          y: this.bonus[1],
+          x: this.bonusPosition[0],
+          y: this.bonusPosition[1],
           component: "bonus",
           id: "bonus"
         })
@@ -121,7 +121,7 @@ export default {
         y = random(1, this.rows)
         ok = !this.snakeCollision([x,y])
       }
-      this.bonus = [x,y]
+      this.bonusPosition = [x,y]
     },
     requestFullscreen(){
       this.$el.requestFullscreen()
