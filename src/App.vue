@@ -1,6 +1,9 @@
 <template>
   <div id="app" @click="handleClick">
-    <div class="grid">
+    <div class="grid" :style="{
+      gridTemplateColumns: `repeat(${columns}, 1fr)`,
+      gridTemplateRows: `repeat(${lines}, 1fr)`
+    }">
       <component
         v-for="o in sceneObjects"
         :is="o.component"
@@ -20,6 +23,8 @@ export default {
   components: { DomHead, DomBeard },
   data(){
     return {
+      columns: 9,
+      lines: 16,
       headDirection: [0,-1],
       nextDirection: [0,-1],
       snakeParts: [
@@ -99,8 +104,6 @@ html,body{
 }
 .grid{
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  grid-template-rows: repeat(16, 1fr);
 
   /* adpated from https://stackoverflow.com/a/20593342/8345160 */
   height: 100vh;
