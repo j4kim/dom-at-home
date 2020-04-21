@@ -38,7 +38,6 @@ export default {
         [5,12],
       ],
       inGame: false,
-      interval: undefined,
       bonusPosition: undefined
     }
   },
@@ -82,7 +81,7 @@ export default {
       }
     },
     gameOver(){
-      clearInterval(this.interval)
+      console.log("game over")
     },
     snakeCollision(pos){
       return this.snakeParts.some(part => {
@@ -109,9 +108,14 @@ export default {
       if (this.collision(newHeadPos)) {
         this.gameOver()
       } else {
+        if (newHeadPos.join() === this.bonusPosition.join()) {
+          this.popBonus()
+        } else {
+          this.snakeParts.pop()
+        }
         this.headDirection = this.nextDirection
         this.snakeParts.unshift(newHeadPos)
-        this.snakeParts.pop()
+        this.requestNextFrame()
       }
     },
     popBonus(){
@@ -126,11 +130,14 @@ export default {
     requestFullscreen(){
       this.$el.requestFullscreen()
     },
+    requestNextFrame(){
+      setTimeout(this.move, 400)
+    },
     handleClick(e){
       if (!this.inGame) {
         this.requestFullscreen()
         this.inGame = true
-        this.interval = setInterval(this.move, 500)
+        this.requestNextFrame()
         this.popBonus()
       } else {
         this.changeDirection(e)
