@@ -22,8 +22,9 @@ export default {
 </script>
 
 <style scoped>
-  img {
-    width:100%;
-    image-rendering: pixelated;
-  }
+img {
+  width:100%;
+  image-rendering: pixelated;
+  user-select: none;
+}
 </style>
