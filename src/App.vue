@@ -56,9 +56,9 @@ export default {
     },
     changeDirection(e){
       if (this.headDirection[0] === 0) {
-        this.moveLeftOrRight(e.screenX)
+        this.moveLeftOrRight(e.pageX)
       } else {
-        this.moveUpOrDown(e.screenY)
+        this.moveUpOrDown(e.pageY)
       }
     },
     move(e){
