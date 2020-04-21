@@ -20,7 +20,7 @@ export default {
   components: { DomHead, DomBeard },
   data(){
     return {
-      headDirection: [-1,0],
+      headDirection: [0,-1],
       snakeParts: [
         [5,10],
         [5,11],
