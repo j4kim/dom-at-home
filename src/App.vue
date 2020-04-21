@@ -2,7 +2,9 @@
   <div id="app" @click="handleClick">
     <div class="grid" :style="{
       gridTemplateColumns: `repeat(${columns}, 1fr)`,
-      gridTemplateRows: `repeat(${lines}, 1fr)`
+      gridTemplateRows: `repeat(${lines}, 1fr)`,
+      maxHeight: (100 * lines / columns) + 'vw',
+      width: (100 * columns / lines) + 'vh'
     }">
       <component
         v-for="o in sceneObjects"
@@ -32,7 +34,8 @@ export default {
         [5,11],
         [5,12],
       ],
-      inGame: true
+      inGame: true,
+      interval: undefined
     }
   },
   computed: {
@@ -66,15 +69,38 @@ export default {
         this.moveUpOrDown(e.pageY)
       }
     },
+    gameOver(){
+      clearInterval(this.interval)
+    },
+    snakeCollision(pos){
+      return this.snakeParts.some(part => {
+        return part.join() === pos.join()
+      })
+    },
+    wallCollision(pos){
+      return (
+        pos[0] < 1 ||
+        pos[0] > this.columns ||
+        pos[1] < 1 ||
+        pos[1] > this.rows
+      )
+    },
+    collision(pos){
+      return this.snakeCollision(pos) || this.wallCollision(pos)
+    },
     move(e){
-      this.headDirection = this.nextDirection
       let headPos = this.snakeParts[0]
       let newHeadPos = [
         headPos[0] + this.nextDirection[0],
         headPos[1] + this.nextDirection[1]
       ]
-      this.snakeParts.unshift(newHeadPos)
-      this.snakeParts.pop()
+      if (this.collision(newHeadPos)) {
+        this.gameOver()
+      } else {
+        this.headDirection = this.nextDirection
+        this.snakeParts.unshift(newHeadPos)
+        this.snakeParts.pop()
+      }
     },
     requestFullscreen(){
       this.$el.requestFullscreen()
@@ -88,7 +114,7 @@ export default {
     }
   },
   created(){
-    setInterval(this.move, 500)
+    this.interval = setInterval(this.move, 500)
   }
 }
 </script>
