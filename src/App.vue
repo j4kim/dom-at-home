@@ -1,18 +1,43 @@
 <template>
   <div id="app" @click="$el.requestFullscreen()">
     <div class="grid">
-      <dom-head class="dom-head"/>
-      <div class="beard b1" />
-      <div class="beard b2" />
-      <div class="beard b3" />
+      <component
+        v-for="part in snakeParts"
+        :is="part.component"
+        :key="part.id"
+        :x="part.x" :y="part.y"
+      >
+      </component>
     </div>
   </div>
 </template>
 
 <script>
 import DomHead from "@/DomHead"
+import DomBeard from "@/DomBeard"
 export default {
-  components: { DomHead }
+  components: { DomHead, DomBeard },
+  data(){
+    return {
+      snakeParts: [
+        {
+          x:5, y:10,
+          component: "dom-head",
+          id: 1
+        },
+        {
+          x:5, y:11,
+          component: "dom-beard",
+          id: 2
+        },
+        {
+          x:5, y:12,
+          component: "dom-beard",
+          id: 3
+        }
+      ]
+    }
+  }
 }
 </script>
 
@@ -37,24 +62,5 @@ html,body{
   left:0;right:0; /* horizontal center */
 
   background: lightblue;
-}
-.dom-head{
-  grid-column: 3;
-  grid-row: 5;
-}
-.beard{
-  background: #33221c;
-}
-.b1{
-  grid-column: 3;
-  grid-row: 6;
-}
-.b2{
-  grid-column: 4;
-  grid-row: 6;
-}
-.b3{
-  grid-column: 4;
-  grid-row: 7;
 }
 </style>

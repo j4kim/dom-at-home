@@ -1,6 +1,14 @@
 <template>
-  <img alt="Vue logo" src="head.png">
+  <img src="head.png" :style="{
+    gridColumn: x, gridRow: y
+  }">
 </template>
+
+<script>
+export default {
+  props: ["x", "y"]
+}
+</script>
 
 <style scoped>
   img {
