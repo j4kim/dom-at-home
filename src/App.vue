@@ -2,9 +2,9 @@
   <div id="app" @click="handleClick">
     <div class="grid" :style="{
       gridTemplateColumns: `repeat(${columns}, 1fr)`,
-      gridTemplateRows: `repeat(${lines}, 1fr)`,
-      maxHeight: (100 * lines / columns) + 'vw',
-      width: (100 * columns / lines) + 'vh'
+      gridTemplateRows: `repeat(${rows}, 1fr)`,
+      maxHeight: (100 * rows / columns) + 'vw',
+      width: (100 * columns / rows) + 'vh'
     }">
       <component
         v-for="o in sceneObjects"
@@ -29,7 +29,7 @@ export default {
   data(){
     return {
       columns: 9,
-      lines: 16,
+      rows: 16,
       headDirection: [0,-1],
       nextDirection: [0,-1],
       snakeParts: [
@@ -118,7 +118,7 @@ export default {
       let x, y, ok = false
       while (!ok) {
         x = random(1, this.columns)
-        y = random(1, this.lines)
+        y = random(1, this.rows)
         ok = !this.snakeCollision([x,y])
       }
       this.bonus = [x,y]
