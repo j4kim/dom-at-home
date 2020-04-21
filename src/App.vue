@@ -24,6 +24,17 @@ html,body{
   display: grid;
   grid-template-columns: repeat(9, auto);
   grid-template-rows: repeat(16, auto);
+
+  /* adpated from https://stackoverflow.com/a/20593342/8345160 */
+  height: 100vh; 
+  width: 56.25vh; /* height:width ratio = 9/16 = .5625  */
+  max-width: 100vw;
+  max-height: 177.78vw; /* 16/9 = 1.778 */
+  margin: auto;
+  position: absolute;
+  top:0;bottom:0; /* vertical center */
+  left:0;right:0; /* horizontal center */
+  background: lightblue;
 }
 .dom-head{
   grid-column: 3;
