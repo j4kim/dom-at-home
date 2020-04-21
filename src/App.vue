@@ -65,6 +65,7 @@ export default {
         headPos[1] + this.headDirection[1]
       ]
       this.snakeParts.unshift(newHeadPos)
+      this.snakeParts.pop()
     },
     handleClick(e){
       if (!this.inGame) {
