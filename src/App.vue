@@ -26,7 +26,7 @@ export default {
         [5,11],
         [5,12],
       ],
-      inGame: false
+      inGame: true
     }
   },
   computed: {
@@ -67,10 +67,12 @@ export default {
       this.snakeParts.unshift(newHeadPos)
       this.snakeParts.pop()
     },
+    requestFullscreen(){
+      this.$el.requestFullscreen()
+    },
     handleClick(e){
       if (!this.inGame) {
         this.inGame = true
-        this.$el.requestFullscreen()
       } else {
         this.move(e)
       }
