@@ -146,7 +146,6 @@ export default {
     },
     handleClick(e){
       if (!this.inGame) {
-        this.requestFullscreen()
         this.inGame = true
         this.requestNextFrame()
         this.popBonus()
