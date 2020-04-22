@@ -20,6 +20,8 @@
 
 <script>
 import { random } from "lodash"
+import "fullscreen-api-polyfill"
+
 import DomHead from "@/DomHead"
 import DomBeard from "@/DomBeard"
 import Bonus from "@/Bonus"
