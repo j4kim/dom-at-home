@@ -73,6 +73,9 @@ export default {
       let offsetX = this.$refs.grid.offsetLeft + x
       let offsetY = this.$refs.grid.offsetTop + y
       return [offsetX, offsetY]
+    },
+    verticalMove(){
+      return this.headDirection[0] === 0
     }
   },
   methods:{
@@ -85,7 +88,7 @@ export default {
       this.nextDirection = [0, moveDown ? 1 : -1]
     },
     changeDirection(e){
-      if (this.headDirection[0] === 0) {
+      if (this.verticalMove) {
         this.moveLeftOrRight(e.pageX)
       } else {
         this.moveUpOrDown(e.pageY)
@@ -153,6 +156,21 @@ export default {
         this.changeDirection(e)
       }
     }
+  },
+  created(){
+    document.addEventListener("keydown", e => {
+      let keyBinding = {
+        37: [-1,0], // left
+        38: [0,-1], // top
+        39: [1,0],  // right
+        40: [0,1]   // down
+      }
+      let verticalToHorizontal = this.verticalMove && [37,39].includes(e.keyCode)
+      let horizontalToVertival = !this.verticalMove && [38,40].includes(e.keyCode)
+      if (verticalToHorizontal || horizontalToVertival) {
+        this.nextDirection = keyBinding[e.keyCode]
+      }
+    })
   },
 }
 </script>
