@@ -1,6 +1,6 @@
 <template>
   <div id="app" @click="handleClick">
-    <div class="grid" :style="{
+    <div class="grid" ref="grid" :style="{
       gridTemplateColumns: `repeat(${columns}, 1fr)`,
       gridTemplateRows: `repeat(${rows}, 1fr)`,
       maxHeight: (100 * rows / columns) + 'vw',
@@ -64,15 +64,24 @@ export default {
         })
       }
       return objects
+    },
+    headOffset(){
+      let head = this.snakeParts[0]
+      let headSize = this.$el.offsetHeight / this.rows
+      let x = head[0] * headSize - headSize / 2
+      let y = head[1] * headSize - headSize / 2
+      let offsetX = this.$refs.grid.offsetLeft + x
+      let offsetY = this.$refs.grid.offsetTop + y
+      return [offsetX, offsetY]
     }
   },
   methods:{
     moveLeftOrRight(x){
-      let moveRight = x > window.innerWidth/2
+      let moveRight = x > this.headOffset[0]
       this.nextDirection = [moveRight ? 1 : -1, 0]
     },
     moveUpOrDown(y){
-      let moveDown = y > window.innerHeight/2
+      let moveDown = y > this.headOffset[1]
       this.nextDirection = [0, moveDown ? 1 : -1]
     },
     changeDirection(e){
