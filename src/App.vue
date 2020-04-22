@@ -40,7 +40,8 @@ export default {
         [5,12],
       ],
       inGame: false,
-      bonusPosition: undefined
+      bonusPosition: undefined,
+      lastUpdate: 0
     }
   },
   computed: {
@@ -172,6 +173,11 @@ export default {
       }
     })
   },
+  updated(){
+    let newUpdate = performance.now()
+    console.log(Math.round(newUpdate - this.lastUpdate) - 400)
+    this.lastUpdate = newUpdate
+  }
 }
 </script>
 
