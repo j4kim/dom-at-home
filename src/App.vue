@@ -145,7 +145,7 @@ export default {
       this.$el.requestFullscreen()
     },
     requestNextFrame(){
-      setTimeout(this.move, 400)
+      setTimeout(this.move, 200)
     },
     handleClick(e){
       if (!this.inGame) {
