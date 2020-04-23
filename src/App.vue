@@ -191,9 +191,6 @@ html,body{
   height: 100vh;
   max-width: 100vw;
   margin: auto;
-  position: absolute;
-  top:0;bottom:0; /* vertical center */
-  left:0;right:0; /* horizontal center */
 
   background: lightblue;
 }
