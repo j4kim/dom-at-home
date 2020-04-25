@@ -1,19 +1,19 @@
 <template>
   <div id="app" @click="handleClick">
-    <div class="grid" ref="grid" :style="{
-      gridTemplateColumns: `repeat(${columns}, 1fr)`,
-      gridTemplateRows: `repeat(${rows}, 1fr)`,
-      maxHeight: (100 * rows / columns) + 'vw',
-      width: (100 * columns / rows) + 'vh'
-    }">
-      <component
-        v-for="o in sceneObjects"
-        :is="o.component"
-        :key="o.id"
-        :x="o.x" :y="o.y"
-        :direction="o.direction"
-      >
-      </component>
+    <div id="game">
+      <div class="grid" ref="grid" :style="{
+        gridTemplateColumns: `repeat(${columns}, 1fr)`,
+        gridTemplateRows: `repeat(${rows}, 1fr)`
+      }">
+        <component
+          v-for="o in sceneObjects"
+          :is="o.component"
+          :key="o.id"
+          :x="o.x" :y="o.y"
+          :direction="o.direction"
+        >
+        </component>
+      </div>
     </div>
   </div>
 </template>
@@ -30,14 +30,13 @@ export default {
   components: { DomHead, DomBeard, Bonus },
   data(){
     return {
-      columns: 9,
+      columns: 11,
       rows: 16,
       headDirection: [0,-1],
       nextDirection: [0,-1],
       snakeParts: [
-        [5,10],
-        [5,11],
-        [5,12],
+        [6,14],
+        [6,15],
       ],
       inGame: false,
       bonusPosition: undefined
@@ -180,18 +179,24 @@ html,body{
   padding:0;
   margin:0;
 }
-#app{
-  width: 100vw;
+#game{
   height: 100vh;
-}
-.grid{
-  display: grid;
-
-  /* adpated from https://stackoverflow.com/a/20593342/8345160 */
-  height: 100vh;
+  width: 56.25vh; /* 16/9 = 0.5625 */ 
+  max-height: 177.78vw; /* 9/16 = 1.77... */ 
   max-width: 100vw;
   margin: auto;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../public/house.png");
+  background-size: contain;
+  image-rendering: pixelated;
+}
+.grid{
+  width: 85%;
+  display: grid;
   background: lightblue;
+  margin-top: 6%;
 }
 </style>
