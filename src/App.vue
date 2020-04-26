@@ -64,26 +64,24 @@ export default {
       }
       return objects
     },
-    headOffset(){
-      let head = this.snakeParts[0]
-      let headSize = this.$el.offsetHeight / this.rows
-      let x = head[0] * headSize - headSize / 2
-      let y = head[1] * headSize - headSize / 2
-      let offsetX = this.$refs.grid.offsetLeft + x
-      let offsetY = this.$refs.grid.offsetTop + y
-      return [offsetX, offsetY]
-    },
     verticalMove(){
       return this.headDirection[0] === 0
     }
   },
   methods:{
+    headOffset(){
+      let headEl = document.getElementById("dom-head")
+      let rect = headEl.getBoundingClientRect()
+      let offsetX = rect.x + rect.width/2
+      let offsetY = rect.y + rect.height/2
+      return [offsetX, offsetY]
+    },
     moveLeftOrRight(x){
-      let moveRight = x > this.headOffset[0]
+      let moveRight = x > this.headOffset()[0]
       this.nextDirection = [moveRight ? 1 : -1, 0]
     },
     moveUpOrDown(y){
-      let moveDown = y > this.headOffset[1]
+      let moveDown = y > this.headOffset()[1]
       this.nextDirection = [0, moveDown ? 1 : -1]
     },
     changeDirection(e){

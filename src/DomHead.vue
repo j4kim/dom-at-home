@@ -1,5 +1,5 @@
 <template>
-  <img src="head.png" :style="{
+  <img id="dom-head" src="head.png" :style="{
     gridColumn: x, gridRow: y,
     transform: `rotate(${rotate}deg)`
   }">
