@@ -147,7 +147,7 @@ export default {
     }
   },
   mounted(){
-    SwipeListener(this.$refs.game)
+    SwipeListener(this.$refs.game, {preventScroll:true})
     this.$refs.game.addEventListener("swipe", e => {
       this.changeDirection(e.detail.directions)
     })
