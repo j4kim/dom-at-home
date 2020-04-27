@@ -147,8 +147,8 @@ export default {
     }
   },
   mounted(){
-    SwipeListener(this.$refs.game, {preventScroll:true})
-    this.$refs.game.addEventListener("swipe", e => {
+    SwipeListener(this.$refs.grid, {preventScroll:true})
+    this.$refs.grid.addEventListener("swipe", e => {
       this.changeDirection(e.detail.directions)
     })
     document.addEventListener("keydown", e => {
