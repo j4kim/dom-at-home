@@ -1,7 +1,7 @@
 <template>
   <div id="app" @click="handleClick">
-    <div id="game">
-      <div class="grid" ref="grid" :style="{
+    <div id="game" ref="game">
+      <div id="grid" ref="grid" :style="{
         gridTemplateColumns: `repeat(${columns}, 1fr)`,
         gridTemplateRows: `repeat(${rows}, 1fr)`
       }">
@@ -21,6 +21,7 @@
 <script>
 import { random } from "lodash"
 import "fullscreen-api-polyfill"
+import SwipeListener from 'swipe-listener';
 
 import DomHead from "@/DomHead"
 import DomBeard from "@/DomBeard"
@@ -69,28 +70,6 @@ export default {
     }
   },
   methods:{
-    headOffset(){
-      let headEl = document.getElementById("dom-head")
-      let rect = headEl.getBoundingClientRect()
-      let offsetX = rect.x + rect.width/2
-      let offsetY = rect.y + rect.height/2
-      return [offsetX, offsetY]
-    },
-    moveLeftOrRight(x){
-      let moveRight = x > this.headOffset()[0]
-      this.nextDirection = [moveRight ? 1 : -1, 0]
-    },
-    moveUpOrDown(y){
-      let moveDown = y > this.headOffset()[1]
-      this.nextDirection = [0, moveDown ? 1 : -1]
-    },
-    changeDirection(e){
-      if (this.verticalMove) {
-        this.moveLeftOrRight(e.pageX)
-      } else {
-        this.moveUpOrDown(e.pageY)
-      }
-    },
     gameOver(){
       console.log("game over")
     },
@@ -149,24 +128,39 @@ export default {
         this.inGame = true
         this.requestNextFrame()
         this.popBonus()
+      }
+    },
+    changeDirection(directions){
+      if (this.verticalMove) {
+        if (directions.left) {
+          this.nextDirection = [-1,0]
+        } else if (directions.right) {
+          this.nextDirection = [1,0]
+        }
       } else {
-        this.changeDirection(e)
+        if (directions.top) {
+          this.nextDirection = [0,-1]
+        } else if (directions.bottom) {
+          this.nextDirection = [0,1]
+        }
       }
     }
   },
-  created(){
+  mounted(){
+    SwipeListener(this.$refs.game)
+    this.$refs.game.addEventListener("swipe", e => {
+      this.changeDirection(e.detail.directions)
+    })
     document.addEventListener("keydown", e => {
       let keyBinding = {
-        37: [-1,0], // left
-        38: [0,-1], // top
-        39: [1,0],  // right
-        40: [0,1]   // down
+        37: "left",
+        38: "top",
+        39: "right",
+        40: "bottom"
       }
-      let verticalToHorizontal = this.verticalMove && [37,39].includes(e.keyCode)
-      let horizontalToVertival = !this.verticalMove && [38,40].includes(e.keyCode)
-      if (verticalToHorizontal || horizontalToVertival) {
-        this.nextDirection = keyBinding[e.keyCode]
-      }
+      let directions = {}
+      directions[keyBinding[e.keyCode]] = true
+      this.changeDirection(directions)
     })
   },
 }
@@ -191,7 +185,7 @@ html,body{
   background-size: contain;
   image-rendering: pixelated;
 }
-.grid{
+#grid{
   width: 85%;
   display: grid;
   background: lightblue;
