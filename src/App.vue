@@ -147,7 +147,11 @@ export default {
     }
   },
   mounted(){
-    SwipeListener(this.$refs.grid, {preventScroll:true})
+    SwipeListener(this.$refs.grid, {
+      preventScroll: true,
+      deltaHorizontal: 1,
+      deltaVertical: 1
+    })
     this.$refs.grid.addEventListener("swipe", e => {
       this.changeDirection(e.detail.directions)
     })
