@@ -46,7 +46,7 @@ export default {
       ],
       inGame: false,
       bonusPosition: undefined,
-      score: 123
+      score: 0
     }
   },
   computed: {
@@ -107,12 +107,16 @@ export default {
         this.headDirection = this.nextDirection
         this.snakeParts.unshift(newHeadPos)
         if (newHeadPos.join() === this.bonusPosition.join()) {
-          this.popBonus()
+          this.drink()
         } else {
           this.snakeParts.pop()
         }
         this.requestNextFrame()
       }
+    },
+    drink(){
+      this.score++
+      this.popBonus()
     },
     popBonus(){
       let x, y, ok = false
