@@ -117,7 +117,7 @@ export default {
       }
       this.bonusPosition = [x,y]
     },
-    requestFullscreen(){
+    openFullscreen(){
       this.$el.requestFullscreen()
     },
     requestNextFrame(){
