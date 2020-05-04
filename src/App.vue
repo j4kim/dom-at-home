@@ -101,6 +101,7 @@ export default {
         headPos[0] + this.nextDirection[0],
         headPos[1] + this.nextDirection[1]
       ]
+      let tailPart = this.snakeParts.pop()
       if (this.collision(newHeadPos)) {
         this.gameOver()
       } else {
@@ -108,8 +109,7 @@ export default {
         this.snakeParts.unshift(newHeadPos)
         if (newHeadPos.join() === this.bonusPosition.join()) {
           this.drink()
-        } else {
-          this.snakeParts.pop()
+          this.snakeParts.push(tailPart)
         }
         this.requestNextFrame()
       }
