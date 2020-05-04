@@ -1,18 +1,23 @@
 <template>
   <div id="app" @click="handleClick">
     <div id="game" ref="game">
-      <div id="grid" ref="grid" :style="{
-        gridTemplateColumns: `repeat(${columns}, 1fr)`,
-        gridTemplateRows: `repeat(${rows}, 1fr)`
-      }">
-        <component
-          v-for="o in sceneObjects"
-          :is="o.component"
-          :key="o.id"
-          :x="o.x" :y="o.y"
-          :direction="o.direction"
-        >
-        </component>
+      <div id="score-container">
+        <div id="score">{{ score }}</div>
+      </div>
+      <div id="grid-container">
+        <div id="grid" ref="grid" :style="{
+          gridTemplateColumns: `repeat(${columns}, 1fr)`,
+          gridTemplateRows: `repeat(${rows}, 1fr)`
+        }">
+          <component
+            v-for="o in sceneObjects"
+            :is="o.component"
+            :key="o.id"
+            :x="o.x" :y="o.y"
+            :direction="o.direction"
+          >
+          </component>
+        </div>
       </div>
     </div>
   </div>
@@ -40,7 +45,8 @@ export default {
         [6,15],
       ],
       inGame: false,
-      bonusPosition: undefined
+      bonusPosition: undefined,
+      score: 123
     }
   },
   computed: {
@@ -170,29 +176,47 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 html,body{
   padding:0;
   margin:0;
 }
 #game{
+  font-family: "Press Start 2P", cursive;
   height: 100vh;
   width: 56.25vh; /* 16/9 = 0.5625 */ 
   max-height: 177.78vw; /* 9/16 = 1.77... */ 
   max-width: 100vw;
   margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+  position: relative;
   background-image: url("../public/house.png");
   background-size: contain;
   image-rendering: pixelated;
-}
-#grid{
-  width: 85%;
-  display: grid;
-  background: lightblue;
-  margin-top: 6%;
+  >div{
+    width: 100%;
+    position: absolute;
+    &#score-container{
+      top: 8%;
+    }
+    &#grid-container{
+      top: 17%;
+    }
+    >div{
+      margin: auto;
+      &#score{
+        background-color: white;
+        font-size: 1.4rem;
+        padding: .8rem .8rem .6rem;
+        display: inline-block;
+      }
+      &#grid{
+        width: 85%;
+        display: grid;
+        background-color: lightblue;
+      }
+    }
+  }
 }
 </style>
