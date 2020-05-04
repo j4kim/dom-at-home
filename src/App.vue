@@ -98,13 +98,13 @@ export default {
       if (this.collision(newHeadPos)) {
         this.gameOver()
       } else {
+        this.headDirection = this.nextDirection
+        this.snakeParts.unshift(newHeadPos)
         if (newHeadPos.join() === this.bonusPosition.join()) {
           this.popBonus()
         } else {
           this.snakeParts.pop()
         }
-        this.headDirection = this.nextDirection
-        this.snakeParts.unshift(newHeadPos)
         this.requestNextFrame()
       }
     },
