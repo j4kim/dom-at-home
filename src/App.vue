@@ -1,5 +1,9 @@
 <template>
   <div id="app" @click="handleClick">
+    <modal v-model="showStartModal">
+      <h2>Dom at Home</h2>
+      <button>Play</button>
+    </modal>
     <div id="game" ref="game">
       <div id="score-container">
         <div id="score">{{ score }}</div>
@@ -31,9 +35,10 @@ import SwipeListener from 'swipe-listener';
 import DomHead from "@/DomHead"
 import DomBeard from "@/DomBeard"
 import Bonus from "@/Bonus"
+import Modal from "@/Modal"
 
 export default {
-  components: { DomHead, DomBeard, Bonus },
+  components: { DomHead, DomBeard, Bonus, Modal },
   data(){
     return {
       columns: 11,
@@ -46,7 +51,8 @@ export default {
       ],
       inGame: false,
       bonusPosition: undefined,
-      score: 0
+      score: 0,
+      showStartModal: true
     }
   },
   computed: {
