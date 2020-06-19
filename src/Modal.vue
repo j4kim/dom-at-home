@@ -1,10 +1,22 @@
 <template>
-  <div class="modal" v-if="$attrs.value">
+  <div class="modal" v-if="value">
     <div>
       <slot></slot>
+      <button @click="close">{{ button }}</button>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ["value", "button"],
+  methods: {
+    close() {
+      this.$emit('input', false)
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 .modal {

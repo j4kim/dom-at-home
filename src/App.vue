@@ -1,8 +1,7 @@
 <template>
   <div id="app" @click="handleClick">
-    <modal v-model="showStartModal">
+    <modal v-model="showStartModal" button="Jouer">
       <h2>Dom at Home</h2>
-      <button>Play</button>
     </modal>
     <div id="game" ref="game">
       <div id="score-container">
