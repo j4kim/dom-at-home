@@ -1,7 +1,7 @@
 <template>
   <div id="game" ref="game">
     <div id="score-container">
-      <div id="score">{{ score }}</div>
+      <div id="score" class="arcade-font">{{ score }}</div>
     </div>
     <div id="grid-container">
       <div id="grid" ref="grid" :style="{
