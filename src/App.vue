@@ -1,6 +1,6 @@
 <template>
-  <div id="app" @click="handleClick">
-    <modal v-model="showStartModal" button="Jouer">
+  <div id="app">
+    <modal v-model="showStartModal" button="Jouer" @input="start">
       <h2>Dom at Home</h2>
     </modal>
     <div id="game" ref="game">
@@ -138,12 +138,10 @@ export default {
     requestNextFrame(){
       setTimeout(this.move, 200)
     },
-    handleClick(e){
-      if (!this.inGame) {
-        this.inGame = true
-        this.requestNextFrame()
-        this.popBonus()
-      }
+    start(){
+      this.inGame = true
+      this.requestNextFrame()
+      this.popBonus()
     },
     changeDirection(directions){
       if (this.verticalMove) {
