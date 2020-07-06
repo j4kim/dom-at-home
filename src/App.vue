@@ -1,11 +1,29 @@
 <template>
   <div id="app">
-    <modal v-model="showStartModal" button="Jouer" @input="start">
-      <h2>Dom at Home</h2>
+    <modal
+      v-model="showStartModal"
+      button="Jouer"
+      title="Dom at Home"
+      @input="start"
+    >
+      <p>
+        Pas de fête du Crêt-Vaillant cette année!
+        Du coup, Dom reste chez lui et bois des pastis quoi...
+        Et plus il boit, plus sa barbe pousse, oui c'est étrange.
+      </p>
+      <p>
+        Vous l'aurez compris, le but du jeu est de boire le plus de pastis
+        possible, sans manger sa barbe.
+      </p>
+      <p>
+        Attention tout de même à ne pas abuser, quand il est bourré,
+        Dom se met à faire n'importe quoi!<br>
+        Dans ces cas, un petit cervelas ne fait pas de mal.
+      </p>
     </modal>
     <div id="game" ref="game">
       <div id="score-container">
-        <div id="score">{{ score }}</div>
+        <div id="score" class="arcade-font">{{ score }}</div>
       </div>
       <div id="grid-container">
         <div id="grid" ref="grid" :style="{
@@ -184,13 +202,16 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Press+Start+2P&display=swap');
+.arcade-font{
+  font-family: "Press Start 2P", cursive;
+}
 html,body{
   padding:0;
   margin:0;
+  font-family: 'Open Sans', sans-serif;
 }
 #game{
-  font-family: "Press Start 2P", cursive;
   height: 100vh;
   width: 56.25vh; /* 16/9 = 0.5625 */ 
   max-height: 177.78vw; /* 9/16 = 1.77... */ 
