@@ -29,27 +29,31 @@ import DomHead from "@/DomHead"
 import DomBeard from "@/DomBeard"
 import Bonus from "@/Bonus"
 
+const initialState = () => ({
+  columns: 11,
+  rows: 16,
+  headDirection: [0,-1],
+  nextDirection: [0,-1],
+  snakeParts: [
+    [6,14],
+    [6,15],
+  ],
+  bonusPosition: undefined,
+  score: 0,
+})
+
 export default {
   components: { DomHead, DomBeard, Bonus },
-  data(){
-    return {
-      columns: 11,
-      rows: 16,
-      headDirection: [0,-1],
-      nextDirection: [0,-1],
-      snakeParts: [
-        [6,14],
-        [6,15],
-      ],
-      bonusPosition: undefined,
-      score: 0,
-    }
-  },
-  computed: {
-    start(){
-      this.requestNextFrame()
-      this.popBonus()
+  props: [
+    "running"
+  ],
+  watch: {
+    running(bool){
+      bool ? this.start() : null
     },
+  },
+  data: initialState,
+  computed: {
     sceneObjects(){
       let objects = []
       this.snakeParts.forEach((part, i) => {
@@ -78,6 +82,14 @@ export default {
   methods:{
     gameOver(){
       console.log("game over")
+    },
+    start(){
+      this.requestNextFrame()
+      this.popBonus()
+    },
+    restart(){
+      Object.assign(this.$data, initialState())
+      this.popBonus()
     },
     snakeCollision(pos){
       return this.snakeParts.some(part => {
@@ -128,7 +140,9 @@ export default {
       this.bonusPosition = [x,y]
     },
     requestNextFrame(){
-      setTimeout(this.move, 200)
+      if (this.running){
+        setTimeout(this.move, 200)
+      }
     },
     changeDirection(directions){
       if (this.verticalMove) {
@@ -156,6 +170,9 @@ export default {
       this.changeDirection(e.detail.directions)
     })
     document.addEventListener("keydown", e => {
+      if (e.code === "KeyR"){
+        this.restart()
+      }
       let keyBinding = {
         37: "left",
         38: "top",

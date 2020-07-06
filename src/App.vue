@@ -1,9 +1,9 @@
 <template>
-  <div id="app" @click="handleClick">
-    <modal v-model="showStartModal" button="Jouer">
+  <div id="app">
+    <modal v-model="showStartModal" button="Jouer" @input="start">
       <h2>Dom at Home</h2>
     </modal>
-    <game></game>
+    <game :running="gameRunning"></game>
   </div>
 </template>
 
@@ -16,23 +16,16 @@ export default {
   components: { Game, Modal },
   data(){
     return {
-      inGame: false,
-      showStartModal: true
+      showStartModal: true,
+      gameRunning: false,
     }
   },
   methods:{
-    gameOver(){
-      console.log("game over")
-    },
     openFullscreen(){
       this.$el.requestFullscreen()
     },
-    handleClick(e){
-      if (!this.inGame) {
-        this.inGame = true
-        this.requestNextFrame()
-        this.popBonus()
-      }
+    start(){
+      this.gameRunning = true
     },
   },
 }
