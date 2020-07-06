@@ -29,18 +29,21 @@ import DomHead from "@/DomHead"
 import DomBeard from "@/DomBeard"
 import Bonus from "@/Bonus"
 
-const initialState = () => ({
-  columns: 11,
-  rows: 16,
-  headDirection: [0,-1],
-  nextDirection: [0,-1],
-  snakeParts: [
-    [6,14],
-    [6,15],
-  ],
-  bonusPosition: undefined,
-  score: 0,
-})
+function initialState(){ 
+  return {
+    columns: 11,
+    rows: 16,
+    headDirection: [0,-1],
+    nextDirection: [0,-1],
+    snakeParts: [
+      [6,14],
+      [6,15],
+    ],
+    bonusPosition: undefined,
+    score: 0,
+    isGameOver: false,
+  }
+}
 
 export default {
   components: { DomHead, DomBeard, Bonus },
@@ -82,14 +85,20 @@ export default {
   methods:{
     gameOver(){
       console.log("game over")
+      this.isGameOver = true
+    },
+    gameLoop(){
+      if (this.running && !this.isGameOver){
+        this.move()
+      }
     },
     start(){
-      this.requestNextFrame()
       this.popBonus()
     },
     restart(){
       Object.assign(this.$data, initialState())
       this.popBonus()
+      this.isGameOver = false
     },
     snakeCollision(pos){
       return this.snakeParts.some(part => {
@@ -123,7 +132,6 @@ export default {
           this.drink()
           this.snakeParts.push(tailPart)
         }
-        this.requestNextFrame()
       }
     },
     drink(){
@@ -138,11 +146,6 @@ export default {
         ok = !this.snakeCollision([x,y])
       }
       this.bonusPosition = [x,y]
-    },
-    requestNextFrame(){
-      if (this.running){
-        setTimeout(this.move, 200)
-      }
     },
     changeDirection(directions){
       if (this.verticalMove) {
@@ -161,6 +164,7 @@ export default {
     }
   },
   mounted(){
+    setInterval(this.gameLoop, 200)
     SwipeListener(this.$refs.grid, {
       preventScroll: true,
       deltaHorizontal: 1,
