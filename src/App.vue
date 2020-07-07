@@ -115,7 +115,7 @@ html,body{
   left: 0;
   right: 0;
   img{
-    max-width: 40%;
+    max-width: 30%;
   }
 }
 .fade-enter-active, .fade-leave-active {
