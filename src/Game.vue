@@ -16,6 +16,7 @@
           :direction="o.direction"
         >
         </component>
+        <slot></slot>
       </div>
     </div>
   </div>

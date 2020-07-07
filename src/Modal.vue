@@ -25,7 +25,7 @@ export default {
 .modal {
   position: absolute;
   background-color: rgba(0,0,0,0.4);
-  z-index: 1;
+  z-index: 10;
   height: 100vh;
   width: 100vw;
   display: flex;

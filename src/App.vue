@@ -21,7 +21,13 @@
         Dans ces cas, un petit cervelas ne fait pas de mal.
       </p>
     </modal>
-    <game :running="gameRunning"></game>
+    <game :running="gameRunning">
+      <transition name="fade">
+        <div v-if="showSwipeHelper" class="swipe-helper">
+          <img src="swipe-helper.gif">
+        </div>
+      </transition>
+    </game>
   </div>
 </template>
 
@@ -36,14 +42,20 @@ export default {
     return {
       showStartModal: true,
       gameRunning: false,
+      showSwipeHelper: false  
     }
   },
   methods:{
     openFullscreen(){
       this.$el.requestFullscreen()
     },
+    showHelper(){
+      this.showSwipeHelper = true
+      setTimeout(() => this.showSwipeHelper = false, 1000)
+    },
     start(){
       this.gameRunning = true
+      this.showHelper()
     },
   },
 }
@@ -94,5 +106,21 @@ html,body{
       }
     }
   }
+}
+
+.swipe-helper{
+  position: absolute;
+  top:100px;
+  left: 0;
+  right: 0;
+  img{
+    max-width: 40%;
+  }
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
