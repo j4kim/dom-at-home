@@ -9,6 +9,7 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "fullscreen-api-polyfill": "^1.1.2",
+    "ismobilejs": "^1.1.1",
     "lodash": "^4.17.15",
     "swipe-listener": "^1.1.0",
     "vue": "^2.6.11"

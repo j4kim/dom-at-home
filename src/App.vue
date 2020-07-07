@@ -24,7 +24,8 @@
     <game :running="gameRunning">
       <transition name="fade">
         <div v-if="showSwipeHelper" class="swipe-helper">
-          <img src="swipe-helper.gif">
+          <img v-if="$root.mobile" src="swipe-helper.gif">
+          <img v-else src="arrows-helper.gif">
         </div>
       </transition>
     </game>
