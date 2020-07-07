@@ -65,7 +65,7 @@ export default {
           x: part[0],
           y: part[1],
           component: i === 0 ? "dom-head" : "dom-beard",
-          direction: this.headDirection,
+          direction: this.nextDirection,
           id: i
         })
       })
