@@ -52,7 +52,7 @@ export default {
     },
     showHelper(){
       this.showSwipeHelper = true
-      setTimeout(() => this.showSwipeHelper = false, 1000)
+      setTimeout(() => this.showSwipeHelper = false, 2000)
     },
     start(){
       this.gameRunning = true
@@ -114,6 +114,7 @@ html,body{
   top:100px;
   left: 0;
   right: 0;
+  opacity: 0.5;
   img{
     max-width: 30%;
   }
