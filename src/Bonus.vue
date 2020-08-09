@@ -1,5 +1,5 @@
 <template>
-  <img src="ricard.png" :style="{
+  <img src="@/assets/ricard.png" :style="{
     gridColumn: x, gridRow: y
   }">
 </template>

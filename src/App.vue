@@ -24,8 +24,8 @@
     <game :running="gameRunning">
       <transition name="fade">
         <div v-if="showSwipeHelper" class="swipe-helper">
-          <img v-if="$root.mobile" src="swipe-helper.gif">
-          <img v-else src="arrows-helper.gif">
+          <img v-if="$root.mobile" src="@/assets/swipe-helper.gif">
+          <img v-else src="@/assets/arrows-helper.gif">
         </div>
       </transition>
     </game>
@@ -74,7 +74,7 @@ html,body{
   background-color: #53b45a;
 }
 #app{
-  background-image: url("../public/background.png");
+  background-image: url("./assets/background.png");
   background-repeat: no-repeat;
   background-size: cover;
   image-rendering: pixelated;
@@ -88,7 +88,7 @@ html,body{
   margin: auto;
   text-align: center;
   position: relative;
-  background-image: url("../public/house.png");
+  background-image: url("./assets/house.png");
   background-size: contain;
   image-rendering: pixelated;
   >div{
