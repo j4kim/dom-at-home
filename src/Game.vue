@@ -187,6 +187,7 @@ export default {
       let directions = {}
       directions[keyBinding[e.keyCode]] = true
       this.changeDirection(directions)
+      e.preventDefault()
     })
   },
 }

@@ -74,11 +74,11 @@ html,body{
   background-color: #53b45a;
 }
 #app{
-  background-image: url("./assets/background.png");
+  background-image: url("./assets/background50.png"), url("./assets/background50.png");
   background-repeat: no-repeat;
   background-size: cover;
   image-rendering: pixelated;
-  background-position: center;
+  background-position: 49%, 51%;
 }
 #game{
   height: 100vh;
@@ -91,6 +91,7 @@ html,body{
   background-image: url("./assets/house.png");
   background-size: cover;
   image-rendering: pixelated;
+  transform: rotate(3deg);
   >div{
     width: 100%;
     position: absolute;
