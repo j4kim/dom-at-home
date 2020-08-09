@@ -95,10 +95,10 @@ html,body{
     width: 100%;
     position: absolute;
     &#score-container{
-      top: 8.11%; // 30/370
+      top: 8.11%; // 30/370 = 0.08108
     }
     &#grid-container{
-      top: 17.29%; // (4*16)/370
+      top: 17.03%; // 63/370 = 0.17027
     }
     >div{
       margin: auto;
