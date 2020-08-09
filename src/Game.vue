@@ -73,7 +73,8 @@ export default {
           x: this.bonusPosition[0],
           y: this.bonusPosition[1],
           component: "bonus",
-          id: "bonus"
+          id: "bonus",
+          asset: "ricard"
         })
       }
       return objects
