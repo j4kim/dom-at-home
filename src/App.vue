@@ -111,7 +111,7 @@ html,body{
         display: inline-block;
       }
       &#grid{
-        width: 85%;
+        width: 84.61%; // 11/13 = 0.8461
         display: grid;
       }
     }
