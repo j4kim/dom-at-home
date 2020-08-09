@@ -12,8 +12,7 @@
           v-for="o in sceneObjects"
           :is="o.component"
           :key="o.id"
-          :x="o.x" :y="o.y"
-          :direction="o.direction"
+          v-bind="o"
         >
         </component>
         <slot></slot>
