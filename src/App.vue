@@ -71,6 +71,14 @@ html,body{
   padding:0;
   margin:0;
   font-family: 'Open Sans', sans-serif;
+  background-color: #53b45a;
+}
+#app{
+  background-image: url("../public/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  image-rendering: pixelated;
+  background-position: center;
 }
 #game{
   height: 100vh;
@@ -87,23 +95,24 @@ html,body{
     width: 100%;
     position: absolute;
     &#score-container{
-      top: 8%;
+      top: 8.11%; // 30/370
     }
     &#grid-container{
-      top: 17%;
+      top: 17.29%; // (4*16)/370
     }
     >div{
       margin: auto;
       &#score{
         background-color: white;
-        font-size: 1.4rem;
-        padding: .8rem .8rem .6rem;
+        font-size: 2.1vh;
+        height: 4.32vh; // 16/370
+        line-height: 4.32vh;
+        padding: 0 2vh;
         display: inline-block;
       }
       &#grid{
         width: 85%;
         display: grid;
-        background-color: lightblue;
       }
     }
   }
