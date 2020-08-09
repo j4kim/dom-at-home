@@ -89,7 +89,7 @@ html,body{
   text-align: center;
   position: relative;
   background-image: url("./assets/house.png");
-  background-size: contain;
+  background-size: cover;
   image-rendering: pixelated;
   >div{
     width: 100%;
