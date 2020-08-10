@@ -65,7 +65,8 @@ export default {
           y: part[1],
           component: i === 0 ? "dom-head" : "dom-beard",
           direction: this.nextDirection,
-          id: i
+          id: i,
+          crashed: this.isGameOver
         })
       })
       if (this.bonusPosition) {
