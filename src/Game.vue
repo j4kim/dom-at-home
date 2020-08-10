@@ -150,6 +150,7 @@ export default {
       this.bonusPosition = [x,y]
     },
     changeDirection(directions){
+      if (this.isGameOver) { return }
       if (this.verticalMove) {
         if (directions.left) {
           this.nextDirection = [-1,0]
