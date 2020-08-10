@@ -23,7 +23,7 @@
     </modal>
     <game :running="gameRunning">
       <transition name="fade">
-        <div v-if="showSwipeHelper" class="swipe-helper">
+        <div v-if="showHelper" class="helper">
           <img v-if="$root.mobile" src="@/assets/swipe-helper.gif">
           <img v-else src="@/assets/arrows-helper.gif">
         </div>
@@ -43,20 +43,17 @@ export default {
     return {
       showStartModal: true,
       gameRunning: false,
-      showSwipeHelper: false  
+      showHelper: false  
     }
   },
   methods:{
     openFullscreen(){
       this.$el.requestFullscreen()
     },
-    showHelper(){
-      this.showSwipeHelper = true
-      setTimeout(() => this.showSwipeHelper = false, 2000)
-    },
     start(){
       this.gameRunning = true
-      this.showHelper()
+      this.showHelper = true
+      setTimeout(() => this.showHelper = false, 2000)
     },
   },
 }
@@ -118,7 +115,7 @@ html,body{
   }
 }
 
-.swipe-helper{
+.helper{
   position: absolute;
   top:100px;
   left: 0;
