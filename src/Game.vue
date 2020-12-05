@@ -25,9 +25,9 @@
 import { random } from "lodash"
 import SwipeListener from 'swipe-listener';
 
-import DomHead from "@/DomHead"
-import DomBeard from "@/DomBeard"
-import Bonus from "@/Bonus"
+import DomHead from "@/objects/DomHead"
+import DomBeard from "@/objects/DomBeard"
+import Bonus from "@/objects/Bonus"
 
 function initialState(){ 
   return {
@@ -39,7 +39,7 @@ function initialState(){
       [6,14],
       [6,15],
     ],
-    bonusPosition: undefined,
+    drinkPos: undefined,
     score: 0,
     isGameOver: false,
   }
@@ -69,12 +69,12 @@ export default {
           crashed: this.isGameOver
         })
       })
-      if (this.bonusPosition) {
+      if (this.drinkPos) {
         objects.push({
-          x: this.bonusPosition[0],
-          y: this.bonusPosition[1],
+          x: this.drinkPos[0],
+          y: this.drinkPos[1],
           component: "bonus",
-          id: "bonus",
+          id: "drink",
           asset: "ricard"
         })
       }
@@ -95,11 +95,11 @@ export default {
       }
     },
     start(){
-      this.popBonus()
+      this.popDrink()
     },
     restart(){
       Object.assign(this.$data, initialState())
-      this.popBonus()
+      this.popDrink()
       this.isGameOver = false
     },
     snakeCollision(pos){
@@ -130,7 +130,7 @@ export default {
       } else {
         this.headDirection = this.nextDirection
         this.snakeParts.unshift(newHeadPos)
-        if (newHeadPos.join() === this.bonusPosition.join()) {
+        if (newHeadPos.join() === this.drinkPos.join()) {
           this.drink()
           this.snakeParts.push(tailPart)
         }
@@ -138,16 +138,16 @@ export default {
     },
     drink(){
       this.score++
-      this.popBonus()
+      this.popDrink()
     },
-    popBonus(){
+    popDrink(){
       let x, y, ok = false
       while (!ok) {
         x = random(1, this.columns)
         y = random(1, this.rows)
         ok = !this.snakeCollision([x,y])
       }
-      this.bonusPosition = [x,y]
+      this.drinkPos = [x,y]
     },
     changeDirection(directions){
       if (this.isGameOver) { return }
