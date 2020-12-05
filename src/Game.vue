@@ -78,6 +78,15 @@ export default {
           asset: "ricard"
         })
       }
+      if (this.foodPos) {
+        objects.push({
+          x: this.foodPos[0],
+          y: this.foodPos[1],
+          component: "bonus",
+          id: "food",
+          asset: "cervelas"
+        })
+      }
       return objects
     },
     verticalMove(){
@@ -94,8 +103,12 @@ export default {
         this.move()
       }
     },
+    scheduleFoodPop(){
+      setTimeout(() => this.popFood(), 15000)
+    },
     start(){
       this.popDrink()
+      this.scheduleFoodPop()
     },
     restart(){
       Object.assign(this.$data, initialState())
@@ -133,6 +146,8 @@ export default {
         if (newHeadPos.join() === this.drinkPos.join()) {
           this.drink()
           this.snakeParts.push(tailPart)
+        } else if (newHeadPos.join() === this.foodPos.join()) {
+          this.eat()
         }
       }
     },
@@ -140,14 +155,27 @@ export default {
       this.score++
       this.popDrink()
     },
-    popDrink(){
+    eat() {
+      this.foodPos = undefined
+    },
+    pop(bonusType){
       let x, y, ok = false
       while (!ok) {
         x = random(1, this.columns)
         y = random(1, this.rows)
         ok = !this.snakeCollision([x,y])
       }
-      this.drinkPos = [x,y]
+      this[`${bonusType}Pos`] = [x,y]
+    },
+    popDrink(){
+      this.pop('drink')
+    },
+    popFood(){
+      this.pop('food')
+      setTimeout(() => {
+        this.foodPos = undefined
+        this.scheduleFoodPop()
+      }, 5000)
     },
     changeDirection(directions){
       if (this.isGameOver) { return }
