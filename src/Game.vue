@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { random } from "lodash"
+import { sample } from "lodash"
 import SwipeListener from 'swipe-listener'
 
 import DomHead from "@/objects/DomHead"
@@ -64,6 +64,18 @@ export default {
     },
     verticalMove(){
       return this.head.dir[0] === 0
+    },
+    availablePositions(){
+      let availablePositions = []
+      let takenPositions = this.sceneObjects.map(o => o.pos.join())
+      for (let x = 1; x <= this.columns; x++) {
+        for (let y = 1; y <= this.rows; y++) {
+          if (takenPositions.indexOf(`${x},${y}`) === -1) {
+            availablePositions.push([x, y])
+          }
+        }
+      }
+      return availablePositions
     }
   },
   methods:{
@@ -126,13 +138,7 @@ export default {
       this.food.pos = undefined
     },
     pop(bonusType){
-      let x, y, ok = false
-      while (!ok) {
-        x = random(1, this.columns)
-        y = random(1, this.rows)
-        ok = !this.snakeCollision([x,y])
-      }
-      this[bonusType].pos = [x,y]
+      this[bonusType].pos = sample(this.availablePositions)
     },
     popDrink(){
       this.pop('drink')
