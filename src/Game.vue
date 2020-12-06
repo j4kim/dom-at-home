@@ -137,14 +137,14 @@ export default {
     eat() {
       this.food.pos = undefined
     },
-    spawn(bonusType){
-      this[bonusType].pos = sample(this.availablePositions).split(',')
+    randomPos(){
+      return sample(this.availablePositions).split(',')
     },
     spawnDrink(){
-      this.spawn('drink')
+      this.drink.pos = this.randomPos()
     },
     spawnFood(){
-      this.spawn('food')
+      this.food.pos = this.randomPos()
       setTimeout(() => {
         this.food.pos = undefined
         this.scheduleFoodSpawn()
