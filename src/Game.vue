@@ -22,7 +22,8 @@
 </template>
 
 <script>
-import { sample } from "lodash"
+import 'lodash.product'
+import { sample, range, difference, product } from 'lodash'
 import SwipeListener from 'swipe-listener'
 
 import DomHead from "@/objects/DomHead"
@@ -65,17 +66,16 @@ export default {
     verticalMove(){
       return this.head.dir[0] === 0
     },
+    allPositions() {
+      let columns = range(1, this.columns + 1)
+      let rows = range(1, this.rows + 1)
+      return product(columns, rows).map(pos => pos.join())
+    },
+    objectPositions(){
+      return this.sceneObjects.map(o => o.pos.join())
+    },
     availablePositions(){
-      let availablePositions = []
-      let takenPositions = this.sceneObjects.map(o => o.pos.join())
-      for (let x = 1; x <= this.columns; x++) {
-        for (let y = 1; y <= this.rows; y++) {
-          if (takenPositions.indexOf(`${x},${y}`) === -1) {
-            availablePositions.push([x, y])
-          }
-        }
-      }
-      return availablePositions
+      return difference(this.allPositions, this.objectPositions)
     }
   },
   methods:{
@@ -138,7 +138,7 @@ export default {
       this.food.pos = undefined
     },
     pop(bonusType){
-      this[bonusType].pos = sample(this.availablePositions)
+      this[bonusType].pos = sample(this.availablePositions).split(',')
     },
     popDrink(){
       this.pop('drink')
