@@ -88,16 +88,16 @@ export default {
         this.move()
       }
     },
-    scheduleFoodPop(){
-      setTimeout(() => this.popFood(), 15000)
+    scheduleFoodSpawn(){
+      setTimeout(() => this.spawnFood(), 15000)
     },
     start(){
-      this.popDrink()
-      this.scheduleFoodPop()
+      this.spawnDrink()
+      this.scheduleFoodSpawn()
     },
     restart(){
       Object.assign(this.$data, initialState())
-      this.popDrink()
+      this.spawnDrink()
       this.isGameOver = false
     },
     snakeCollision(pos){
@@ -132,22 +132,22 @@ export default {
     },
     drinkDrink(){
       this.score++
-      this.popDrink()
+      this.spawnDrink()
     },
     eat() {
       this.food.pos = undefined
     },
-    pop(bonusType){
+    spawn(bonusType){
       this[bonusType].pos = sample(this.availablePositions).split(',')
     },
-    popDrink(){
-      this.pop('drink')
+    spawnDrink(){
+      this.spawn('drink')
     },
-    popFood(){
-      this.pop('food')
+    spawnFood(){
+      this.spawn('food')
       setTimeout(() => {
         this.food.pos = undefined
-        this.scheduleFoodPop()
+        this.scheduleFoodSpawn()
       }, 5000)
     },
     changeDirection(directions){
