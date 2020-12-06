@@ -11,7 +11,7 @@
         <component
           v-for="o in sceneObjects"
           :is="o.component"
-          :key="o.id"
+          :key="o.key"
           v-bind="o"
         >
         </component>
@@ -23,23 +23,22 @@
 
 <script>
 import { random } from "lodash"
-import SwipeListener from 'swipe-listener';
+import SwipeListener from 'swipe-listener'
 
 import DomHead from "@/objects/DomHead"
 import DomBeard from "@/objects/DomBeard"
 import Bonus from "@/objects/Bonus"
 
+import { BodyPart, Head, Drink, Food } from "@/GameObjects"
+
 function initialState(){ 
   return {
     columns: 11,
     rows: 16,
-    headDirection: [0,-1],
-    nextDirection: [0,-1],
-    snakeParts: [
-      [6,14],
-      [6,15],
-    ],
-    drinkPos: undefined,
+    bodyParts: [ new BodyPart([6,15]) ],
+    head: new Head([6,14], [0,-1]),
+    drink: new Drink(),
+    food: new Food(),
     score: 0,
     isGameOver: false,
   }
@@ -47,9 +46,7 @@ function initialState(){
 
 export default {
   components: { DomHead, DomBeard, Bonus },
-  props: [
-    "running"
-  ],
+  props: [ "running" ],
   watch: {
     running(bool){
       bool ? this.start() : null
@@ -58,44 +55,20 @@ export default {
   data: initialState,
   computed: {
     sceneObjects(){
-      let objects = []
-      this.snakeParts.forEach((part, i) => {
-        objects.push({
-          x: part[0],
-          y: part[1],
-          component: i === 0 ? "dom-head" : "dom-beard",
-          direction: this.nextDirection,
-          id: i,
-          crashed: this.isGameOver
-        })
-      })
-      if (this.drinkPos) {
-        objects.push({
-          x: this.drinkPos[0],
-          y: this.drinkPos[1],
-          component: "bonus",
-          id: "drink",
-          asset: "ricard"
-        })
-      }
-      if (this.foodPos) {
-        objects.push({
-          x: this.foodPos[0],
-          y: this.foodPos[1],
-          component: "bonus",
-          id: "food",
-          asset: "cervelas"
-        })
-      }
-      return objects
+      return [
+        this.head,
+        ...this.bodyParts,
+        this.drink,
+        this.food
+      ].filter(o => o.pos)
     },
     verticalMove(){
-      return this.headDirection[0] === 0
+      return this.head.dir[0] === 0
     }
   },
   methods:{
     gameOver(){
-      console.log("game over")
+      this.head.crashed = true
       this.isGameOver = true
     },
     gameLoop(){
@@ -116,9 +89,7 @@ export default {
       this.isGameOver = false
     },
     snakeCollision(pos){
-      return this.snakeParts.some(part => {
-        return part.join() === pos.join()
-      })
+      return this.bodyParts.some(part => part.hits(pos))
     },
     wallCollision(pos){
       return (
@@ -132,31 +103,27 @@ export default {
       return this.snakeCollision(pos) || this.wallCollision(pos)
     },
     move(e){
-      let headPos = this.snakeParts[0]
-      let newHeadPos = [
-        headPos[0] + this.nextDirection[0],
-        headPos[1] + this.nextDirection[1]
-      ]
-      let tailPart = this.snakeParts.pop()
+      let newHeadPos = this.head.nextPos()
+      let tailPart = this.bodyParts.pop()
       if (this.collision(newHeadPos)) {
         this.gameOver()
       } else {
-        this.headDirection = this.nextDirection
-        this.snakeParts.unshift(newHeadPos)
-        if (newHeadPos.join() === this.drinkPos.join()) {
-          this.drink()
-          this.snakeParts.push(tailPart)
-        } else if (newHeadPos.join() === this.foodPos.join()) {
+        this.bodyParts.unshift(new BodyPart(this.head.pos))
+        this.head.move()
+        if (this.drink.hits(newHeadPos)) {
+          this.drinkDrink()
+          this.bodyParts.push(tailPart)
+        } else if (this.food.hits(newHeadPos)) {
           this.eat()
         }
       }
     },
-    drink(){
+    drinkDrink(){
       this.score++
       this.popDrink()
     },
     eat() {
-      this.foodPos = undefined
+      this.food.pos = undefined
     },
     pop(bonusType){
       let x, y, ok = false
@@ -165,7 +132,7 @@ export default {
         y = random(1, this.rows)
         ok = !this.snakeCollision([x,y])
       }
-      this[`${bonusType}Pos`] = [x,y]
+      this[bonusType].pos = [x,y]
     },
     popDrink(){
       this.pop('drink')
@@ -173,7 +140,7 @@ export default {
     popFood(){
       this.pop('food')
       setTimeout(() => {
-        this.foodPos = undefined
+        this.food.pos = undefined
         this.scheduleFoodPop()
       }, 5000)
     },
@@ -181,15 +148,15 @@ export default {
       if (this.isGameOver) { return }
       if (this.verticalMove) {
         if (directions.left) {
-          this.nextDirection = [-1,0]
+          this.head.nextDir = [-1,0]
         } else if (directions.right) {
-          this.nextDirection = [1,0]
+          this.head.nextDir = [1,0]
         }
       } else {
         if (directions.top) {
-          this.nextDirection = [0,-1]
+          this.head.nextDir = [0,-1]
         } else if (directions.bottom) {
-          this.nextDirection = [0,1]
+          this.head.nextDir = [0,1]
         }
       }
     }
