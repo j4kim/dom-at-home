@@ -1,7 +1,9 @@
+var counter = 0
 
 class GameObject {
   constructor(pos) {
     this.pos = pos
+    this.id = counter++
   }
 
   hits(pos) {
@@ -15,7 +17,6 @@ export class Head extends GameObject {
     this.dir = dir
     this.nextDir = dir
     this.component = 'dom-head'
-    this.key = 'head'
     this.crashed = false
   }
 
@@ -32,33 +33,29 @@ export class Head extends GameObject {
   }
 }
 
-var partCounter = 1
-
 export class BodyPart extends GameObject {
   constructor(pos) {
     super(pos)
     this.component = 'dom-beard'
-    this.key = 'beard-' + partCounter++
   }
 }
 
 class Bonus extends GameObject {
-  constructor(key, asset) {
+  constructor(asset) {
     super()
     this.component = 'bonus'
-    this.key = key
     this.asset = asset
   }
 }
 
 export class Drink extends Bonus {
   constructor() {
-    super('drink', 'ricard')
+    super('ricard')
   }
 }
 
 export class Food extends Bonus {
   constructor() {
-    super('food', 'cervelas')
+    super('cervelas')
   }
 }

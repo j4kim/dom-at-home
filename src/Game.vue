@@ -11,7 +11,7 @@
         <component
           v-for="o in sceneObjects"
           :is="o.component"
-          :key="o.key"
+          :key="o.id"
           v-bind="o"
         >
         </component>
