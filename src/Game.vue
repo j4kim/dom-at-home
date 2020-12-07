@@ -34,6 +34,7 @@ import { BodyPart, Head, Drink, Food } from "@/GameObjects"
 
 function initialState(){ 
   return {
+    fps: 5,
     columns: 11,
     rows: 16,
     bodyParts: [ new BodyPart([6,15]) ],
@@ -168,7 +169,7 @@ export default {
     }
   },
   mounted(){
-    setInterval(this.gameLoop, 200)
+    setInterval(this.gameLoop, 1000/this.fps)
     SwipeListener(this.$refs.grid, {
       preventScroll: true,
       deltaHorizontal: 1,
