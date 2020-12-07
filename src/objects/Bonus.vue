@@ -1,6 +1,6 @@
 <template>
   <img :src="src" :style="{
-    gridColumn: x, gridRow: y
+    gridColumn: pos[0], gridRow: pos[1]
   }">
 </template>
 
@@ -9,7 +9,7 @@ import cervelas from "@/assets/cervelas.png"
 import ricard from "@/assets/ricard.png"
 
 export default {
-  props: ["x", "y", "asset"],
+  props: ["pos", "asset"],
   computed: {
     src() {
       return { cervelas, ricard }[this.asset]
