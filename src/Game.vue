@@ -140,7 +140,8 @@ export default {
       this.food.pos = undefined
     },
     randomPos(){
-      return sample(this.availablePositions).split(',')
+      let pos = sample(this.availablePositions)
+      return pos ? pos.split(',') : undefined
     },
     spawnDrink(){
       this.drink.pos = this.randomPos()
