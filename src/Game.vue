@@ -127,7 +127,7 @@ export default {
           this.drinkDrink()
           this.bodyParts.push(tailPart)
         } else if (this.food.hits(newHeadPos)) {
-          this.eatfood()
+          this.eatFood()
         }
       }
     },
@@ -135,7 +135,7 @@ export default {
       this.score++
       this.spawnDrink()
     },
-    eatfood() {
+    eatFood() {
       this.food.pos = undefined
     },
     randomPos(){
