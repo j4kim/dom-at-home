@@ -121,14 +121,15 @@ export default {
       if (this.collision(newHeadPos)) {
         this.gameOver()
       } else {
-        this.bodyParts.unshift(new BodyPart(this.head.pos))
-        this.head.move()
         if (this.drink.hits(newHeadPos)) {
+          this.bodyParts.push(new BodyPart(tailPart.pos))
           this.drinkDrink()
-          this.bodyParts.push(tailPart)
         } else if (this.food.hits(newHeadPos)) {
           this.eatFood()
         }
+        tailPart.pos = this.head.pos
+        this.bodyParts.unshift(tailPart)
+        this.head.move()
       }
     },
     drinkDrink(){
