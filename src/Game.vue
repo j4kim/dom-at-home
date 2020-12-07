@@ -25,9 +25,9 @@
 import { random } from "lodash"
 import SwipeListener from 'swipe-listener';
 
-import DomHead from "@/DomHead"
-import DomBeard from "@/DomBeard"
-import Bonus from "@/Bonus"
+import DomHead from "@/objects/DomHead"
+import DomBeard from "@/objects/DomBeard"
+import Bonus from "@/objects/Bonus"
 
 function initialState(){ 
   return {
@@ -39,7 +39,7 @@ function initialState(){
       [6,14],
       [6,15],
     ],
-    bonusPosition: undefined,
+    drinkPos: undefined,
     score: 0,
     isGameOver: false,
   }
@@ -65,16 +65,26 @@ export default {
           y: part[1],
           component: i === 0 ? "dom-head" : "dom-beard",
           direction: this.nextDirection,
-          id: i
+          id: i,
+          crashed: this.isGameOver
         })
       })
-      if (this.bonusPosition) {
+      if (this.drinkPos) {
         objects.push({
-          x: this.bonusPosition[0],
-          y: this.bonusPosition[1],
+          x: this.drinkPos[0],
+          y: this.drinkPos[1],
           component: "bonus",
-          id: "bonus",
+          id: "drink",
           asset: "ricard"
+        })
+      }
+      if (this.foodPos) {
+        objects.push({
+          x: this.foodPos[0],
+          y: this.foodPos[1],
+          component: "bonus",
+          id: "food",
+          asset: "cervelas"
         })
       }
       return objects
@@ -93,12 +103,16 @@ export default {
         this.move()
       }
     },
+    scheduleFoodPop(){
+      setTimeout(() => this.popFood(), 15000)
+    },
     start(){
-      this.popBonus()
+      this.popDrink()
+      this.scheduleFoodPop()
     },
     restart(){
       Object.assign(this.$data, initialState())
-      this.popBonus()
+      this.popDrink()
       this.isGameOver = false
     },
     snakeCollision(pos){
@@ -129,26 +143,42 @@ export default {
       } else {
         this.headDirection = this.nextDirection
         this.snakeParts.unshift(newHeadPos)
-        if (newHeadPos.join() === this.bonusPosition.join()) {
+        if (newHeadPos.join() === this.drinkPos.join()) {
           this.drink()
           this.snakeParts.push(tailPart)
+        } else if (newHeadPos.join() === this.foodPos.join()) {
+          this.eat()
         }
       }
     },
     drink(){
       this.score++
-      this.popBonus()
+      this.popDrink()
     },
-    popBonus(){
+    eat() {
+      this.foodPos = undefined
+    },
+    pop(bonusType){
       let x, y, ok = false
       while (!ok) {
         x = random(1, this.columns)
         y = random(1, this.rows)
         ok = !this.snakeCollision([x,y])
       }
-      this.bonusPosition = [x,y]
+      this[`${bonusType}Pos`] = [x,y]
+    },
+    popDrink(){
+      this.pop('drink')
+    },
+    popFood(){
+      this.pop('food')
+      setTimeout(() => {
+        this.foodPos = undefined
+        this.scheduleFoodPop()
+      }, 5000)
     },
     changeDirection(directions){
+      if (this.isGameOver) { return }
       if (this.verticalMove) {
         if (directions.left) {
           this.nextDirection = [-1,0]

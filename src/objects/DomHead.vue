@@ -1,13 +1,16 @@
 <template>
-  <img id="dom-head" src="@/assets/head.png" :style="{
+  <img id="dom-head" :src="src" :style="{
     gridColumn: x, gridRow: y,
     transform: `rotate(${rotate}deg)`
   }">
 </template>
 
 <script>
+import head from "@/assets/head.png"
+import crashedHead from "@/assets/head-crash.png"
+
 export default {
-  props: ["x", "y", "direction"],
+  props: ["x", "y", "direction", "crashed"],
   computed:{
     rotate(){
       return {
@@ -16,6 +19,9 @@ export default {
         "0,1": 180,
         "-1,0": 270
       }[this.direction.join()]
+    },
+    src(){
+      return this.crashed ? crashedHead : head
     }
   }
 }
