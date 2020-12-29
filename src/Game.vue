@@ -22,24 +22,25 @@
 </template>
 
 <script>
-import { random } from "lodash"
-import SwipeListener from 'swipe-listener';
+import 'lodash.product'
+import { sample, range, difference, product } from 'lodash'
+import SwipeListener from 'swipe-listener'
 
 import DomHead from "@/objects/DomHead"
 import DomBeard from "@/objects/DomBeard"
 import Bonus from "@/objects/Bonus"
 
+import { BodyPart, Head, Drink, Food } from "@/GameObjects"
+
 function initialState(){ 
   return {
+    fps: 5,
     columns: 11,
     rows: 16,
-    headDirection: [0,-1],
-    nextDirection: [0,-1],
-    snakeParts: [
-      [6,14],
-      [6,15],
-    ],
-    drinkPos: undefined,
+    bodyParts: [ new BodyPart([6,15]) ],
+    head: new Head([6,14], [0,-1]),
+    drink: new Drink(),
+    food: new Food(),
     score: 0,
     isGameOver: false,
   }
@@ -47,9 +48,7 @@ function initialState(){
 
 export default {
   components: { DomHead, DomBeard, Bonus },
-  props: [
-    "running"
-  ],
+  props: [ "running" ],
   watch: {
     running(bool){
       bool ? this.start() : null
@@ -58,44 +57,31 @@ export default {
   data: initialState,
   computed: {
     sceneObjects(){
-      let objects = []
-      this.snakeParts.forEach((part, i) => {
-        objects.push({
-          x: part[0],
-          y: part[1],
-          component: i === 0 ? "dom-head" : "dom-beard",
-          direction: this.nextDirection,
-          id: i,
-          crashed: this.isGameOver
-        })
-      })
-      if (this.drinkPos) {
-        objects.push({
-          x: this.drinkPos[0],
-          y: this.drinkPos[1],
-          component: "bonus",
-          id: "drink",
-          asset: "ricard"
-        })
-      }
-      if (this.foodPos) {
-        objects.push({
-          x: this.foodPos[0],
-          y: this.foodPos[1],
-          component: "bonus",
-          id: "food",
-          asset: "cervelas"
-        })
-      }
-      return objects
+      return [
+        this.head,
+        ...this.bodyParts,
+        this.drink,
+        this.food
+      ].filter(o => o.pos)
     },
     verticalMove(){
-      return this.headDirection[0] === 0
+      return this.head.dir[0] === 0
+    },
+    allPositions() {
+      let columns = range(1, this.columns + 1)
+      let rows = range(1, this.rows + 1)
+      return product(columns, rows).map(pos => pos.join())
+    },
+    objectPositions(){
+      return this.sceneObjects.map(o => o.pos.join())
+    },
+    availablePositions(){
+      return difference(this.allPositions, this.objectPositions)
     }
   },
   methods:{
     gameOver(){
-      console.log("game over")
+      this.head.crashed = true
       this.isGameOver = true
     },
     gameLoop(){
@@ -103,22 +89,20 @@ export default {
         this.move()
       }
     },
-    scheduleFoodPop(){
-      setTimeout(() => this.popFood(), 15000)
+    scheduleFoodSpawn(){
+      setTimeout(() => this.spawnFood(), 15000)
     },
     start(){
-      this.popDrink()
-      this.scheduleFoodPop()
+      this.spawnDrink()
+      this.scheduleFoodSpawn()
     },
     restart(){
       Object.assign(this.$data, initialState())
-      this.popDrink()
+      this.spawnDrink()
       this.isGameOver = false
     },
     snakeCollision(pos){
-      return this.snakeParts.some(part => {
-        return part.join() === pos.join()
-      })
+      return this.bodyParts.some(part => part.hits(pos))
     },
     wallCollision(pos){
       return (
@@ -132,70 +116,62 @@ export default {
       return this.snakeCollision(pos) || this.wallCollision(pos)
     },
     move(e){
-      let headPos = this.snakeParts[0]
-      let newHeadPos = [
-        headPos[0] + this.nextDirection[0],
-        headPos[1] + this.nextDirection[1]
-      ]
-      let tailPart = this.snakeParts.pop()
+      let newHeadPos = this.head.nextPos()
+      let tailPart = this.bodyParts.pop()
       if (this.collision(newHeadPos)) {
         this.gameOver()
       } else {
-        this.headDirection = this.nextDirection
-        this.snakeParts.unshift(newHeadPos)
-        if (newHeadPos.join() === this.drinkPos.join()) {
-          this.drink()
-          this.snakeParts.push(tailPart)
-        } else if (newHeadPos.join() === this.foodPos.join()) {
-          this.eat()
+        if (this.drink.hits(newHeadPos)) {
+          this.bodyParts.push(new BodyPart(tailPart.pos))
+          this.drinkDrink()
+        } else if (this.food.hits(newHeadPos)) {
+          this.eatFood()
         }
+        tailPart.pos = this.head.pos
+        this.bodyParts.unshift(tailPart)
+        this.head.move()
       }
     },
-    drink(){
+    drinkDrink(){
       this.score++
-      this.popDrink()
+      this.spawnDrink()
     },
-    eat() {
-      this.foodPos = undefined
+    eatFood() {
+      this.food.pos = undefined
     },
-    pop(bonusType){
-      let x, y, ok = false
-      while (!ok) {
-        x = random(1, this.columns)
-        y = random(1, this.rows)
-        ok = !this.snakeCollision([x,y])
-      }
-      this[`${bonusType}Pos`] = [x,y]
+    randomPos(){
+      let pos = sample(this.availablePositions)
+      return pos ? pos.split(',') : undefined
     },
-    popDrink(){
-      this.pop('drink')
+    spawnDrink(){
+      this.drink.pos = this.randomPos()
     },
-    popFood(){
-      this.pop('food')
+    spawnFood(){
+      this.food.pos = this.randomPos()
       setTimeout(() => {
-        this.foodPos = undefined
-        this.scheduleFoodPop()
+        this.food.pos = undefined
+        this.scheduleFoodSpawn()
       }, 5000)
     },
     changeDirection(directions){
       if (this.isGameOver) { return }
       if (this.verticalMove) {
         if (directions.left) {
-          this.nextDirection = [-1,0]
+          this.head.nextDir = [-1,0]
         } else if (directions.right) {
-          this.nextDirection = [1,0]
+          this.head.nextDir = [1,0]
         }
       } else {
         if (directions.top) {
-          this.nextDirection = [0,-1]
+          this.head.nextDir = [0,-1]
         } else if (directions.bottom) {
-          this.nextDirection = [0,1]
+          this.head.nextDir = [0,1]
         }
       }
     }
   },
   mounted(){
-    setInterval(this.gameLoop, 200)
+    setInterval(this.gameLoop, 1000/this.fps)
     SwipeListener(this.$refs.grid, {
       preventScroll: true,
       deltaHorizontal: 1,

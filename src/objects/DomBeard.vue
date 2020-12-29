@@ -1,12 +1,12 @@
 <template>
   <div :style="{
     background: '#2a1e1b',
-    gridColumn: x, gridRow: y
+    gridColumn: pos[0], gridRow: pos[1]
   }" />
 </template>
 
 <script>
 export default {
-  props: ["x", "y"]
+  props: ["pos"]
 }
 </script>
