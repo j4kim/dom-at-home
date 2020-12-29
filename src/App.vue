@@ -40,6 +40,7 @@
 
 <script>
 import "fullscreen-api-polyfill"
+import { mapGetters } from 'vuex'
 import Modal from "@/Modal"
 import Game from "@/Game"
 
@@ -49,11 +50,10 @@ export default {
     return {
       showStartModal: true,
       gameRunning: false,
-      showHelper: false,
-      rotation: 3,
-      blur: 1
+      showHelper: false
     }
   },
+  computed: mapGetters(['rotation', 'blur']),
   methods:{
     openFullscreen(){
       this.$el.requestFullscreen()
