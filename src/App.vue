@@ -1,5 +1,9 @@
 <template>
-  <div id="app">
+  <div id="app"
+    :style="{
+      backgroundPosition: `${50-blur}%, ${50+blur}%`
+    }"
+  >
     <modal
       v-model="showStartModal"
       button="Jouer"
@@ -21,7 +25,9 @@
         Dans ces cas, un petit cervelas ne fait pas de mal.
       </p>
     </modal>
-    <game :running="gameRunning">
+    <game :running="gameRunning" :style="{
+      transform: `rotate(${rotation}deg)`
+    }">
       <transition name="fade">
         <div v-if="showHelper" class="helper">
           <img v-if="$root.mobile" src="@/assets/swipe-helper.gif">
@@ -34,6 +40,7 @@
 
 <script>
 import "fullscreen-api-polyfill"
+import { mapGetters } from 'vuex'
 import Modal from "@/Modal"
 import Game from "@/Game"
 
@@ -43,9 +50,10 @@ export default {
     return {
       showStartModal: true,
       gameRunning: false,
-      showHelper: false  
+      showHelper: false
     }
   },
+  computed: mapGetters(['rotation', 'blur']),
   methods:{
     openFullscreen(){
       this.$el.requestFullscreen()
@@ -71,11 +79,10 @@ html,body{
   background-color: #53b45a;
 }
 #app{
-  background-image: url("./assets/background.png");
+  background-image: url("./assets/background50.png"), url("./assets/background50.png");
   background-repeat: no-repeat;
   background-size: cover;
   image-rendering: pixelated;
-  background-position: center;
 }
 #game{
   height: 100vh;

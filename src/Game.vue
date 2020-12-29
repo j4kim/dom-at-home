@@ -1,7 +1,7 @@
 <template>
   <div id="game" ref="game">
     <div id="score-container">
-      <div id="score" class="arcade-font">{{ score }}</div>
+      <div id="score" class="arcade-font">{{ $store.state.score }}</div>
     </div>
     <div id="grid-container">
       <div id="grid" ref="grid" :style="{
@@ -41,7 +41,6 @@ function initialState(){
     head: new Head([6,14], [0,-1]),
     drink: new Drink(),
     food: new Food(),
-    score: 0,
     isGameOver: false,
   }
 }
@@ -133,10 +132,11 @@ export default {
       }
     },
     drinkDrink(){
-      this.score++
+      this.$store.commit('drink')
       this.spawnDrink()
     },
     eatFood() {
+      this.$store.commit('eat')
       this.food.pos = undefined
     },
     randomPos(){
@@ -190,9 +190,11 @@ export default {
         39: "right",
         40: "bottom"
       }
-      let directions = {}
-      directions[keyBinding[e.keyCode]] = true
-      this.changeDirection(directions)
+      let dirKey = keyBinding[e.keyCode]
+      if (dirKey) {
+        this.changeDirection({ [dirKey]: true })
+        e.preventDefault()
+      }
     })
   },
 }
