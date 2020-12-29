@@ -1,9 +1,5 @@
 <template>
-  <div id="app"
-    :style="{
-      backgroundPosition: `${50-blur}%, ${50+blur}%`
-    }"
-  >
+  <div id="app" :class="`drunk-level-${$store.getters.drunkLevel}`">
     <modal
       v-model="showStartModal"
       button="Jouer"
@@ -25,9 +21,7 @@
         Dans ces cas, un petit cervelas ne fait pas de mal.
       </p>
     </modal>
-    <game :running="gameRunning" :style="{
-      transform: `rotate(${rotation}deg)`
-    }">
+    <game :running="gameRunning">
       <transition name="fade">
         <div v-if="showHelper" class="helper">
           <img v-if="$root.mobile" src="@/assets/swipe-helper.gif">
@@ -69,6 +63,7 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Press+Start+2P&display=swap');
+@import './animations.scss';
 .arcade-font{
   font-family: "Press Start 2P", cursive;
 }

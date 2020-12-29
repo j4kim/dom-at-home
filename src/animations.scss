@@ -1,0 +1,31 @@
+@keyframes background-blur-1 {
+  from { background-position: 49.7%, 50.3%; }
+  to { background-position: 50.3%, 49.7% }
+}
+@keyframes background-blur-2 {
+  from { background-position: 49%, 51%; }
+  to { background-position: 51%, 49% }
+}
+
+#app {
+  background-position: 50%, 50%;
+  animation-iteration-count: infinite;
+  animation-duration: 6s;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  &.drunk-level-1 {
+    animation-name: background-blur-1;
+  }
+  &.drunk-level-2 {
+    animation-name: background-blur-2;
+  }
+}
+
+
+@keyframes rotation-1 {
+  from { transform: rotate(1deg) }
+  to { transform: rotate(-1deg) }
+}
+#app.drunk-level-1 #game {
+  animation: rotation-1 4s infinite alternate ease-in-out;
+}
