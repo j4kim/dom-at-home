@@ -13,7 +13,8 @@
     "lodash": "^4.17.15",
     "lodash.product": "^18.9.19",
     "swipe-listener": "^1.1.0",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vuex": "^3.6.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
