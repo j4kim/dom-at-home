@@ -6,14 +6,17 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     score: 0,
-    drunkenness: 0,
+    drunkenness: 0
   },
   getters: {
-    rotation: state => {
-      return state.drunkenness / 5
+    drunkLevel: ({ drunkenness }) => {
+      return [5, 15, 30, 60].findIndex(v => drunkenness <= v)
     },
-    blur: state => {
-      return state.drunkenness / 10
+    rotation: (state, { drunkLevel }) => {
+      return drunkLevel
+    },
+    blur: (state, { drunkLevel }) => {
+      return drunkLevel / 2
     }
   },
   mutations: {
