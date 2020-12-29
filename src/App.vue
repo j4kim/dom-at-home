@@ -1,5 +1,9 @@
 <template>
-  <div id="app">
+  <div id="app"
+    :style="{
+      backgroundPosition: `${50-blur}%, ${50+blur}%`
+    }"
+  >
     <modal
       v-model="showStartModal"
       button="Jouer"
@@ -21,7 +25,9 @@
         Dans ces cas, un petit cervelas ne fait pas de mal.
       </p>
     </modal>
-    <game :running="gameRunning">
+    <game :running="gameRunning" :style="{
+      transform: `rotate(${rotation}deg)`
+    }">
       <transition name="fade">
         <div v-if="showHelper" class="helper">
           <img v-if="$root.mobile" src="@/assets/swipe-helper.gif">
@@ -43,7 +49,9 @@ export default {
     return {
       showStartModal: true,
       gameRunning: false,
-      showHelper: false  
+      showHelper: false,
+      rotation: 3,
+      blur: 1
     }
   },
   methods:{
@@ -75,7 +83,6 @@ html,body{
   background-repeat: no-repeat;
   background-size: cover;
   image-rendering: pixelated;
-  background-position: 49%, 51%;
 }
 #game{
   height: 100vh;
@@ -88,7 +95,6 @@ html,body{
   background-image: url("./assets/house.png");
   background-size: cover;
   image-rendering: pixelated;
-  transform: rotate(3deg);
   >div{
     width: 100%;
     position: absolute;
