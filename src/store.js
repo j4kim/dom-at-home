@@ -5,11 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    score: 0
+    score: 0,
+    drunkenness: 0,
   },
   mutations: {
-    incrementScore (state) {
+    drink (state) {
       state.score++
+      state.drunkenness++
+    },
+    eat (state) {
+      state.drunkenness -= 10
     }
   }
 })

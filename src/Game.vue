@@ -132,10 +132,11 @@ export default {
       }
     },
     drinkDrink(){
-      this.$store.commit('incrementScore')
+      this.$store.commit('drink')
       this.spawnDrink()
     },
     eatFood() {
+      this.$store.commit('eat')
       this.food.pos = undefined
     },
     randomPos(){
