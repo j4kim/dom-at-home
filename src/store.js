@@ -31,7 +31,7 @@ export default new Vuex.Store({
       state.drunkenness++
     },
     eat (state) {
-      state.drunkenness -= 10
+      state.drunkenness = Math.max(0, state.drunkenness-10)
     }
   }
 })
