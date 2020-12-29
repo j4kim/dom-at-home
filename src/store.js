@@ -3,11 +3,14 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+const getDefaultState = () => ({
+  score: 0,
+  drunkenness: 0
+})
+
+
 export default new Vuex.Store({
-  state: {
-    score: 0,
-    drunkenness: 0
-  },
+  state: getDefaultState,
   getters: {
     drunkLevel: ({ drunkenness }) => {
       return [5, 15, 30, 60].findIndex(v => drunkenness <= v)
@@ -20,6 +23,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    reset (state) {
+      Object.assign(state, getDefaultState())
+    },
     drink (state) {
       state.score++
       state.drunkenness++

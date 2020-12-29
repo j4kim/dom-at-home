@@ -97,6 +97,7 @@ export default {
     },
     restart(){
       Object.assign(this.$data, initialState())
+      this.$sotre.commit('reset')
       this.spawnDrink()
       this.isGameOver = false
     },
