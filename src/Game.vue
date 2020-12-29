@@ -190,10 +190,11 @@ export default {
         39: "right",
         40: "bottom"
       }
-      let directions = {}
-      directions[keyBinding[e.keyCode]] = true
-      this.changeDirection(directions)
-      e.preventDefault()
+      let dirKey = keyBinding[e.keyCode]
+      if (dirKey) {
+        this.changeDirection({ [dirKey]: true })
+        e.preventDefault()
+      }
     })
   },
 }
