@@ -119,8 +119,17 @@ html,body{
         padding: 10px;
         margin: 5px 15px;
         display: flex;
+        justify-content: space-between;
         >div {
           flex: 1;
+          max-width: 30%;
+        }
+        button {
+          font-size: 14px;
+          width: 100%;
+          border: none;
+          background-color: #fff;
+          height: 100%;
         }
       }
     }

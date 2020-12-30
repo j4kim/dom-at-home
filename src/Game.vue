@@ -19,8 +19,16 @@
       </div>
       <div id="house-bottom">
         <alcohol-meter/>
-        <div></div>
-        <div></div>
+        <div class="arcade-font" style="font-size:24px">
+          <span v-if="$store.state.gameOver">
+            Game<br>Over!
+          </span>
+        </div>
+        <div>
+          <button v-if="$store.state.gameOver" class="arcade-font" @click="restart">
+            Rejouer
+          </button>
+        </div>
       </div>
     </div>
   </div>
