@@ -1,6 +1,6 @@
 <template>
   <div>
-    <svg viewBox="0 0 100 50">
+    <svg width="100px" viewBox="0 0 100 50">
       <mask id="mask">
         <rect width="100" height="50" fill="black"/>
         <circle cx="50" cy="50" r="50" fill="white"/>
@@ -12,11 +12,14 @@
       <g fill="white" :style="{
         transformOrigin: '50% 100%',
         transform: `rotate(${degrees}deg)`,
-        transition: 'transform 1s'
+        transition: 'transform 2s'
       }">
         <circle cx="50" cy="50" r="6"/>
-        <line x1="50" y1="50" x2="5" y2="50" stroke="white" />
+        <line x1="50" y1="50" x2="10" y2="50" stroke="white" stroke-width="2" />
       </g>
+      <text x="50" y="25" fill="white" font-size="30px" dominant-baseline="middle" text-anchor="middle">%.</text>
+      <text x="2" y="48" fill="white">0</text>
+      <text x="98" y="48" fill="white" text-anchor="end">12</text>
     </svg>
   </div>
 </template>
