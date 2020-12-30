@@ -85,6 +85,7 @@ export default {
     gameOver(){
       this.head.crashed = true
       this.isGameOver = true
+      this.$store.commit('setGameOver')
     },
     gameLoop(){
       if (this.running && !this.isGameOver){

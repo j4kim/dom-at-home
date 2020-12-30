@@ -6,14 +6,16 @@ Vue.use(Vuex)
 const getDefaultState = () => ({
   score: 0,
   drunkenness: 0,
-  drunkLimits: [1, 2, 3]
+  drunkLimits: [1, 2, 3],
+  gameOver: false
 })
 
 
 export default new Vuex.Store({
   state: getDefaultState,
   getters: {
-    drunkLevel: ({ drunkenness, drunkLimits }) => {
+    drunkLevel: ({ gameOver, drunkenness, drunkLimits }) => {
+      if (gameOver) return 0
       let level = drunkLimits.findIndex(v => drunkenness < v)
       return level < 0 ? drunkLimits.length : level
     },
@@ -34,6 +36,9 @@ export default new Vuex.Store({
     },
     eat (state) {
       state.drunkenness = Math.max(0, state.drunkenness-10)
+    },
+    setGameOver (state) {
+      state.gameOver = true
     }
   }
 })
