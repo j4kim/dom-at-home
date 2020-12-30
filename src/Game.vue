@@ -17,6 +17,9 @@
         </component>
         <slot></slot>
       </div>
+      <div id="house-bottom">
+        {{ $store.getters.drunkLevel }} / {{ $store.state.drunkLimits.length }}
+      </div>
     </div>
   </div>
 </template>

@@ -113,6 +113,12 @@ html,body{
         width: 84.61%; // 11/13 = 0.8461
         display: grid;
       }
+      &#house-bottom{
+        background-color: #5f7084;
+        color: white;
+        padding: 10px;
+        margin: 5px 15px;
+      }
     }
   }
 }
