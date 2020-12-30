@@ -1,10 +1,10 @@
 @keyframes background-blur-1 {
-  from { background-position: 49.7%, 50.3%; }
-  to { background-position: 50.3%, 49.7% }
+  from { background-position: 49.5%, 50.5%; }
+  to { background-position: 50.5%, 49.5% }
 }
 @keyframes background-blur-2 {
-  from { background-position: 49%, 51%; }
-  to { background-position: 51%, 49% }
+  from { background-position: 48%, 52%; }
+  to { background-position: 52%, 48% }
 }
 
 #app {
@@ -13,19 +13,43 @@
   animation-duration: 6s;
   animation-direction: alternate;
   animation-timing-function: ease-in-out;
+  animation-delay: 3s;
+  transition: background-position 3s;
   &.drunk-level-1 {
+    background-position: 49.5%, 50.5%;
     animation-name: background-blur-1;
   }
   &.drunk-level-2 {
+    background-position: 48%, 52%;
     animation-name: background-blur-2;
   }
 }
 
 
 @keyframes rotation-1 {
-  from { transform: rotate(1deg) }
-  to { transform: rotate(-1deg) }
+  from { transform: rotate(.5deg) }
+  to { transform: rotate(-.5deg) }
 }
-#app.drunk-level-1 #game {
-  animation: rotation-1 4s infinite alternate ease-in-out;
+@keyframes rotation-2 {
+  from { transform: rotate(2deg) }
+  to { transform: rotate(-2deg) }
+}
+#app {
+  #game {
+    transition: transform 2s;
+  }
+  &.drunk-level-1 {
+    #game {
+      transform: rotate(.5deg);
+      animation: rotation-1 4s 2s infinite alternate ease-in-out;
+    }
+  }
+  &.drunk-level-2,
+  &.drunk-level-3,
+  &.drunk-level-4 {
+    #game {
+      transform: rotate(2deg);
+      animation: rotation-2 4s 2s infinite alternate ease-in-out;
+    }
+  }
 }

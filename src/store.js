@@ -13,7 +13,7 @@ export default new Vuex.Store({
   state: getDefaultState,
   getters: {
     drunkLevel: ({ drunkenness }) => {
-      return [5, 15, 30, 60].findIndex(v => drunkenness < v)
+      return [1,2,5, 15, 30, 60].findIndex(v => drunkenness < v)
     },
     rotation: (state, { drunkLevel }) => {
       return drunkLevel
