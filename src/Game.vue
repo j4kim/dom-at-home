@@ -151,6 +151,7 @@ export default {
       this.drink.pos = this.randomPos()
     },
     spawnFood(){
+      if (this.isGameOver) { return }
       this.food.pos = this.randomPos()
       setTimeout(() => {
         this.food.pos = undefined
