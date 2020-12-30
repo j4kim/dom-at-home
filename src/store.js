@@ -5,15 +5,17 @@ Vue.use(Vuex)
 
 const getDefaultState = () => ({
   score: 0,
-  drunkenness: 0
+  drunkenness: 0,
+  drunkLimits: [1, 2, 3]
 })
 
 
 export default new Vuex.Store({
   state: getDefaultState,
   getters: {
-    drunkLevel: ({ drunkenness }) => {
-      return [1,2,5, 15, 30, 60].findIndex(v => drunkenness < v)
+    drunkLevel: ({ drunkenness, drunkLimits }) => {
+      let level = drunkLimits.findIndex(v => drunkenness < v)
+      return level < 0 ? drunkLimits.length : level
     },
     rotation: (state, { drunkLevel }) => {
       return drunkLevel
