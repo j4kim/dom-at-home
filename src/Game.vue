@@ -18,7 +18,9 @@
         <slot></slot>
       </div>
       <div id="house-bottom">
-        {{ $store.getters.drunkLevel }} / {{ $store.state.drunkLimits.length }}
+        <alcohol-meter/>
+        <div></div>
+        <div></div>
       </div>
     </div>
   </div>
@@ -28,6 +30,8 @@
 import 'lodash.product'
 import { sample, range, difference, product } from 'lodash'
 import SwipeListener from 'swipe-listener'
+
+import AlcoholMeter from "@/components/AlcoholMeter"
 
 import DomHead from "@/objects/DomHead"
 import DomBeard from "@/objects/DomBeard"
@@ -49,7 +53,7 @@ function initialState(){
 }
 
 export default {
-  components: { DomHead, DomBeard, Bonus },
+  components: { DomHead, DomBeard, Bonus, AlcoholMeter },
   props: [ "running" ],
   watch: {
     running(bool){

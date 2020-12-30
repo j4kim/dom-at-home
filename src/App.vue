@@ -118,6 +118,10 @@ html,body{
         color: white;
         padding: 10px;
         margin: 5px 15px;
+        display: flex;
+        >div {
+          flex: 1;
+        }
       }
     }
   }
