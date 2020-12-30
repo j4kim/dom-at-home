@@ -38,3 +38,13 @@ export default {
   }
 }
 </script>
+
+<style>
+@font-face {
+  font-family: Pixels;
+  src: url(../assets/Pixels.ttf);
+}
+svg {
+  font-family: Pixels;
+}
+</style>
