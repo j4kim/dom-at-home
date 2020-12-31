@@ -17,7 +17,7 @@ export default new Vuex.Store({
     drunkLevel: ({ gameOver, drunkenness, drunkLimits }) => {
       if (gameOver) return 0
       let level = drunkLimits.findIndex(v => drunkenness < v)
-      return level < 0 ? 12 : level
+      return level < 0 ? drunkLimits.length : level
     },
     rotation: (state, { drunkLevel }) => {
       return drunkLevel
