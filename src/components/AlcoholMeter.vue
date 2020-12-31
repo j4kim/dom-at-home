@@ -30,8 +30,7 @@
 export default {
   computed: {
     drunkRatio() {
-      let ratio = this.$store.getters.drunkLevel / this.$store.state.drunkLimits.length
-      return Math.min(1, ratio)
+      return this.$store.getters.drunkLevel / this.$store.state.drunkLimits.length
     },
     degrees() {
       let margin = 4
