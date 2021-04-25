@@ -62,8 +62,8 @@ export default {
   components: { DomHead, DomBeard, Bonus, AlcoholMeter },
   props: [ "running" ],
   watch: {
-    running(bool){
-      bool ? this.start() : null
+    running(itIs){
+      if (itIs) this.start()
     },
   },
   data: initialState,
