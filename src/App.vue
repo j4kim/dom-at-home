@@ -57,7 +57,23 @@ export default {
       this.showHelper = true
       setTimeout(() => this.showHelper = false, 2000)
     },
+    resize() {
+      let div = document.getElementById('game')
+      let h = window.innerHeight
+      let w = window.innerWidth
+      // for 9/16 screens or narrower
+      div.style.height = h + 'px'
+      div.style.width = (h * 9/16) + 'px'
+      // if screen is wider than 9/16
+      // we force height to maintain 9/16 according to width
+      div.style.maxHeight = (w * 16/9) + 'px'
+      div.style.maxWidth = w + 'px'
+    }
   },
+  mounted() {
+    this.resize()
+    window.onresize = this.resize
+  }
 }
 </script>
 
@@ -80,10 +96,6 @@ html,body{
   image-rendering: pixelated;
 }
 #game{
-  height: 100vh;
-  width: 56.25vh; /* 16/9 = 0.5625 */ 
-  max-height: 177.78vw; /* 9/16 = 1.77... */ 
-  max-width: 100vw;
   margin: auto;
   text-align: center;
   position: relative;
