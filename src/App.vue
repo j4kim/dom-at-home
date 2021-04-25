@@ -88,12 +88,14 @@ html,body{
   margin:0;
   font-family: 'Open Sans', sans-serif;
   background-color: #53b45a;
+  overflow: hidden;
 }
 #app{
   background-image: url("./assets/background50.png"), url("./assets/background50.png");
   background-repeat: no-repeat;
   background-size: cover;
   image-rendering: pixelated;
+  overflow: hidden;
 }
 #game{
   margin: auto;
@@ -102,6 +104,8 @@ html,body{
   background-image: url("./assets/house.png");
   background-size: cover;
   image-rendering: pixelated;
+  background-repeat: no-repeat;
+  overflow: hidden;
   >div{
     width: 100%;
     position: absolute;
