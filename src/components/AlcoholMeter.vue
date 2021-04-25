@@ -1,6 +1,6 @@
 <template>
   <div>
-    <svg width="100px" viewBox="0 0 100 50">
+    <svg width="100%" viewBox="0 0 100 50">
       <mask id="mask">
         <rect width="100" height="50" fill="black"/>
         <circle cx="50" cy="50" r="50" fill="white"/>

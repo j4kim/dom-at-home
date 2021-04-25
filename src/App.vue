@@ -7,7 +7,7 @@
       @input="start"
     >
       <p>
-        Pas de fête du Crêt-Vaillant cette année!
+        Toujours pas de fête du Crêt-Vaillant cette année! 😢
         Du coup, Dom reste chez lui et bois des pastis quoi...
         Et plus il boit, plus sa barbe pousse, oui c'est étrange.
       </p>
@@ -133,19 +133,24 @@ html,body{
         background-color: #5f7084;
         color: white;
         padding: 10px;
-        margin: 5px 15px;
+        margin: 5px 2px;
         display: flex;
         justify-content: space-between;
         >div {
           flex: 1;
           max-width: 30%;
-        }
-        button {
-          font-size: 14px;
-          width: 100%;
-          border: none;
-          background-color: #fff;
-          height: 100%;
+          &.game-over {
+            align-self: center;
+            font-size: 2.5vh;
+          }
+          button {
+            align-self: stretch;
+            font-size: 1.8vh;
+            width: 100%;
+            border: none;
+            background-color: #fff;
+            height: 100%;
+          }
         }
       }
     }
