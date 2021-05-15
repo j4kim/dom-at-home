@@ -47,7 +47,7 @@ import { BodyPart, Head, Drink, Food } from "@/GameObjects"
 
 function initialState(){ 
   return {
-    fps: 5,
+    fps: 4,
     columns: 11,
     rows: 16,
     bodyParts: [ new BodyPart([6,15]) ],
