@@ -6,7 +6,7 @@ Vue.use(Vuex)
 const getDefaultState = () => ({
   score: 0,
   drunkenness: 0,
-  drunkLimits: [1, 2, 3],
+  drunkLimits: [5, 10, 20, 40],
   gameOver: false
 })
 
