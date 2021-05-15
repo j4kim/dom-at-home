@@ -35,7 +35,8 @@ export default new Vuex.Store({
       state.drunkenness++
     },
     eat (state) {
-      state.drunkenness = Math.max(0, state.drunkenness-10)
+      let portion = 0.4 * state.drunkenness
+      state.drunkenness = state.drunkenness - portion
     },
     setGameOver (state) {
       state.gameOver = true
