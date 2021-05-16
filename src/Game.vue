@@ -53,8 +53,7 @@ function initialState(){
     bodyParts: [ new BodyPart([6,15]) ],
     head: new Head([6,14], [0,-1]),
     drink: new Drink(),
-    food: new Food(),
-    isGameOver: false,
+    food: new Food()
   }
 }
 
@@ -94,11 +93,10 @@ export default {
   methods:{
     gameOver(){
       this.head.crashed = true
-      this.isGameOver = true
       this.$store.commit('setGameOver')
     },
     gameLoop(){
-      if (this.running && !this.isGameOver){
+      if (this.running && !this.$store.state.gameOver){
         this.move()
       }
     },
@@ -113,7 +111,6 @@ export default {
       Object.assign(this.$data, initialState())
       this.$store.commit('reset')
       this.spawnDrink()
-      this.isGameOver = false
     },
     snakeCollision(pos){
       return this.bodyParts.some(part => part.hits(pos))
@@ -162,7 +159,7 @@ export default {
       this.drink.pos = this.randomPos()
     },
     spawnFood(){
-      if (this.isGameOver) { return }
+      if (this.$store.state.gameOver) { return }
       this.food.pos = this.randomPos()
       setTimeout(() => {
         this.food.pos = undefined
@@ -170,7 +167,7 @@ export default {
       }, 5000)
     },
     changeDirection(directions){
-      if (this.isGameOver) { return }
+      if (this.$store.state.gameOver) { return }
       if (this.verticalMove) {
         if (directions.left) {
           this.head.nextDir = [-1,0]
