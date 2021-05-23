@@ -194,9 +194,6 @@ export default {
       this.changeDirection(e.detail.directions)
     })
     document.addEventListener("keydown", e => {
-      if (e.code === "KeyR"){
-        this.restart()
-      }
       let keyBinding = {
         37: "left",
         38: "top",
