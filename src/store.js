@@ -6,7 +6,8 @@ Vue.use(Vuex)
 const getDefaultState = () => ({
   score: 0,
   drunkenness: 0,
-  drunkLimits: [5, 10, 20, 40],
+  drunkLimits: [3, 6, 12, 18],
+  soberPercent: 0.2,
   gameOver: false
 })
 
@@ -35,7 +36,7 @@ export default new Vuex.Store({
       state.drunkenness++
     },
     eat (state) {
-      let portion = 0.4 * state.drunkenness
+      let portion = state.soberPercent * state.drunkenness
       state.drunkenness = state.drunkenness - portion
     },
     setGameOver (state) {
