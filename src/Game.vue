@@ -194,14 +194,13 @@ export default {
       this.changeDirection(e.detail.directions)
     })
     document.addEventListener("keydown", e => {
-      let keyBinding = {
-        37: "left",
-        38: "top",
-        39: "right",
-        40: "bottom"
-      }
-      let dirKey = keyBinding[e.keyCode]
-      if (dirKey) {
+      if (e.code.startsWith('Arrow')) {
+        // 'ArrowLeft' --> 'left', 'ArrowUp' --> 'top'
+        let dirKey = e.code
+          .substring(5)
+          .toLowerCase()
+          .replace('up', 'top')
+          .replace('down', 'bottom')
         this.changeDirection({ [dirKey]: true })
         e.preventDefault()
       }
