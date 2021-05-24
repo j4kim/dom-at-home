@@ -1,24 +1,27 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+function initialState () { 
+  return {
+    drunkenness: 0,
+    drunkLimits: [3, 6, 12, 18],
+    soberPercent: 0.2,
+  }
+}
 
-Vue.use(Vuex)
+export default {
+  namespaced: true,
 
-const getDefaultState = () => ({
-  score: 0,
-  drunkenness: 0,
-  drunkLimits: [3, 6, 12, 18],
-  soberPercent: 0.2,
-  gameOver: false
-})
+  state: initialState,
 
-
-export default new Vuex.Store({
-  state: getDefaultState,
   getters: {
     drunkLevel: ({ gameOver, drunkenness, drunkLimits }) => {
       if (gameOver) return 0
       let level = drunkLimits.findIndex(v => drunkenness < v)
       return level < 0 ? drunkLimits.length : level
+    },
+    max: ({ drunkLimits }) => {
+      return drunkLimits[drunkLimits.length-1]
+    },
+    ratio: ({ drunkenness }, { max }) => {
+      return Math.min(1, drunkenness / max)
     },
     rotation: (state, { drunkLevel }) => {
       return drunkLevel
@@ -27,20 +30,17 @@ export default new Vuex.Store({
       return drunkLevel / 2
     }
   },
+
   mutations: {
     reset (state) {
-      Object.assign(state, getDefaultState())
+      Object.assign(state, initialState())
     },
-    drink (state) {
-      state.score++
+    booze (state) {
       state.drunkenness++
     },
-    eat (state) {
+    sober (state) {
       let portion = state.soberPercent * state.drunkenness
       state.drunkenness = state.drunkenness - portion
-    },
-    setGameOver (state) {
-      state.gameOver = true
     }
   }
-})
+}

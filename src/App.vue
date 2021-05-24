@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="`drunk-level-${$store.getters.drunkLevel}`">
+  <div id="app" :class="`drunk-level-${$store.getters['alcohol/drunkLevel']}`">
     <modal
       v-model="showStartModal"
       button="Jouer"
@@ -21,7 +21,7 @@
         Dans ces cas, un petit cervelas ne fait pas de mal.
       </p>
     </modal>
-    <game :running="gameRunning">
+    <game>
       <transition name="fade">
         <div v-if="showHelper" class="helper">
           <img v-if="$root.mobile" src="@/assets/swipe-helper.gif">
@@ -43,7 +43,6 @@ export default {
   data(){
     return {
       showStartModal: true,
-      gameRunning: false,
       showHelper: false
     }
   },
@@ -53,7 +52,7 @@ export default {
       this.$el.requestFullscreen()
     },
     start(){
-      this.gameRunning = true
+      this.$store.dispatch('game/start')
       this.showHelper = true
       setTimeout(() => this.showHelper = false, 2000)
     },

@@ -10,7 +10,7 @@ import head from "@/assets/head.png"
 import crashedHead from "@/assets/head-crash.png"
 
 export default {
-  props: ["pos", "nextDir", "crashed"],
+  props: ["pos", "nextDir"],
   computed:{
     rotate(){
       return {
@@ -22,6 +22,9 @@ export default {
     },
     src(){
       return this.crashed ? crashedHead : head
+    },
+    crashed(){
+      return this.$store.state.game.over
     }
   }
 }
