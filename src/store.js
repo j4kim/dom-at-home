@@ -8,6 +8,7 @@ import { BodyPart, Head, Drink, Food } from '@/GameObjects'
 
 function initialState () { 
   return {
+    gameId: 0,
     score: 0,
     over: false,
     fps: 4,
@@ -26,6 +27,8 @@ function initialState () {
     food: new Food()
   }
 }
+
+let timeout1, timeout2;
 
 
 export default new Vuex.Store({
@@ -129,6 +132,10 @@ export default new Vuex.Store({
       dispatch('spawnDrink')
       dispatch('scheduleFoodSpawn')
     },
+    restart ({ commit, dispatch }) {
+      commit('reset')
+      dispatch('start')
+    },
     frame ({ state, dispatch }) {
       if (state.over) { return }
       dispatch('move')
@@ -183,24 +190,21 @@ export default new Vuex.Store({
       commit('sober')
     },
     spawnFoodAndSchedule ({ state, commit, dispatch }) {
-      if (state.over) { return }
       dispatch('spawnFood')
-      setTimeout(() => {
+      timeout1 = setTimeout(() => {
         commit('removeFood')
         dispatch('scheduleFoodSpawn')
       }, 5000)
     },
     scheduleFoodSpawn ({ dispatch }) {
-      setTimeout(() => {
+      timeout2 = setTimeout(() => {
         dispatch('spawnFoodAndSchedule')
       }, 15000)
     },
     gameOver ({ state }) {
+      clearTimeout(timeout1)
+      clearTimeout(timeout2)
       state.over = true
-    },
-    restart ({ commit, dispatch }) {
-      commit('reset')
-      dispatch('start')
     }
   }
 })
