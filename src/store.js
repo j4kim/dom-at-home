@@ -76,7 +76,7 @@ export default new Vuex.Store({
       return pos ? pos.split(',') : undefined
     },
     fps ({ score }) {
-      return 14 + (12 * (-1 / (0.02 * score + 1)))
+      return 14 - 12 / (0.02 * score + 1)
     },
     tempo (state, getters) {
       return getters.fps * 60
