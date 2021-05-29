@@ -30,7 +30,7 @@
 export default {
   computed: {
     drunkRatio() {
-      return this.$store.getters['alcohol/ratio']
+      return this.$store.getters.ratio
     },
     degrees() {
       let margin = 4

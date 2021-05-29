@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="`drunk-level-${$store.getters['alcohol/drunkLevel']}`">
+  <div id="app" :class="`drunk-level-${$store.getters.drunkLevel}`">
     <modal
       v-model="showStartModal"
       button="Jouer"
@@ -34,7 +34,6 @@
 
 <script>
 import "fullscreen-api-polyfill"
-import { mapGetters } from 'vuex'
 import Modal from "@/Modal"
 import Game from "@/Game"
 
@@ -46,13 +45,12 @@ export default {
       showHelper: false
     }
   },
-  computed: mapGetters(['rotation', 'blur']),
   methods:{
     openFullscreen(){
       this.$el.requestFullscreen()
     },
     start(){
-      this.$store.dispatch('game/start')
+      this.$store.dispatch('start')
       this.showHelper = true
       setTimeout(() => this.showHelper = false, 2000)
     },

@@ -24,7 +24,7 @@ export default {
       return this.crashed ? crashedHead : head
     },
     crashed(){
-      return this.$store.state.game.over
+      return this.$store.state.over
     }
   }
 }

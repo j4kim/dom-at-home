@@ -1,9 +1,19 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
 import { sample, range, difference, product } from 'lodash'
 
 import { BodyPart, Head, Drink, Food } from '@/GameObjects'
 
 function initialState () { 
   return {
+    score: 0,
+    over: false,
+    fps: 4,
+    drunkenness: 0,
+    drunkLimits: [3, 6, 12, 18],
+    soberPercent: 0.2,
     grid: {
       columns: 11,
       rows: 16
@@ -17,8 +27,8 @@ function initialState () {
   }
 }
 
-export default {
-  namespaced: true,
+
+export default new Vuex.Store({
 
   state: initialState,
 
@@ -63,6 +73,20 @@ export default {
       let pos = sample(getters.availablePositions)
       return pos ? pos.split(',') : undefined
     },
+    tempo (state) {
+      return state.fps * 60
+    },
+    drunkLevel: ({ gameOver, drunkenness, drunkLimits }) => {
+      if (gameOver) return 0
+      let level = drunkLimits.findIndex(v => drunkenness < v)
+      return level < 0 ? drunkLimits.length : level
+    },
+    max: ({ drunkLimits }) => {
+      return drunkLimits[drunkLimits.length-1]
+    },
+    ratio: ({ drunkenness }, { max }) => {
+      return Math.min(1, drunkenness / max)
+    },
   },
 
   mutations: {
@@ -87,9 +111,29 @@ export default {
     removeFood({ food }){
       food.pos = null
     },
+    incrementScore (state) {
+      state.score++
+    },
+    booze (state) {
+      state.drunkenness++
+    },
+    sober (state) {
+      let portion = state.soberPercent * state.drunkenness
+      state.drunkenness = state.drunkenness - portion
+    }
   },
 
   actions: {
+    start ({ dispatch }) {
+      dispatch('frame')
+      dispatch('spawnDrink')
+      dispatch('scheduleFoodSpawn')
+    },
+    frame ({ state, dispatch }) {
+      if (state.over) { return }
+      dispatch('move')
+      setTimeout(() => dispatch('frame'), 1000 / state.fps)
+    },
     spawnDrink({ commit, getters }){
       commit('setDrinkPos', getters.randomPos)
     },
@@ -100,21 +144,21 @@ export default {
       let newHeadPos = state.snake.head.nextPos()
       let tailPart = state.snake.bodyParts.pop()
       if (getters.collision(newHeadPos)) {
-        dispatch('gameOver', null, { root: true })
+        dispatch('gameOver')
       } else {
         if (state.drink.hits(newHeadPos)) {
           commit('addBodyPart', new BodyPart(tailPart.pos))
-          dispatch('game/drinkDrink', null, { root: true })
+          dispatch('drinkDrink')
         } else if (state.food.hits(newHeadPos)) {
-          dispatch('game/eatFood', null, { root: true })
+          dispatch('eatFood')
         }
         tailPart.pos = state.snake.head.pos
         commit('insertBodyPart', tailPart)
         state.snake.head.move()
       }
     },
-    changeDirection({ rootState, getters, commit }, directions){
-      if (rootState.game.over) { return }
+    changeDirection({ state, getters, commit }, directions){
+      if (state.over) { return }
       if (getters.verticalMove) {
         if (directions.left) {
           commit('setNextDir', [-1,0])
@@ -128,6 +172,35 @@ export default {
           commit('setNextDir', [0,1])
         }
       }
+    },
+    drinkDrink ({ commit, dispatch }) {
+      commit('incrementScore')
+      commit('booze')
+      dispatch('spawnDrink')
+    },
+    eatFood ({ commit }) {
+      commit('removeFood')
+      commit('sober')
+    },
+    spawnFoodAndSchedule ({ state, commit, dispatch }) {
+      if (state.over) { return }
+      dispatch('spawnFood')
+      setTimeout(() => {
+        commit('removeFood')
+        dispatch('scheduleFoodSpawn')
+      }, 5000)
+    },
+    scheduleFoodSpawn ({ dispatch }) {
+      setTimeout(() => {
+        dispatch('spawnFoodAndSchedule')
+      }, 15000)
+    },
+    gameOver ({ state }) {
+      state.over = true
+    },
+    restart ({ commit, dispatch }) {
+      commit('reset')
+      dispatch('start')
     }
   }
-}
+})
