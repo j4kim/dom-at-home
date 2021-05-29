@@ -11,7 +11,6 @@ function initialState () {
     gameId: 0,
     score: 0,
     over: false,
-    fps: 4,
     drunkenness: 0,
     drunkLimits: [3, 6, 12, 18],
     soberPercent: 0.2,
@@ -76,8 +75,11 @@ export default new Vuex.Store({
       let pos = sample(getters.availablePositions)
       return pos ? pos.split(',') : undefined
     },
-    tempo (state) {
-      return state.fps * 60
+    fps ({ score }) {
+      return 14 + (12 * (-1 / (0.02 * score + 1)))
+    },
+    tempo (state, getters) {
+      return getters.fps * 60
     },
     drunkLevel: ({ gameOver, drunkenness, drunkLimits }) => {
       if (gameOver) return 0
@@ -136,10 +138,10 @@ export default new Vuex.Store({
       commit('reset')
       dispatch('start')
     },
-    frame ({ state, dispatch }) {
+    frame ({ state, getters, dispatch }) {
       if (state.over) { return }
       dispatch('move')
-      setTimeout(() => dispatch('frame'), 1000 / state.fps)
+      setTimeout(() => dispatch('frame'), 1000 / getters.fps)
     },
     spawnDrink({ commit, getters }){
       commit('setDrinkPos', getters.randomPos)
