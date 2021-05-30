@@ -78,9 +78,6 @@ export default new Vuex.Store({
     fps ({ score }) {
       return 14 - 12 / (0.02 * score + 1)
     },
-    tempo (state, getters) {
-      return getters.fps * 60
-    },
     drunkLevel: ({ gameOver, drunkenness, drunkLimits }) => {
       if (gameOver) return 0
       let level = drunkLimits.findIndex(v => drunkenness < v)
