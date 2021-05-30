@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+import { Howl } from 'howler'
+
 import { sample, range, difference, product } from 'lodash'
 
 import { BodyPart, Head, Drink, Food } from '@/GameObjects'
@@ -23,7 +25,11 @@ function initialState () {
       head: new Head([6,14], [0,-1]),
     },
     drink: new Drink(),
-    food: new Food()
+    food: new Food(),
+    music: new Howl({
+      src: ['music.mp3'],
+      loop: true
+    })
   }
 }
 
@@ -126,10 +132,11 @@ export default new Vuex.Store({
   },
 
   actions: {
-    start ({ dispatch }) {
+    start ({ dispatch, state }) {
       dispatch('frame')
       dispatch('spawnDrink')
       dispatch('scheduleFoodSpawn')
+      state.music.play()
     },
     restart ({ commit, dispatch }) {
       commit('reset')

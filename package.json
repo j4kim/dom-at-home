@@ -9,6 +9,7 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "fullscreen-api-polyfill": "^1.1.2",
+    "howler": "^2.2.1",
     "ismobilejs": "^1.1.1",
     "lodash": "^4.17.15",
     "lodash.product": "^18.9.19",
