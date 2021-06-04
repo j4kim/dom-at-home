@@ -33,7 +33,7 @@ function initialState () {
   }
 }
 
-let timeout1, timeout2;
+let frameTimeout, foodTimeout;
 
 
 export default new Vuex.Store({
@@ -156,8 +156,11 @@ export default new Vuex.Store({
     },
     frame ({ state, getters, dispatch }) {
       if (state.over) { return }
+      frameTimeout = setTimeout(
+        () => dispatch('frame'),
+        1000 / getters.fps
+      )
       dispatch('move')
-      setTimeout(() => dispatch('frame'), 1000 / getters.fps)
     },
     spawnDrink({ commit, getters }){
       commit('setDrinkPos', getters.randomPos)
@@ -209,19 +212,19 @@ export default new Vuex.Store({
     },
     spawnFoodAndSchedule ({ state, commit, dispatch }) {
       dispatch('spawnFood')
-      timeout1 = setTimeout(() => {
+      foodTimeout = setTimeout(() => {
         commit('removeFood')
         dispatch('scheduleFoodSpawn')
       }, 5000)
     },
     scheduleFoodSpawn ({ dispatch }) {
-      timeout2 = setTimeout(() => {
+      foodTimeout = setTimeout(() => {
         dispatch('spawnFoodAndSchedule')
       }, 15000)
     },
     gameOver ({ state, commit }) {
-      clearTimeout(timeout1)
-      clearTimeout(timeout2)
+      clearTimeout(foodTimeout)
+      clearTimeout(frameTimeout)
       state.over = true
       commit('stopMusic')
       state.drunkenness = 0
