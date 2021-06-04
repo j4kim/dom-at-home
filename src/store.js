@@ -132,14 +132,14 @@ export default new Vuex.Store({
       let portion = state.soberPercent * state.drunkenness
       state.drunkenness = state.drunkenness - portion
     },
-    stopMusic ({ music }) {
+    stopMusic ({ music, volume }) {
       var rate = 1
       var slowDown = setInterval(() => {
         rate = rate - rate/5
         music.rate(rate)
       }, 50)
       setTimeout(() => {
-        music.fade(1, 0, 200)
+        music.fade(volume, 0, 200)
         clearInterval(slowDown)
       }, 800)
     },
