@@ -30,14 +30,12 @@ function initialState () {
     sounds: {
       music: load('music', true),
       startMusic: load('start'),
-      effects: many(
-        // on drink
-        'sip', 'sip2', 'santé', 'aah',
-        // on eat
-        'miam', 'rmrm',
-        // on game over
-        'aie', 'aou', 'beurk'
-      )
+      effects: {
+        onDrink: many('sip', 'sip2', 'santé', 'aah'),
+        onEat: many('miam', 'rmrm'),
+        onDeath: many('aie', 'aou'),
+        onVomit: many('beurk')
+      }
     },
     volume: localStorage.volume || 1
   }
@@ -154,6 +152,9 @@ export default new Vuex.Store({
     setVolume (state, volume) {
       state.sounds.music.fade(state.volume, volume, 500)
       state.volume = localStorage.volume = volume
+    },
+    playSoundEffect ({ sounds }, effectType) {
+      sample(sounds.effects[effectType]).play()
     }
   },
 
@@ -218,11 +219,13 @@ export default new Vuex.Store({
     drinkDrink ({ commit, dispatch }) {
       commit('incrementScore')
       commit('booze')
+      commit('playSoundEffect', 'onDrink')
       dispatch('spawnDrink')
     },
     eatFood ({ commit }) {
       commit('removeFood')
       commit('sober')
+      commit('playSoundEffect', 'onEat')
     },
     spawnFoodAndSchedule ({ state, commit, dispatch }) {
       dispatch('spawnFood')
@@ -241,6 +244,7 @@ export default new Vuex.Store({
       clearTimeout(frameTimeout)
       state.over = true
       commit('stopMusic')
+      commit('playSoundEffect', 'onDeath')
       state.drunkenness = 0
     }
   }
