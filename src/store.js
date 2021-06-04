@@ -2,12 +2,14 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-import { load } from '@/sounds'
+import { load, many, mute } from '@/sounds'
 
 import { sample, range, difference, product } from 'lodash'
 
 import { BodyPart, Head, Drink, Food } from '@/GameObjects'
-import { many } from './sounds'
+
+let muted = localStorage.muted === 'true'
+mute(muted)
 
 function initialState () { 
   return {
@@ -37,7 +39,7 @@ function initialState () {
         onVomit: many('beurk')
       }
     },
-    volume: localStorage.volume || 1
+    muted
   }
 }
 
@@ -138,20 +140,20 @@ export default new Vuex.Store({
       let portion = state.soberPercent * state.drunkenness
       state.drunkenness = state.drunkenness - portion
     },
-    stopMusic ({ sounds, volume }) {
+    stopMusic ({ sounds }) {
       var rate = 1
       var slowDown = setInterval(() => {
         rate = rate - rate/5
         sounds.music.rate(rate)
       }, 50)
       setTimeout(() => {
-        sounds.music.fade(volume, 0, 200)
+        sounds.music.fade(1, 0, 200)
         clearInterval(slowDown)
       }, 800)
     },
-    setVolume (state, volume) {
-      state.sounds.music.fade(state.volume, volume, 500)
-      state.volume = localStorage.volume = volume
+    mute (state, muted) {
+      mute(muted)
+      state.muted = localStorage.muted = muted
     },
     playSoundEffect ({ sounds }, effectType) {
       sample(sounds.effects[effectType]).play()
