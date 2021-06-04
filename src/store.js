@@ -195,18 +195,18 @@ export default new Vuex.Store({
         state.snake.head.move()
       }
     },
-    changeDirection({ state, getters, commit }, directions){
+    changeDirection({ state, getters, commit }, dir){
       if (state.over) { return }
       if (getters.verticalMove) {
-        if (directions.left) {
+        if (dir === 'left') {
           commit('setNextDir', [-1,0])
-        } else if (directions.right) {
+        } else if (dir === 'right') {
           commit('setNextDir', [1,0])
         }
       } else {
-        if (directions.top) {
+        if (dir === 'up') {
           commit('setNextDir', [0,-1])
-        } else if (directions.bottom) {
+        } else if (dir === 'down') {
           commit('setNextDir', [0,1])
         }
       }

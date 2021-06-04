@@ -44,7 +44,7 @@
 
 <script>
 import 'lodash.product'
-import SwipeListener from 'swipe-listener'
+import Hammer from 'hammerjs'
 
 import AlcoholMeter from "@/components/AlcoholMeter"
 import VolumeIcon from "@/components/VolumeIcon"
@@ -56,27 +56,26 @@ import Bonus from "@/objects/Bonus"
 export default {
   components: { DomHead, DomBeard, Bonus, AlcoholMeter, VolumeIcon },
   mounted(){
-    SwipeListener(this.$refs.grid, {
-      preventScroll: true,
-      deltaHorizontal: 1,
-      deltaVertical: 1
-    })
-    this.$refs.grid.addEventListener("swipe", e => {
-      this.$store.dispatch('changeDirection', e.detail.directions)
-    })
+    let mc = Hammer(this.$refs.grid)
+    mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL })
+    mc.on('swipeleft', () => { this.changeDir('left') })
+    mc.on('swipeup', () => { this.changeDir('up') })
+    mc.on('swiperight', () => { this.changeDir('right') })
+    mc.on('swipedown', () => { this.changeDir('down') })
     document.addEventListener("keydown", e => {
       if (e.code.startsWith('Arrow')) {
-        // 'ArrowLeft' --> 'left', 'ArrowUp' --> 'top'
-        let dir = e.code
-          .substring(5)
-          .toLowerCase()
-          .replace('up', 'top')
-          .replace('down', 'bottom')
-        this.$store.dispatch('changeDirection', { [dir]: true })
+        // 'ArrowLeft' --> 'left'
+        let dir = e.code.substring(5).toLowerCase()
+        this.changeDir(dir)
         e.preventDefault()
       }
     })
   },
+  methods: {
+    changeDir (dir) {
+      this.$store.dispatch('changeDirection', dir)
+    }
+  }
 }
 </script>
 
