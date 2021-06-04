@@ -1,5 +1,5 @@
 <template>
-  <div id="game" ref="game">
+  <div id="game" ref="game" v-sway="$store">
     <div id="score-container">
       <div id="score" class="arcade-font">
         {{ $store.state.score }}

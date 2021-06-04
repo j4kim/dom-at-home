@@ -98,7 +98,6 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Press+Start+2P&display=swap');
-@import './animations.scss';
 .arcade-font{
   font-family: "Press Start 2P", cursive;
 }
