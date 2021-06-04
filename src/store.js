@@ -211,6 +211,7 @@ export default new Vuex.Store({
       clearTimeout(timeout1)
       clearTimeout(timeout2)
       state.over = true
+      state.music.stop()
     }
   }
 })
