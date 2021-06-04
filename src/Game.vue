@@ -77,3 +77,65 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+#game{
+  margin: auto;
+  text-align: center;
+  position: relative;
+  background-image: url("./assets/house.png");
+  background-size: cover;
+  image-rendering: pixelated;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  >div{
+    width: 100%;
+    position: absolute;
+    &#score-container{
+      top: 8.11%; // 30/370 = 0.08108
+    }
+    &#grid-container{
+      top: 17.03%; // 63/370 = 0.17027
+    }
+    >div{
+      margin: auto;
+      &#score{
+        background-color: white;
+        font-size: 2.1vh;
+        height: 4.32vh; // 16/370
+        line-height: 4.32vh;
+        padding: 0 2vh;
+        display: inline-block;
+      }
+      &#grid{
+        width: 84.61%; // 11/13 = 0.8461
+        display: grid;
+      }
+      &#house-bottom{
+        background-color: #5f7084;
+        color: white;
+        padding: 10px;
+        margin: 5px 2px;
+        display: flex;
+        justify-content: space-between;
+        >div {
+          flex: 1;
+          max-width: 30%;
+          &.game-over {
+            align-self: center;
+            font-size: 2.5vh;
+          }
+          button {
+            align-self: stretch;
+            font-size: 1.8vh;
+            width: 100%;
+            border: none;
+            background-color: #fff;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+</style>
