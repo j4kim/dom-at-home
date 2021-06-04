@@ -57,11 +57,10 @@ export default {
   components: { DomHead, DomBeard, Bonus, AlcoholMeter, VolumeIcon },
   mounted(){
     let mc = Hammer(this.$refs.grid)
-    mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL })
-    mc.on('swipeleft', () => { this.changeDir('left') })
-    mc.on('swipeup', () => { this.changeDir('up') })
-    mc.on('swiperight', () => { this.changeDir('right') })
-    mc.on('swipedown', () => { this.changeDir('down') })
+    mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+    ['left', 'up', 'right', 'down'].forEach(dir => {
+      mc.on(`swipe${dir}`, () => { this.changeDir(dir) })
+    })
     document.addEventListener("keydown", e => {
       if (e.code.startsWith('Arrow')) {
         // 'ArrowLeft' --> 'left'
