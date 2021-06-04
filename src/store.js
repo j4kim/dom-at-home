@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-import { Howl } from 'howler'
+import newSound from '@/sounds'
 
 import { sample, range, difference, product } from 'lodash'
 
@@ -26,15 +26,10 @@ function initialState () {
     },
     drink: new Drink(),
     food: new Food(),
-    music: new Howl({
-      src: ['music.mp3'],
-      loop: true,
-      volume: localStorage.volume || 1
-    }),
-    startMusic: new Howl({
-      src: ['start.mp3'],
-      volume: localStorage.volume || 1
-    }),
+    sounds: {
+      music: newSound('music', true),
+      startMusic: newSound('start'),
+    },
     volume: localStorage.volume || 1
   }
 }
@@ -106,7 +101,7 @@ export default new Vuex.Store({
   mutations: {
     reset (state) {
       Object.assign(state, initialState())
-      state.music.rate(1)
+      state.sounds.music.rate(1)
     },
     addBodyPart ({ snake }, bodyPart) {
       snake.bodyParts.push(bodyPart)
@@ -136,19 +131,19 @@ export default new Vuex.Store({
       let portion = state.soberPercent * state.drunkenness
       state.drunkenness = state.drunkenness - portion
     },
-    stopMusic ({ music, volume }) {
+    stopMusic ({ sounds, volume }) {
       var rate = 1
       var slowDown = setInterval(() => {
         rate = rate - rate/5
-        music.rate(rate)
+        sounds.music.rate(rate)
       }, 50)
       setTimeout(() => {
-        music.fade(volume, 0, 200)
+        sounds.music.fade(volume, 0, 200)
         clearInterval(slowDown)
       }, 800)
     },
     setVolume (state, volume) {
-      state.music.fade(state.volume, volume, 500)
+      state.sounds.music.fade(state.volume, volume, 500)
       state.volume = localStorage.volume = volume
     }
   },
@@ -158,7 +153,7 @@ export default new Vuex.Store({
       dispatch('frame')
       dispatch('spawnDrink')
       dispatch('scheduleFoodSpawn')
-      state.music.play()
+      state.sounds.music.play()
     },
     restart ({ commit, dispatch }) {
       commit('reset')

@@ -63,7 +63,7 @@ export default {
       this.$el.requestFullscreen()
     },
     start(){
-      this.$store.state.startMusic.play()
+      this.$store.state.sounds.startMusic.play()
       this.button = "2"
       this.disableButton = true
       setInterval(() => {
