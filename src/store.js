@@ -2,11 +2,12 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-import newSound from '@/sounds'
+import { load } from '@/sounds'
 
 import { sample, range, difference, product } from 'lodash'
 
 import { BodyPart, Head, Drink, Food } from '@/GameObjects'
+import { many } from './sounds'
 
 function initialState () { 
   return {
@@ -27,8 +28,16 @@ function initialState () {
     drink: new Drink(),
     food: new Food(),
     sounds: {
-      music: newSound('music', true),
-      startMusic: newSound('start'),
+      music: load('music', true),
+      startMusic: load('start'),
+      effects: many(
+        // on drink
+        'sip', 'sip2', 'santé', 'aah',
+        // on eat
+        'miam', 'rmrm',
+        // on game over
+        'aie', 'aou', 'beurk'
+      )
     },
     volume: localStorage.volume || 1
   }
