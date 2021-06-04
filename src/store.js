@@ -31,7 +31,7 @@ function initialState () {
       music: load('music', true),
       startMusic: load('start'),
       effects: {
-        onDrink: many('sip', 'sip2', 'santé', 'aah'),
+        onDrink: many('sip', 'santé', 'aah'),
         onEat: many('miam', 'rmrm'),
         onDeath: many('aie', 'aou'),
         onVomit: many('beurk')
