@@ -4,7 +4,12 @@
       <div class="inner">
         <h2 class="arcade-font">{{ title }}</h2>
         <div class="content"><slot></slot></div>
-        <button class="arcade-font" @click="close">{{ button }}</button>
+        <button
+          class="arcade-font"
+          @click="$emit('click')"
+          :disabled="disabled"
+          v-text="button"  
+        />
       </div>
     </div>
   </div>
@@ -12,12 +17,7 @@
 
 <script>
 export default {
-  props: ["value", "title", "button"],
-  methods: {
-    close() {
-      this.$emit('input', false)
-    }
-  }
+  props: ["value", "title", "button", "disabled"]
 }
 </script>
 

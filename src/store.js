@@ -31,6 +31,10 @@ function initialState () {
       loop: true,
       volume: localStorage.volume || 1
     }),
+    startMusic: new Howl({
+      src: ['start.mp3'],
+      volume: localStorage.volume || 1
+    }),
     volume: localStorage.volume || 1
   }
 }

@@ -2,9 +2,10 @@
   <div id="app" :class="`drunk-level-${$store.getters.drunkLevel}`">
     <modal
       v-model="showStartModal"
-      button="Jouer"
+      :button="button"
       title="Dom at Home"
-      @input="start"
+      @click="start"
+      :disabled="disableButton"
     >
       <p>
         Toujours pas de fête du Crêt-Vaillant cette année! 😢
@@ -42,7 +43,9 @@ export default {
   data(){
     return {
       showStartModal: true,
-      showHelper: false
+      showHelper: false,
+      button: "Jouer",
+      disableButton: false
     }
   },
   methods:{
@@ -50,9 +53,18 @@ export default {
       this.$el.requestFullscreen()
     },
     start(){
-      this.$store.dispatch('start')
-      this.showHelper = true
-      setTimeout(() => this.showHelper = false, 2000)
+      this.$store.state.startMusic.play()
+      this.button = "2"
+      this.disableButton = true
+      setInterval(() => {
+        this.button--
+      }, 500)
+      setTimeout(() => {
+        this.showStartModal = false
+        this.$store.dispatch('start')
+        this.showHelper = true
+        setTimeout(() => this.showHelper = false, 2000)
+      }, 1000)
     },
     resize() {
       let div = document.getElementById('game')
