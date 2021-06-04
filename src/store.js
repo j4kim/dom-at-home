@@ -100,6 +100,7 @@ export default new Vuex.Store({
   mutations: {
     reset (state) {
       Object.assign(state, initialState())
+      state.music.rate(1)
     },
     addBodyPart ({ snake }, bodyPart) {
       snake.bodyParts.push(bodyPart)
@@ -128,6 +129,17 @@ export default new Vuex.Store({
     sober (state) {
       let portion = state.soberPercent * state.drunkenness
       state.drunkenness = state.drunkenness - portion
+    },
+    stopMusic ({ music }) {
+      var rate = 1
+      var slowDown = setInterval(() => {
+        rate = rate - rate/5
+        music.rate(rate)
+      }, 50)
+      setTimeout(() => {
+        music.fade(1, 0, 200)
+        clearInterval(slowDown)
+      }, 800)
     }
   },
 
@@ -207,11 +219,11 @@ export default new Vuex.Store({
         dispatch('spawnFoodAndSchedule')
       }, 15000)
     },
-    gameOver ({ state }) {
+    gameOver ({ state, commit }) {
       clearTimeout(timeout1)
       clearTimeout(timeout2)
       state.over = true
-      state.music.stop()
+      commit('stopMusic')
       state.drunkenness = 0
     }
   }
