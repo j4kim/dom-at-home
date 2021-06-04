@@ -30,6 +30,15 @@
         </div>
       </transition>
     </game>
+    <div class="credits">
+      <h3 class="arcade-font">Crédits</h3>
+      <dt>Développement</dt>
+      <dd>Joaquim Perez</dd>
+      <dt>Musique</dt>
+      <dd><a href="https://bacalao.ch/cheatcodes.html">Bacalao - Cheat Codes</a></dd>
+      <dt>Bruitages</dt>
+      <dd>Domingos Cardoso</dd>
+    </div>
   </div>
 </template>
 
@@ -97,14 +106,12 @@ html,body{
   margin:0;
   font-family: 'Open Sans', sans-serif;
   background-color: #53b45a;
-  overflow: hidden;
 }
 #app{
   background-image: url("./assets/background50.png"), url("./assets/background50.png");
   background-repeat: no-repeat;
   background-size: cover;
   image-rendering: pixelated;
-  overflow: hidden;
 }
 .helper{
   position: absolute;
@@ -115,6 +122,15 @@ html,body{
   img{
     max-width: 30%;
   }
+}
+.credits{
+  h3{
+    margin: 0 0 10px;
+  }
+  padding: 20px;
+  width: 220px;
+  background-color: white;
+  margin: 60px auto;
 }
 .fade-enter-active, .fade-leave-active {
   transition: opacity 1s;
