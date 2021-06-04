@@ -31,6 +31,7 @@ function initialState () {
       loop: true,
       volume: localStorage.volume || 1
     }),
+    volume: localStorage.volume || 1
   }
 }
 
@@ -142,9 +143,9 @@ export default new Vuex.Store({
         clearInterval(slowDown)
       }, 800)
     },
-    setVolume ({ music }, volume) {
-      localStorage.volume = volume
-      music.volume(volume)
+    setVolume (state, volume) {
+      state.music.fade(state.volume, volume, 500)
+      state.volume = localStorage.volume = volume
     }
   },
 

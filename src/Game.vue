@@ -27,7 +27,7 @@
         >
           Game<br>Over!
         </div>
-        <div class="replay-button">
+        <div class="replay-or-volume-button">
           <button
             class="arcade-font"
             v-if="$store.state.over"
@@ -35,6 +35,7 @@
           >
             Rejouer
           </button>
+          <volume-icon v-else />
         </div>
       </div>
     </div>
@@ -46,13 +47,14 @@ import 'lodash.product'
 import SwipeListener from 'swipe-listener'
 
 import AlcoholMeter from "@/components/AlcoholMeter"
+import VolumeIcon from "@/components/VolumeIcon"
 
 import DomHead from "@/objects/DomHead"
 import DomBeard from "@/objects/DomBeard"
 import Bonus from "@/objects/Bonus"
 
 export default {
-  components: { DomHead, DomBeard, Bonus, AlcoholMeter },
+  components: { DomHead, DomBeard, Bonus, AlcoholMeter, VolumeIcon },
   mounted(){
     SwipeListener(this.$refs.grid, {
       preventScroll: true,
@@ -132,6 +134,11 @@ export default {
             border: none;
             background-color: #fff;
             height: 100%;
+          }
+          &.replay-or-volume-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
         }
       }
