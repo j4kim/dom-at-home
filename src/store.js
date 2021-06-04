@@ -28,8 +28,9 @@ function initialState () {
     food: new Food(),
     music: new Howl({
       src: ['music.mp3'],
-      loop: true
-    })
+      loop: true,
+      volume: localStorage.volume || 1
+    }),
   }
 }
 
@@ -140,6 +141,10 @@ export default new Vuex.Store({
         music.fade(1, 0, 200)
         clearInterval(slowDown)
       }, 800)
+    },
+    setVolume ({ music }, volume) {
+      localStorage.volume = volume
+      music.volume(volume)
     }
   },
 
