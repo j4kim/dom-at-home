@@ -38,6 +38,7 @@
       <dd><a href="https://bacalao.ch/cheatcodes.html">Bacalao - Cheat Codes</a></dd>
       <dt>Bruitages</dt>
       <dd>Domingos Cardoso</dd>
+      <p>2021 - Fête du Crêt-Vaillant</p>
     </div>
   </div>
 </template>
@@ -125,7 +126,10 @@ html,body{
 }
 .credits{
   h3{
-    margin: 0 0 10px;
+    margin: 0 0 20px;
+  }
+  p{
+    margin: 20px 0 0;
   }
   padding: 20px;
   width: 220px;

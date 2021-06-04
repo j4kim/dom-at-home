@@ -23,11 +23,11 @@ export default {
 
 <style lang="scss">
 .modal {
-  position: absolute;
+  position: fixed;
   background-color: rgba(0,0,0,0.4);
   z-index: 10;
   height: 100vh;
-  max-height: -webkit-fill-available;
+  height: -webkit-fill-available;
   width: 100vw;
   display: flex;
   justify-content: center;
