@@ -17,8 +17,6 @@ function initialState () {
     score: 0,
     over: false,
     drunkenness: 0,
-    drunkLimits: [3, 6, 12, 18],
-    soberPercent: 0.2,
     grid: {
       columns: 11,
       rows: 16
@@ -94,16 +92,9 @@ export default new Vuex.Store({
     fps ({ score }) {
       return 14 - 12 / (0.02 * score + 1)
     },
-    drunkLevel: ({ gameOver, drunkenness, drunkLimits }) => {
+    drunkLevel: ({ gameOver, drunkenness }) => {
       if (gameOver) return 0
-      let level = drunkLimits.findIndex(v => drunkenness < v)
-      return level < 0 ? drunkLimits.length : level
-    },
-    max: ({ drunkLimits }) => {
-      return drunkLimits[drunkLimits.length-1]
-    },
-    ratio: ({ drunkenness }, { max }) => {
-      return Math.min(1, drunkenness / max)
+      return Math.min(3, Math.floor(drunkenness / 3))
     },
   },
 
@@ -134,11 +125,10 @@ export default new Vuex.Store({
       state.score++
     },
     booze (state) {
-      state.drunkenness++
+      state.drunkenness += 0.5
     },
     sober (state) {
-      let portion = state.soberPercent * state.drunkenness
-      state.drunkenness = state.drunkenness - portion
+      state.drunkenness -= 2
     },
     stopMusic ({ sounds }) {
       var rate = 1
