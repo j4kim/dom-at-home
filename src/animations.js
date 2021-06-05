@@ -9,7 +9,6 @@ Vue.directive('sway', {
     setInterval(() => {
       let multiplier = 2 * (i % 2) - 1
       let positiveDeg = [0, 1, 4, 12][store.getters.drunkLevel]
-      console.log(store.getters.drunkLevel, positiveDeg)
       let deg = multiplier * (positiveDeg || 0)
       el.style.transform = `rotate(${deg}deg)`
       i++
