@@ -169,7 +169,6 @@ export default new Vuex.Store({
         sin = (1 + Math.sin(x)) / 2 // [0,1]
         let amount = 0.5 + (state.drunkenness - 9) / 3 // [0.5,1.5]
         sin = 1 + sin * amount // [1.5,2.5]
-        console.log(sin, amount, state.drunkenness)
       }
       frameTimeout = setTimeout(
         () => dispatch('frame'),
