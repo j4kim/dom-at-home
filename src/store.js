@@ -4,7 +4,7 @@ Vue.use(Vuex)
 
 import { load, many, mute } from '@/sounds'
 
-import { sample, range, difference, product } from 'lodash'
+import { sample, range, difference, product, random } from 'lodash'
 
 import { BodyPart, Head, Drink, Food } from '@/GameObjects'
 
@@ -228,12 +228,12 @@ export default new Vuex.Store({
       foodTimeout = setTimeout(() => {
         commit('removeFood')
         dispatch('scheduleFoodSpawn')
-      }, 5000)
+      }, random(3000, 10000))
     },
     scheduleFoodSpawn ({ dispatch }) {
       foodTimeout = setTimeout(() => {
         dispatch('spawnFoodAndSchedule')
-      }, 15000)
+      }, random(10000, 20000))
     },
     gameOver ({ state, commit }) {
       clearTimeout(foodTimeout)
