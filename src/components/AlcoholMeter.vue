@@ -14,7 +14,7 @@
         transform: `rotate(${degrees}deg)`,
         transition: 'transform 2s'
       }">
-        <g id="hand-inner">
+        <g id="hand-inner" :class="`shake-${$store.getters.drunkLevel}`">
           <circle cx="50" cy="50" r="6"/>
           <line x1="50" y1="50" x2="10" y2="50" stroke="white" stroke-width="2" />
         </g>
@@ -40,7 +40,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 @font-face {
   font-family: Pixels;
   src: url(../assets/Pixels.ttf);
@@ -49,12 +49,23 @@ svg {
   font-family: Pixels;
 }
 
-@keyframes shaking {
+@keyframes shake-1 {
   from { transform: rotate(1deg) }
   to { transform: rotate(-1deg) }
 }
+@keyframes shake-2 {
+  from { transform: rotate(2deg) }
+  to { transform: rotate(-2deg) }
+}
 #hand-inner{
   transform-origin: 50% 100%;
-  animation: shaking .4s infinite alternate linear;
+  &.shake-1,
+  &.shake-2,
+  &.shake-3 {
+    animation: shake-1 .4s infinite alternate linear;
+  }
+  &.shake-4 {
+    animation: shake-2 .4s infinite alternate linear;
+  }
 }
 </style>
