@@ -190,6 +190,10 @@ export default new Vuex.Store({
         tailPart.pos = state.snake.head.pos
         commit('insertBodyPart', tailPart)
         state.snake.head.move()
+        if (getters.drunkLevel === 3 && Math.random() < 0.1) {
+          let randomDir = sample(['left', 'right', 'up', 'down'])
+          dispatch('changeDirection', randomDir)
+        }
       }
     },
     changeDirection({ state, getters, commit }, dir){
