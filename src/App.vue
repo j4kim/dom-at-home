@@ -110,8 +110,9 @@ html,body{
 #app{
   background-image: url("./assets/background50.png"), url("./assets/background50.png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: auto 100vh;
   image-rendering: pixelated;
+  background-position-x: center;
 }
 .helper{
   position: absolute;
