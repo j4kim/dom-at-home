@@ -167,8 +167,9 @@ export default new Vuex.Store({
       if (getters.drunkLevel === 3) {
         let x = Math.PI * Date.now() / 2000
         sin = (1 + Math.sin(x)) / 2 // [0,1]
-        let amount = 1 + (state.drunkenness - 9) / 3 // [1,2]
-        sin = 1.2 * (sin + amount) // 1.2*[1,2]
+        let amount = 0.5 + (state.drunkenness - 9) / 3 // [0.5,1.5]
+        sin = 1 + sin * amount // [1.5,2.5]
+        console.log(sin, amount, state.drunkenness)
       }
       frameTimeout = setTimeout(
         () => dispatch('frame'),
