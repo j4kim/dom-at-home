@@ -19,8 +19,7 @@
           <line x1="50" y1="50" x2="10" y2="50" stroke="white" stroke-width="2" />
         </g>
       </g>
-      <text x="50" y="25" fill="white" font-size="30px" dominant-baseline="middle" text-anchor="middle">
-        {{ $store.getters.drunkLevel }} %.</text>
+      <text x="50" y="25" fill="white" font-size="30px" dominant-baseline="middle" text-anchor="middle">%.</text>
       <text x="2" y="48" fill="white">0</text>
       <text x="98" y="48" fill="white" text-anchor="end">12</text>
     </svg>
