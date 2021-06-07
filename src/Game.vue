@@ -74,6 +74,11 @@ export default {
     changeDir (dir) {
       this.$store.dispatch('changeDirection', dir)
     }
+  },
+  watch: {
+    "$store.state.over": function () {
+      this.$refs.game.style.transform = 'rotate(0deg)'
+    }
   }
 }
 </script>
