@@ -37,7 +37,8 @@ function initialState () {
         onVomit: many('beurk')
       }
     },
-    muted
+    muted,
+    vomit: false
   }
 }
 
@@ -248,12 +249,19 @@ export default new Vuex.Store({
         dispatch('spawnFoodAndSchedule')
       }, 1000 * s)
     },
-    gameOver ({ state, commit }) {
+    gameOver ({ state, getters, commit }) {
       clearTimeout(foodTimeout)
       clearTimeout(frameTimeout)
       state.over = true
       commit('stopMusic')
       commit('playSoundEffect', 'onDeath')
+      commit('stopMusic')
+      if (getters.drunkLevel >= 2) {
+        commit('playSoundEffect', 'onVomit')
+        setTimeout(() => {
+          state.vomit = true
+        }, 750)
+      }
     }
   }
 })
