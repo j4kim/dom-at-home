@@ -128,7 +128,8 @@ export default new Vuex.Store({
       state.drunkenness = Math.min(12, state.drunkenness + 0.5)
     },
     sober (state) {
-      state.drunkenness = Math.max(0, state.drunkenness - 1.5)
+      let dim = 0.5 + state.drunkenness / 5
+      state.drunkenness = Math.max(0, state.drunkenness - dim)
     },
     stopMusic ({ sounds }) {
       var rate = 1
