@@ -253,7 +253,6 @@ export default new Vuex.Store({
       state.over = true
       commit('stopMusic')
       commit('playSoundEffect', 'onDeath')
-      state.drunkenness = 0
     }
   }
 })
