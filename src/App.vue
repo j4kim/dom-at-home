@@ -2,10 +2,10 @@
   <div id="app" v-fuzz="$store">
     <modal
       v-model="showStartModal"
-      :button="button"
+      :button="$store.state.ready ? button : 'Chargement'"
       title="Dom at Home"
       @click="start"
-      :disabled="disableButton"
+      :disabled="disableButton || !$store.state.ready"
     >
       <p>
         Toujours pas de fête du Crêt-Vaillant cette année! 😢

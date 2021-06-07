@@ -27,8 +27,11 @@ function initialState () {
     },
     drink: new Drink(),
     food: new Food(),
+    ready: false,
     sounds: {
-      music: load('music', true),
+      music: load('music', true, () => {
+        store.commit('ready')
+      }),
       startMusic: load('start'),
       effects: {
         onDrink: many('sip', 'santé', 'aah'),
@@ -45,7 +48,7 @@ function initialState () {
 let frameTimeout, foodTimeout;
 
 
-export default new Vuex.Store({
+var store = new Vuex.Store({
 
   state: initialState,
 
@@ -149,6 +152,9 @@ export default new Vuex.Store({
     },
     playSoundEffect ({ sounds }, effectType) {
       sample(sounds.effects[effectType]).play()
+    },
+    ready (state) {
+      state.ready = true
     }
   },
 
@@ -265,3 +271,5 @@ export default new Vuex.Store({
     }
   }
 })
+
+export default store

@@ -1,9 +1,10 @@
 import { Howl, Howler } from 'howler'
 
-function load (name, loop = false) {
+function load (name, loop = false, onload) {
   return new Howl({
     src: `sounds/${name}.mp3`,
-    loop
+    loop,
+    onload
   })
 }
 
