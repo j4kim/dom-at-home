@@ -128,7 +128,7 @@ export default new Vuex.Store({
       state.drunkenness = Math.min(12, state.drunkenness + 0.5)
     },
     sober (state) {
-      state.drunkenness = Math.max(0, state.drunkenness - 2)
+      state.drunkenness = Math.max(0, state.drunkenness - 1.5)
     },
     stopMusic ({ sounds }) {
       var rate = 1
@@ -242,7 +242,7 @@ export default new Vuex.Store({
       }, 1000 * s)
     },
     scheduleFoodSpawn ({ getters, dispatch }) {
-      let s = getters.drunkLevel < 3 ? random(10, 20) : random(0, 1)
+      let s = getters.drunkLevel < 3 ? random(0, 20) : random(0, 1)
       foodTimeout = setTimeout(() => {
         dispatch('spawnFoodAndSchedule')
       }, 1000 * s)
