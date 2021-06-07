@@ -26,9 +26,11 @@ Vue.directive('fuzz', {
     el.style.transition = `background-position-x ${seconds}s ease-in-out`
     let i = 0
     setInterval(() => {
-      let amp = store.state.drunkenness / 3
-      let multiplier = 2 * (i % 2) - 1
-      let diff = amp * multiplier
+      let diff = 0
+      if (!store.state.over) {
+        let multiplier = 2 * (i % 2) - 1
+        diff = store.getters.drunkLevel * multiplier
+      }
       let pos1 = 50 + diff
       let pos2 = 50 - diff
       el.style.backgroundPositionX = `${pos1}%, ${pos2}%`
