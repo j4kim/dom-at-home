@@ -94,7 +94,7 @@ var store = new Vuex.Store({
       return pos ? pos.split(',') : undefined
     },
     fps ({ score }) {
-      return 14 - 12 / (0.02 * score + 1)
+      return 14 - 12 / (0.016 * score + 1)
     },
     drunkLevel: ({ gameOver, drunkenness }) => {
       if (gameOver) return 0
@@ -175,8 +175,8 @@ var store = new Vuex.Store({
       if (getters.drunkLevel === 3) {
         let x = Math.PI * Date.now() / 2000
         sin = (1 + Math.sin(x)) / 2 // [0,1]
-        let amount = 0.5 + (state.drunkenness - 9) / 3 // [0.5,1.5]
-        sin = 1 + sin * amount // [1.5,2.5]
+        let amount = 0.25 + (state.drunkenness - 9) / 3 // [0.25,1.25]
+        sin = 1 + sin * amount // [1.25,2.25]
       }
       frameTimeout = setTimeout(
         () => dispatch('frame'),
@@ -242,7 +242,7 @@ var store = new Vuex.Store({
       commit('playSoundEffect', 'onEat')
     },
     spawnFoodAndSchedule ({ getters, commit, dispatch }) {
-      let s = getters.drunkLevel < 3 ? random(3, 10) : random(1, 4)
+      let s = getters.drunkLevel < 3 ? random(3, 10) : random(1, 8)
       dispatch('spawnFood')
       foodTimeout = setTimeout(() => {
         commit('removeFood')
