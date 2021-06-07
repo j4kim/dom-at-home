@@ -234,7 +234,7 @@ export default new Vuex.Store({
       commit('playSoundEffect', 'onEat')
     },
     spawnFoodAndSchedule ({ getters, commit, dispatch }) {
-      let s = getters.drunkLevel < 3 ? random(3, 10) : random(0, 1.5)
+      let s = getters.drunkLevel < 3 ? random(3, 10) : random(1, 4)
       dispatch('spawnFood')
       foodTimeout = setTimeout(() => {
         commit('removeFood')
