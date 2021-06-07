@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="`drunk-level-${$store.getters.drunkLevel}`">
+  <div id="app" v-fuzz="$store">
     <modal
       v-model="showStartModal"
       :button="button"
