@@ -10,7 +10,7 @@ Vue.directive('sway', {
       let deg = 0
       if (!store.state.over) {
         let multiplier = 2 * (i % 2) - 1
-        let positiveDeg = [0, 1, 4, 12][store.getters.drunkLevel]
+        let positiveDeg = [0, 1, 4, 20][store.getters.drunkLevel]
         deg = multiplier * (positiveDeg || 0)
       }
       el.style.transform = `rotate(${deg}deg)`
@@ -29,7 +29,7 @@ Vue.directive('fuzz', {
       let diff = 0
       if (!store.state.over) {
         let multiplier = 2 * (i % 2) - 1
-        diff = store.getters.drunkLevel * multiplier
+        diff = 1.5 * store.getters.drunkLevel * multiplier
       }
       let pos1 = 50 + diff
       let pos2 = 50 - diff
