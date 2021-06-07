@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import "fullscreen-api-polyfill"
 import Modal from "@/Modal"
 import Game from "@/Game"
 
@@ -59,9 +58,6 @@ export default {
     }
   },
   methods:{
-    openFullscreen(){
-      this.$el.requestFullscreen()
-    },
     start(){
       this.$store.state.sounds.startMusic.play()
       this.button = "2"
