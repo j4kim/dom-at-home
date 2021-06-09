@@ -32,7 +32,7 @@
     </game>
 
     <div class="credits" style="max-width:380px">
-      <h3 class="arcade-font" style="margin-bottom:0; text-align:center">
+      <h3 class="arcade-font" style="margin-bottom:0; text-align:center; font-size: .9em">
         <a href="https://cret-vaillant.ch">&lt;- cret-vaillant.ch</a>
       </h3>
     </div>
