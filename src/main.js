@@ -6,6 +6,8 @@ const mobile = isMobile(window.navigator).any;
 
 import store from './store'
 
+store.state.mobile = mobile
+
 import '@/animations'
 
 // https://stackoverflow.com/a/21712356/8345160
