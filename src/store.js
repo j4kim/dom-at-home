@@ -135,7 +135,7 @@ var store = new Vuex.Store({
       state.drunkenness = Math.min(12, state.drunkenness + 0.5)
     },
     sober (state) {
-      let dim = 0.5 + state.drunkenness / 5
+      let dim = 0.5 + state.drunkenness / 6
       state.drunkenness = Math.max(0, state.drunkenness - dim)
     },
     stopMusic ({ sounds }) {
@@ -245,15 +245,15 @@ var store = new Vuex.Store({
       commit('playSoundEffect', 'onEat')
     },
     spawnFoodAndSchedule ({ getters, commit, dispatch }) {
-      let s = getters.drunkLevel < 3 ? random(3, 8) : random(1, 8)
       dispatch('spawnFood')
+      let s = getters.drunkLevel < 3 ? random(3, 10) : random(1, 8)
       foodTimeout = setTimeout(() => {
         commit('removeFood')
         dispatch('scheduleFoodSpawn')
       }, 1000 * s)
     },
     scheduleFoodSpawn ({ getters, dispatch }) {
-      let s = getters.drunkLevel < 3 ? random(0, 10) : random(0, 1)
+      let s = getters.drunkLevel < 3 ? random(0, 12) : random(0, 1)
       foodTimeout = setTimeout(() => {
         dispatch('spawnFoodAndSchedule')
       }, 1000 * s)
