@@ -5,7 +5,7 @@ module.exports = {
 
   pwa: {
     name: 'Dom at Home',
-    themeColor: '#53b45a',
+    themeColor: '#6eacd6',
     appleMobileWebAppCapable: 'yes'
   }
 }
