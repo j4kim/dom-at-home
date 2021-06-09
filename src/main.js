@@ -9,6 +9,7 @@ import store from './store'
 store.state.mobile = mobile
 
 import '@/animations'
+import './registerServiceWorker'
 
 // https://stackoverflow.com/a/21712356/8345160
 if (window.document.documentMode) {
