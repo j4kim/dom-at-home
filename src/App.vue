@@ -30,7 +30,19 @@
         </div>
       </transition>
     </game>
-    <div class="credits">
+
+    <div class="credits" style="max-width:380px">
+      <h3 class="arcade-font" style="margin-bottom:0; text-align:center">
+        <a href="https://cret-vaillant.ch">&lt;- cret-vaillant.ch</a>
+      </h3>
+    </div>
+
+    <div class="credits" style="max-width:500px">
+      <h3 class="arcade-font">Infos</h3>
+      <insta-post/>
+    </div>
+
+    <div class="credits" style="width:220px">
       <h3 class="arcade-font">Crédits</h3>
       <dt>Développement</dt>
       <dd>Joaquim Perez</dd>
@@ -46,9 +58,10 @@
 <script>
 import Modal from "@/Modal"
 import Game from "@/Game"
+import InstaPost from "@/components/InstaPost"
 
 export default {
-  components: { Game, Modal },
+  components: { Game, Modal, InstaPost },
   data(){
     return {
       showStartModal: true,
@@ -95,7 +108,7 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Press+Start+2P&display=swap');
 .arcade-font{
-  font-family: "Press Start 2P", cursive;
+  font-family: "Press Start 2P", sans-serif;
 }
 html,body{
   padding:0;
@@ -128,7 +141,7 @@ html,body{
     margin: 20px 0 0;
   }
   padding: 20px;
-  width: 220px;
+  
   background-color: white;
   margin: 60px auto;
 }
