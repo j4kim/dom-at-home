@@ -209,7 +209,7 @@ var store = new Vuex.Store({
         commit('insertBodyPart', tailPart)
         state.snake.head.move()
         if (getters.drunkLevel === 3) {
-          let chance = (state.drunkenness - 8) / 40 // [0.02,0.1]
+          let chance = (state.drunkenness - 9) / 40 // [0,0.075]
           if (Math.random() < chance) {
             let randomDir = sample(['left', 'right', 'up', 'down'])
             dispatch('changeDirection', randomDir)
@@ -246,7 +246,7 @@ var store = new Vuex.Store({
     },
     spawnFoodAndSchedule ({ getters, commit, dispatch }) {
       dispatch('spawnFood')
-      let s = getters.drunkLevel < 3 ? random(3, 10) : random(1, 8)
+      let s = getters.drunkLevel < 3 ? random(4, 9) : random(1, 8)
       foodTimeout = setTimeout(() => {
         commit('removeFood')
         dispatch('scheduleFoodSpawn')
