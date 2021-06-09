@@ -245,7 +245,7 @@ var store = new Vuex.Store({
       commit('playSoundEffect', 'onEat')
     },
     spawnFoodAndSchedule ({ getters, commit, dispatch }) {
-      let s = getters.drunkLevel < 3 ? random(3, 10) : random(1, 8)
+      let s = getters.drunkLevel < 3 ? random(3, 8) : random(1, 8)
       dispatch('spawnFood')
       foodTimeout = setTimeout(() => {
         commit('removeFood')
@@ -253,7 +253,7 @@ var store = new Vuex.Store({
       }, 1000 * s)
     },
     scheduleFoodSpawn ({ getters, dispatch }) {
-      let s = getters.drunkLevel < 3 ? random(0, 20) : random(0, 1)
+      let s = getters.drunkLevel < 3 ? random(0, 10) : random(0, 1)
       foodTimeout = setTimeout(() => {
         dispatch('spawnFoodAndSchedule')
       }, 1000 * s)
