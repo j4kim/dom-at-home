@@ -3,7 +3,7 @@
     <blockquote
       class="instagram-media"
       data-instgrm-captioned
-      data-instgrm-permalink="https://www.instagram.com/p/CP3RMQLn0Fv/?utm_source=ig_embed&amp;utm_campaign=loading"
+      :data-instgrm-permalink="`https://www.instagram.com/p/${id}/?utm_source=ig_embed&amp;utm_campaign=loading`"
       data-instgrm-version="13"
       style="
         background: #fff;
@@ -21,7 +21,7 @@
     >
       <div style="padding: 16px">
         <a
-          href="https://www.instagram.com/p/CP3RMQLn0Fv/?utm_source=ig_embed&amp;utm_campaign=loading"
+          :href="`https://www.instagram.com/p/${id}/?utm_source=ig_embed&amp;utm_campaign=loading`"
           style="
             background: #ffffff;
             line-height: 0;
@@ -244,7 +244,7 @@
           "
         >
           <a
-            href="https://www.instagram.com/p/CP3RMQLn0Fv/?utm_source=ig_embed&amp;utm_campaign=loading"
+            :href="`https://www.instagram.com/p/${id}/?utm_source=ig_embed&amp;utm_campaign=loading`"
             style="
               color: #c9c8cd;
               font-family: Arial, sans-serif;
@@ -263,3 +263,7 @@
     </blockquote>
   </div>
 </template>
+
+<script>
+export default { props: ['id'] }
+</script>

@@ -39,7 +39,8 @@
 
     <div class="credits" style="max-width:500px">
       <h3 class="arcade-font">Infos</h3>
-      <insta-post/>
+      <insta-post id="CP3RMQLn0Fv"/>
+      <insta-post id="CP-pzY6nodt"/>
     </div>
 
     <div class="credits" style="width:220px">
