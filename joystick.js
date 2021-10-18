@@ -17,7 +17,12 @@ console.log(HID.devices())
     usage: 4
 }
 */
-var device = new HID.HID(121, 6)
+try {
+    var device = new HID.HID(121, 6)
+} catch (error) {
+    console.error("Joystick device not found")
+    process.exit()
+}
 
 var state = {
     joystick: undefined,
