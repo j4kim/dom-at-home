@@ -20,7 +20,9 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
     "@vue/cli-service": "~4.3.0",
+    "node-hid": "^2.1.1",
     "node-sass": "^4.14.0",
+    "robotjs": "^0.6.0",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
   }
