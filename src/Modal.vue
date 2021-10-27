@@ -23,7 +23,7 @@ export default {
 
 <style lang="scss">
 .modal {
-  position: fixed;
+  position: absolute;
   background-color: rgba(0,0,0,0.4);
   z-index: 10;
   height: 100vh;
