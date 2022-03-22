@@ -8,7 +8,7 @@
       :disabled="disableButton || !$store.state.ready"
     >
       <p>
-        Toujours pas de fête du Crêt-Vaillant cette année! 😢
+        Le Locle, été 2021: Pas de fête du Crêt-Vaillant cette année! 😢
         Du coup, Dom reste chez lui et bois des pastis quoi...
         Et plus il boit, plus sa barbe pousse, oui c'est étrange.
       </p>
