@@ -40,36 +40,40 @@ const joystickBindings = {
     "127,255": "down"  
 }
 
-function log(...args) {
-    if (logMode) {
-        console.log(...args)
+function keyTap(key, confirmed = true) {
+    if (key && confirmed) {
+        robot.keyTap(key)
     }
 }
 
+const actionBindings = [
+    {
+        type: "joystick",
+        slice: [0, 2],
+        action: data => keyTap(joystickBindings[data])
+    },
+    {
+        type: "button",
+        slice: [5, 6],
+        action: data => keyTap("space", data == 31)
+    },
+    {
+        type: "money",
+        slice: [6, 7],
+        action: data => keyTap("enter", data == 128)
+    }
+]
+
 device.on("data", function(data) {
-    var joystickData = data.slice(0, 2).join()
-    if (joystickData !== state.joystick) {
-        log({ joystickData })
-        state.joystick = joystickData
-        let key = joystickBindings[joystickData]
-        if (!logMode && key) {
-            robot.keyTap(key)
+    actionBindings.forEach(binding => {
+        let newData = data.slice(...binding.slice).join()
+        if (newData !== state[binding.type]) {
+            state[binding.type] = newData
+            if (logMode) {
+                console.log({ type: binding.type, newData })
+            } else {
+                binding.action(newData)
+            }
         }
-    }
-    var buttonData = data.slice(5, 6).join()
-    if (buttonData !== state.button) {
-        log({ buttonData })
-        state.button = buttonData
-        if (!logMode && buttonData == 31) {
-            robot.keyTap("space")  
-        }
-    }
-    var moneyData = data.slice(6, 7).join()
-    if (moneyData !== state.money) {
-        log({ moneyData })
-        state.money = moneyData
-        if (!logMode && moneyData == 128) {
-            robot.keyTap("enter")
-        }
-    }
-});
+    })
+})
