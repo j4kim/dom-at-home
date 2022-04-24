@@ -13,6 +13,7 @@ mute(muted)
 
 function initialState () { 
   return {
+    mobile: null,
     gameId: 0,
     score: 0,
     over: false,
@@ -93,8 +94,10 @@ var store = new Vuex.Store({
       let pos = sample(getters.availablePositions)
       return pos ? pos.split(',') : undefined
     },
-    fps ({ score }) {
-      return 14 - 12 / (0.02 * score + 1)
+    fps ({ score, mobile }) {
+      // https://www.wolframalpha.com/input/?i=plot+14+-+12+%2F+%280.016+*+x+%2B+1%29%2C+12+-+10+%2F+%280.016+*+x+%2B+1%29+from+x%3D0+to+50
+      let limit = mobile ? 12 : 14
+      return limit - ((limit - 2) / (0.016 * score + 1))
     },
     drunkLevel: ({ gameOver, drunkenness }) => {
       if (gameOver) return 0
@@ -132,7 +135,7 @@ var store = new Vuex.Store({
       state.drunkenness = Math.min(12, state.drunkenness + 0.5)
     },
     sober (state) {
-      let dim = 0.5 + state.drunkenness / 5
+      let dim = 0.5 + state.drunkenness / 6
       state.drunkenness = Math.max(0, state.drunkenness - dim)
     },
     stopMusic ({ sounds }) {
@@ -175,8 +178,8 @@ var store = new Vuex.Store({
       if (getters.drunkLevel === 3) {
         let x = Math.PI * Date.now() / 2000
         sin = (1 + Math.sin(x)) / 2 // [0,1]
-        let amount = 0.5 + (state.drunkenness - 9) / 3 // [0.5,1.5]
-        sin = 1 + sin * amount // [1.5,2.5]
+        let amount = 0.25 + (state.drunkenness - 9) / 3 // [0.25,1.25]
+        sin = 1 + sin * amount // [1.25,2.25]
       }
       frameTimeout = setTimeout(
         () => dispatch('frame'),
@@ -206,7 +209,7 @@ var store = new Vuex.Store({
         commit('insertBodyPart', tailPart)
         state.snake.head.move()
         if (getters.drunkLevel === 3) {
-          let chance = (state.drunkenness - 8) / 40 // [0.02,0.1]
+          let chance = (state.drunkenness - 9) / 40 // [0,0.075]
           if (Math.random() < chance) {
             let randomDir = sample(['left', 'right', 'up', 'down'])
             dispatch('changeDirection', randomDir)
@@ -242,15 +245,15 @@ var store = new Vuex.Store({
       commit('playSoundEffect', 'onEat')
     },
     spawnFoodAndSchedule ({ getters, commit, dispatch }) {
-      let s = getters.drunkLevel < 3 ? random(3, 10) : random(1, 4)
       dispatch('spawnFood')
+      let s = getters.drunkLevel < 3 ? random(4, 9) : random(1, 8)
       foodTimeout = setTimeout(() => {
         commit('removeFood')
         dispatch('scheduleFoodSpawn')
       }, 1000 * s)
     },
     scheduleFoodSpawn ({ getters, dispatch }) {
-      let s = getters.drunkLevel < 3 ? random(0, 20) : random(0, 1)
+      let s = getters.drunkLevel < 3 ? random(0, 12) : random(0, 1)
       foodTimeout = setTimeout(() => {
         dispatch('spawnFoodAndSchedule')
       }, 1000 * s)
