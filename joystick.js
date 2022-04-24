@@ -1,5 +1,5 @@
-var HID = require('node-hid')
-var robot = require('robotjs');
+const HID = require('node-hid')
+const robot = require('robotjs')
 
 console.log(HID.devices())
 
@@ -31,7 +31,7 @@ var state = {
     money: undefined
 }
 
-const logMode = false
+const logMode = process.argv[2] === 'log'
 
 const joystickBindings = {
     "0,127": "left",
