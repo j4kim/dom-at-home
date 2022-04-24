@@ -17,6 +17,7 @@ console.log(HID.devices())
     usage: 4
 }
 */
+
 try {
     var device = new HID.HID(121, 6)
 } catch (error) {
@@ -26,10 +27,11 @@ try {
 
 var state = {
     joystick: undefined,
-    button: undefined
+    button: undefined,
+    money: undefined
 }
 
-const logMode = true
+const logMode = false
 
 const joystickBindings = {
     "0,127": "left",
@@ -37,6 +39,7 @@ const joystickBindings = {
     "255,127": "right",
     "127,255": "down"  
 }
+
 function log(...args) {
     if (logMode) {
         console.log(...args)
@@ -59,6 +62,14 @@ device.on("data", function(data) {
         state.button = buttonData
         if (!logMode && buttonData == 31) {
             robot.keyTap("space")  
+        }
+    }
+    var moneyData = data.slice(6, 7).join()
+    if (moneyData !== state.money) {
+        log({ moneyData })
+        state.money = moneyData
+        if (!logMode && moneyData == 128) {
+            robot.keyTap("enter")
         }
     }
 });
