@@ -116,6 +116,7 @@ html,body{
   margin:0;
   font-family: 'Open Sans', sans-serif;
   background-color: #53b45a;
+  overflow-x: hidden;
 }
 #app{
   background-image: url("./assets/background50.png"), url("./assets/background50.png");
