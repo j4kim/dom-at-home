@@ -30,39 +30,15 @@
         </div>
       </transition>
     </game>
-
-    <div class="credits" style="max-width:380px">
-      <h3 class="arcade-font" style="margin-bottom:0; text-align:center; font-size: .9em">
-        <a href="https://cret-vaillant.ch">&lt;- cret-vaillant.ch</a>
-      </h3>
-    </div>
-
-    <div class="credits" style="max-width:500px">
-      <h3 class="arcade-font">Infos</h3>
-      <insta-post id="CP3RMQLn0Fv"/>
-      <insta-post id="CP-pzY6nodt"/>
-    </div>
-
-    <div class="credits" style="width:220px">
-      <h3 class="arcade-font">Crédits</h3>
-      <dt>Développement</dt>
-      <dd>Joaquim Perez</dd>
-      <dt>Musique</dt>
-      <dd><a href="https://bacalao.ch/cheatcodes.html">Bacalao - Cheat Codes</a></dd>
-      <dt>Bruitages</dt>
-      <dd>Domingos Cardoso</dd>
-      <p>2021 - Fête du Crêt-Vaillant</p>
-    </div>
   </div>
 </template>
 
 <script>
 import Modal from "@/Modal"
 import Game from "@/Game"
-import InstaPost from "@/components/InstaPost"
 
 export default {
-  components: { Game, Modal, InstaPost },
+  components: { Game, Modal },
   data(){
     return {
       showStartModal: true,
