@@ -29,26 +29,35 @@ var state = {
     button: undefined
 }
 
+const logMode = true
+
 const joystickBindings = {
     "0,127": "left",
     "127,0": "up",
     "255,127": "right",
     "127,255": "down"  
 }
+function log(...args) {
+    if (logMode) {
+        console.log(...args)
+    }
+}
 
 device.on("data", function(data) {
     var joystickData = data.slice(0, 2).join()
     if (joystickData !== state.joystick) {
+        log({ joystickData })
         state.joystick = joystickData
         let key = joystickBindings[joystickData]
-        if (key) {
+        if (!logMode && key) {
             robot.keyTap(key)
         }
     }
     var buttonData = data.slice(5, 6).join()
     if (buttonData !== state.button) {
+        log({ buttonData })
         state.button = buttonData
-        if (buttonData == 31) {
+        if (!logMode && buttonData == 31) {
             robot.keyTap("space")  
         }
     }
