@@ -40,10 +40,8 @@ const joystickBindings = {
     "127,255": "down"  
 }
 
-function keyTap(key, confirmed = true) {
-    if (key && confirmed) {
-        robot.keyTap(key)
-    }
+function keyTap(key) {
+    if (key) robot.keyTap(key)
 }
 
 const actionBindings = [
@@ -55,12 +53,12 @@ const actionBindings = [
     {
         type: "button",
         slice: [5, 6],
-        action: data => keyTap("space", data == 31)
+        action: data => keyTap(data == 31 ? "space" : false)
     },
     {
         type: "money",
         slice: [6, 7],
-        action: data => keyTap("enter", data == 128)
+        action: data => keyTap(data == 128 ? "enter" : false)
     }
 ]
 
