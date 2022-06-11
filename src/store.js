@@ -42,7 +42,8 @@ function initialState () {
       }
     },
     muted,
-    vomit: false
+    vomit: false,
+    credits: 0
   }
 }
 
@@ -103,6 +104,9 @@ var store = new Vuex.Store({
       if (gameOver) return 0
       return Math.min(3, Math.floor(drunkenness / 3))
     },
+    canPlay: ({ ready, credits }) => {
+      return ready && credits
+    }
   },
 
   mutations: {

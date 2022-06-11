@@ -2,13 +2,13 @@
   <div id="app" v-fuzz="$store">
     <modal
       v-model="showStartModal"
-      :button="$store.state.ready ? button : 'Chargement'"
+      :button="$store.state.canPlay ? button : `Insérez un franc ou un gobelet`"
       title="Dom at Home"
       @click="start"
-      :disabled="disableButton || !$store.state.ready"
+      :disabled="disableButton || !$store.state.canPlay"
     >
       <p>
-        Le Locle, été 2021: Pas de fête du Crêt-Vaillant cette année! 😢
+        Le Locle, été 2021&nbsp;: Pas de fête du Crêt-Vaillant cette année&nbsp;! 😢
         Du coup, Dom reste chez lui et bois des pastis quoi...
         Et plus il boit, plus sa barbe pousse, oui c'est étrange.
       </p>
@@ -18,8 +18,11 @@
       </p>
       <p>
         Attention tout de même à ne pas abuser, quand il est bourré,
-        Dom se met à faire n'importe quoi!<br>
+        Dom se met à faire n'importe quoi&nbsp;!
         Dans ces cas, un petit cervelas ne fait pas de mal.
+      </p>
+      <p :style="{ fontWeight: 600, textAlign: 'center' }">
+        Crédits: {{ $store.state.credits }}
       </p>
     </modal>
     <game>
@@ -43,7 +46,7 @@ export default {
     return {
       showStartModal: true,
       showHelper: false,
-      button: "Jouer",
+      button: "A: Jouer",
       disableButton: false
     }
   },
