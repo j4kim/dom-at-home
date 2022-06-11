@@ -28,10 +28,10 @@ function initialState () {
     },
     drink: new Drink(),
     food: new Food(),
-    ready: false,
+    musicIsLoaded: false,
     sounds: {
       music: load('music', true, () => {
-        store.commit('ready')
+        store.commit('musicLoaded')
       }),
       startMusic: load('start'),
       effects: {
@@ -104,8 +104,8 @@ var store = new Vuex.Store({
       if (gameOver) return 0
       return Math.min(3, Math.floor(drunkenness / 3))
     },
-    canPlay: ({ ready, credits }) => {
-      return ready && credits
+    canPlay: ({ musicLoaded, credits }) => {
+      return musicLoaded && credits
     }
   },
 
@@ -160,8 +160,8 @@ var store = new Vuex.Store({
     playSoundEffect ({ sounds }, effectType) {
       sample(sounds.effects[effectType]).play()
     },
-    ready (state) {
-      state.ready = true
+    musicLoaded (state) {
+      state.musicIsLoaded = true
     }
   },
 
