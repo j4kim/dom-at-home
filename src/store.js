@@ -100,8 +100,8 @@ var store = new Vuex.Store({
       let limit = mobile ? 12 : 14
       return limit - ((limit - 2) / (0.016 * score + 1))
     },
-    drunkLevel: ({ gameOver, drunkenness }) => {
-      if (gameOver) return 0
+    drunkLevel: ({ over, drunkenness }) => {
+      if (over) return 0
       return Math.min(3, Math.floor(drunkenness / 3))
     },
     canPlay: ({ musicIsLoaded, credits }) => {
