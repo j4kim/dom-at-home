@@ -11,7 +11,7 @@ Vue.directive('sway', {
       if (!store.state.over) {
         let multiplier = 2 * (i % 2) - 1
         let positiveDeg = [0, 1, 4, 18][store.getters.drunkLevel]
-        deg = multiplier * (positiveDeg || 0)
+        deg = multiplier * (positiveDeg || 0)
       }
       el.style.transform = `rotate(${deg}deg)`
       i++
