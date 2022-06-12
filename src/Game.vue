@@ -67,6 +67,8 @@ export default {
         let dir = e.code.substring(5).toLowerCase()
         this.changeDir(dir)
         e.preventDefault()
+      } else if (e.code === 'KeyC') {
+        this.$store.commit("addCredit")
       }
     })
   },

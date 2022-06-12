@@ -162,6 +162,9 @@ var store = new Vuex.Store({
     },
     musicLoaded (state) {
       state.musicIsLoaded = true
+    },
+    addCredit (state) {
+      state.credits++
     }
   },
 
