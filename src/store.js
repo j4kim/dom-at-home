@@ -272,7 +272,6 @@ var store = new Vuex.Store({
       commit('addCredit', -1)
       commit('stopMusic')
       commit('playSoundEffect', 'onDeath')
-      commit('stopMusic')
       if (getters.drunkLevel >= 2) {
         commit('playSoundEffect', 'onVomit')
         setTimeout(() => {
