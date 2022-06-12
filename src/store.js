@@ -104,8 +104,8 @@ var store = new Vuex.Store({
       if (gameOver) return 0
       return Math.min(3, Math.floor(drunkenness / 3))
     },
-    canPlay: ({ musicLoaded, credits }) => {
-      return musicLoaded && credits
+    canPlay: ({ musicIsLoaded, credits }) => {
+      return musicIsLoaded && credits
     }
   },
 
