@@ -163,8 +163,8 @@ var store = new Vuex.Store({
     musicLoaded (state) {
       state.musicIsLoaded = true
     },
-    addCredit (state) {
-      state.credits++
+    addCredit (state, increment = 1) {
+      state.credits += increment
     }
   },
 
@@ -269,6 +269,7 @@ var store = new Vuex.Store({
       clearTimeout(foodTimeout)
       clearTimeout(frameTimeout)
       state.over = true
+      commit('addCredit', -1)
       commit('stopMusic')
       commit('playSoundEffect', 'onDeath')
       commit('stopMusic')
