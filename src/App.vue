@@ -2,10 +2,10 @@
   <div id="app" v-fuzz="$store">
     <modal
       v-model="showStartModal"
-      :button="$store.state.canPlay ? button : `Insérez un franc ou un gobelet`"
+      :button="$store.getters.canPlay ? button : `Insérez un franc ou un gobelet`"
       title="Dom at Home"
       @click="start"
-      :disabled="disableButton || !$store.state.canPlay"
+      :disabled="disableButton || !$store.getters.canPlay"
     >
       <p>
         Le Locle, été 2021&nbsp;: Pas de fête du Crêt-Vaillant cette année&nbsp;! 😢
