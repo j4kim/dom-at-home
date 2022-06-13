@@ -33,7 +33,7 @@
             v-if="$store.state.over"
             @click="$store.dispatch('restart')"
           >
-            A: Rejouer
+            A: Retour
           </button>
           <volume-icon v-else />
         </div>
