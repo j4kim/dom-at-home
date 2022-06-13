@@ -44,7 +44,6 @@
 
 <script>
 import 'lodash.product'
-import Hammer from 'hammerjs'
 
 import AlcoholMeter from "@/components/AlcoholMeter"
 import VolumeIcon from "@/components/VolumeIcon"
@@ -56,11 +55,6 @@ import Bonus from "@/objects/Bonus"
 export default {
   components: { DomHead, DomBeard, Bonus, AlcoholMeter, VolumeIcon },
   mounted(){
-    let mc = Hammer(this.$refs.grid)
-    mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-    ['left', 'up', 'right', 'down'].forEach(dir => {
-      mc.on(`swipe${dir}`, () => { this.changeDir(dir) })
-    })
     document.addEventListener("keydown", e => {
       if (e.code.startsWith('Arrow')) {
         // 'ArrowLeft' --> 'left'
