@@ -41,6 +41,7 @@ function initialState () {
         onDeath: many('aie', 'aou'),
         onVomit: many('beurk'),
         onCredit: many('bell'),
+        onBestScore: many('ole', 'ouais', 'bravo', 'tada'),
       }
     },
     muted,
@@ -310,6 +311,7 @@ var store = new Vuex.Store({
       state.bestScore = state.score
       localStorage['bestScore'] = state.score
       commit('showBestScoreModal')
+      commit('playSoundEffect', 'onBestScore')
       startFireworks()
     },
     KeyM ({ commit }) {
