@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
+    "fireworks-js": "^1.4.0",
     "howler": "^2.2.1",
     "lodash": "^4.17.15",
     "lodash.product": "^18.9.19",

@@ -8,6 +8,8 @@ import { sample, range, difference, product, random } from 'lodash'
 
 import { BodyPart, Head, Drink, Food } from '@/GameObjects'
 
+import { start as startFireworks } from '@/fireworks'
+
 let muted = localStorage.muted === 'true'
 mute(muted)
 
@@ -282,7 +284,7 @@ var store = new Vuex.Store({
         dispatch('spawnFoodAndSchedule')
       }, 1000 * s)
     },
-    gameOver ({ state, getters, commit }) {
+    gameOver ({ state, getters, commit, dispatch }) {
       commit('setPlaying', false)
       clearTimeout(foodTimeout)
       clearTimeout(frameTimeout)
@@ -296,9 +298,13 @@ var store = new Vuex.Store({
         }, 750)
       }
       if (state.score > state.bestScore) {
-        state.bestScore = state.score
-        localStorage['bestScore'] = state.score
+        dispatch('newBestScore')
       }
+    },
+    newBestScore ({ state }) {
+      state.bestScore = state.score
+      localStorage['bestScore'] = state.score
+      startFireworks()
     },
     KeyM ({ commit }) {
       commit("addCredit", 1)
