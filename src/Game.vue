@@ -56,14 +56,8 @@ export default {
   components: { DomHead, DomBeard, Bonus, AlcoholMeter, VolumeIcon },
   mounted(){
     document.addEventListener("keydown", e => {
-      if (e.code.startsWith('Arrow')) {
-        // 'ArrowLeft' --> 'left'
-        let dir = e.code.substring(5).toLowerCase()
-        this.$store.dispatch('changeDirection',dir)
-        e.preventDefault()
-      } else if (e.code === 'KeyC') {
-        this.$store.commit("addCredit")
-      }
+      this.$store.dispatch("handleKeydown", e.code)
+      e.preventDefault()
     })
   },
   watch: {

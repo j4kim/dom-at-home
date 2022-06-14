@@ -277,6 +277,20 @@ var store = new Vuex.Store({
           state.vomit = true
         }, 750)
       }
+    },
+    handleKeydown ({ commit, dispatch }, code) {
+      if (code.startsWith('Arrow')) {
+        // 'ArrowLeft' --> 'left'
+        let dir = code.substring(5).toLowerCase()
+        return dispatch('changeDirection',dir)
+      }
+      const bindings = {
+        "KeyC": ["addCredit", 1],
+        "KeyG": ["addCredit", 2],
+      }
+      if (bindings[code]) {
+        commit(...bindings[code])
+      }
     }
   }
 })
