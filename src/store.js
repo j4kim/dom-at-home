@@ -295,10 +295,10 @@ var store = new Vuex.Store({
         }, 750)
       }
     },
-    KeyC ({ commit }) {
+    KeyM ({ commit }) {
       commit("addCredit", 1)
     },
-    KeyG ({ commit }) {
+    KeyC ({ commit }) {
       commit("addCredit", 2)
     },
     KeyA ({ state, getters, commit, dispatch }) {
