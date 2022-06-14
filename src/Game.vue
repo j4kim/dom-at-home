@@ -57,7 +57,6 @@ export default {
   mounted(){
     document.addEventListener("keydown", e => {
       this.$store.dispatch("handleKeydown", e.code)
-      e.preventDefault()
     })
   },
   watch: {
