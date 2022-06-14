@@ -5,7 +5,7 @@
       :button="$store.getters.startButtonContent"
       title="Dom at Home"
       @click="$store.dispatch('startCountdown')"
-      :disabled="!$store.getters.canPlay"
+      :disabled="!$store.getters.canStart"
     >
       <p>
         Le Locle, été 2021&nbsp;: Pas de fête du Crêt-Vaillant cette année&nbsp;! 😢

@@ -44,7 +44,8 @@ function initialState () {
     vomit: false,
     credits: 0,
     startModalShown: true,
-    countdown: 0
+    countdown: 0,
+    playing: false
   }
 }
 
@@ -105,12 +106,12 @@ var store = new Vuex.Store({
       if (over) return 0
       return Math.min(3, Math.floor(drunkenness / 3))
     },
-    canPlay: ({ musicIsLoaded, credits, countdown }) => {
-      return musicIsLoaded && credits && countdown === 0
+    canStart: ({ musicIsLoaded, credits, countdown, playing }) => {
+      return musicIsLoaded && credits && countdown === 0 && !playing
     },
     startButtonContent: ({ countdown }, getters) => {
       if (countdown) return countdown
-      if (getters.canPlay) return "A: Jouer"
+      if (getters.canStart) return "A: Jouer"
       return "Insérez un franc ou un gobelet"
     }
   },
@@ -180,15 +181,19 @@ var store = new Vuex.Store({
     },
     decreaseCountdown (state) {
       state.countdown--
+    },
+    setPlaying (state, arg) {
+      state.playing = arg
     }
   },
 
   actions: {
-    start ({ dispatch, state }) {
+    start ({ dispatch, state, commit }) {
       dispatch('frame')
       dispatch('spawnDrink')
       dispatch('scheduleFoodSpawn')
       state.sounds.music.play()
+      commit("setPlaying", true)
     },
     frame ({ state, getters, dispatch }) {
       if (state.over) { return }
@@ -277,6 +282,7 @@ var store = new Vuex.Store({
       }, 1000 * s)
     },
     gameOver ({ state, getters, commit }) {
+      commit('setPlaying', false)
       clearTimeout(foodTimeout)
       clearTimeout(frameTimeout)
       state.over = true
