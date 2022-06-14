@@ -59,17 +59,12 @@ export default {
       if (e.code.startsWith('Arrow')) {
         // 'ArrowLeft' --> 'left'
         let dir = e.code.substring(5).toLowerCase()
-        this.changeDir(dir)
+        this.$store.dispatch('changeDirection',dir)
         e.preventDefault()
       } else if (e.code === 'KeyC') {
         this.$store.commit("addCredit")
       }
     })
-  },
-  methods: {
-    changeDir (dir) {
-      this.$store.dispatch('changeDirection', dir)
-    }
   },
   watch: {
     "$store.state.over": function () {
