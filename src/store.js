@@ -10,6 +10,8 @@ import { BodyPart, Head, Drink, Food } from '@/GameObjects'
 
 import { startFireworks, stopFireworks } from '@/fireworks'
 
+import cheatcode from '@/cheatcode'
+
 let muted = localStorage.muted === 'true'
 mute(muted)
 
@@ -51,7 +53,8 @@ function initialState () {
     countdown: 0,
     playing: false,
     bestScore: +(localStorage['bestScore'] || 0),
-    bestScoreModalShown: false
+    bestScoreModalShown: false,
+    keysHistory: []
   }
 }
 
@@ -193,6 +196,14 @@ var store = new Vuex.Store({
     },
     showBestScoreModal (state, arg = true) {
       state.bestScoreModalShown = arg
+    },
+    checkCheatCode (state, code) {
+      if (state.playing) return
+      state.keysHistory.push(code)
+      state.keysHistory = state.keysHistory.splice(-cheatcode.length)
+      if (state.keysHistory.join() === cheatcode.join()) {
+        state.credits++
+      }
     }
   },
 
@@ -344,7 +355,8 @@ var store = new Vuex.Store({
       stopFireworks()
       commit('showBestScoreModal', false)
     },
-    handleKeydown ({ dispatch }, code) {
+    handleKeydown ({ commit, dispatch }, code) {
+      commit('checkCheatCode', code)
       if (code.startsWith('Arrow')) {
         // 'ArrowLeft' --> 'left'
         let dir = code.substring(5).toLowerCase()

@@ -1,0 +1,20 @@
+export default [
+  "ArrowUp",
+  "KeyB",
+  "KeyB",
+  "KeyB",
+  "ArrowUp",
+  "ArrowDown",
+  "ArrowLeft",
+  "ArrowRight",
+  "KeyB",
+  "KeyB",
+  "ArrowRight",
+  "ArrowLeft",
+  "ArrowDown",
+  "ArrowUp",
+  "KeyB",
+  "KeyB",
+  "KeyB",
+  "ArrowDown"
+]
