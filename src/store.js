@@ -118,7 +118,7 @@ var store = new Vuex.Store({
 
   mutations: {
     reset (state) {
-      Object.assign(state, initialState())
+      Object.assign(state, initialState(), { credits: state.credits })
       state.sounds.music.rate(1)
     },
     addBodyPart ({ snake }, bodyPart) {
@@ -303,6 +303,7 @@ var store = new Vuex.Store({
       commit("addCredit", 2)
     },
     KeyA ({ state, getters, commit, dispatch }) {
+      console.log("a", getters.canStart, state.over)
       if (getters.canStart) {
         dispatch("startCountdown")
       } else if (state.over) {
