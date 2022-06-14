@@ -334,8 +334,13 @@ var store = new Vuex.Store({
         }
       }
     },
-    printLabelAndHideBestScoreModal ({ commit }) {
-      // todo: print label here
+    printLabelAndHideBestScoreModal ({ state, commit }) {
+      var formData = new FormData()
+      formData.append('text', `BON BOISSON ---------- Bravo!!! Nouveau meilleur score: ${state.score} #domAtHome`)
+      fetch("http://127.0.0.1:5000", {
+        method: "POST",
+        body: formData
+      })
       stopFireworks()
       commit('showBestScoreModal', false)
     },
