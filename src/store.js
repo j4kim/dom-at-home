@@ -45,7 +45,8 @@ function initialState () {
     credits: 0,
     startModalShown: true,
     countdown: 0,
-    playing: false
+    playing: false,
+    bestScore: +(localStorage['bestScore'] || 0)
   }
 }
 
@@ -293,6 +294,10 @@ var store = new Vuex.Store({
         setTimeout(() => {
           state.vomit = true
         }, 750)
+      }
+      if (state.score > state.bestScore) {
+        state.bestScore = state.score
+        localStorage['bestScore'] = state.score
       }
     },
     KeyM ({ commit }) {
