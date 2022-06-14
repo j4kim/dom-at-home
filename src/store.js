@@ -13,7 +13,6 @@ mute(muted)
 
 function initialState () { 
   return {
-    mobile: null,
     gameId: 0,
     score: 0,
     over: false,
@@ -95,9 +94,9 @@ var store = new Vuex.Store({
       let pos = sample(getters.availablePositions)
       return pos ? pos.split(',') : undefined
     },
-    fps ({ score, mobile }) {
+    fps ({ score }) {
       // https://www.wolframalpha.com/input/?i=plot+14+-+12+%2F+%280.016+*+x+%2B+1%29%2C+12+-+10+%2F+%280.016+*+x+%2B+1%29+from+x%3D0+to+50
-      let limit = mobile ? 12 : 14
+      let limit =  14
       return limit - ((limit - 2) / (0.016 * score + 1))
     },
     drunkLevel: ({ over, drunkenness }) => {

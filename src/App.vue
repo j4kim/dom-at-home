@@ -28,8 +28,7 @@
     <game>
       <transition name="fade">
         <div v-if="showHelper" class="helper">
-          <img v-if="$root.mobile" src="@/assets/swipe-helper.gif">
-          <img v-else src="@/assets/arrows-helper.gif">
+          <img src="@/assets/arrows-helper.gif">
         </div>
       </transition>
     </game>
