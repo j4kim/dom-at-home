@@ -39,7 +39,8 @@ function initialState () {
         onDrink: many('sip', 'santé', 'aah'),
         onEat: many('miam', 'rmrm'),
         onDeath: many('aie', 'aou'),
-        onVomit: many('beurk')
+        onVomit: many('beurk'),
+        onCredit: many('bell'),
       }
     },
     muted,
@@ -313,9 +314,12 @@ var store = new Vuex.Store({
     },
     KeyM ({ commit }) {
       commit("addCredit", 1)
+      commit("playSoundEffect", "onCredit")
     },
     KeyC ({ commit }) {
       commit("addCredit", 2)
+      commit("playSoundEffect", "onCredit")
+      commit("playSoundEffect", "onEat")
     },
     KeyA ({ state, getters, commit, dispatch }) {
       if (getters.canStart) {
