@@ -313,7 +313,6 @@ var store = new Vuex.Store({
       commit("addCredit", 2)
     },
     KeyA ({ state, getters, commit, dispatch }) {
-      console.log("a", getters.canStart, state.over)
       if (getters.canStart) {
         dispatch("startCountdown")
       } else if (state.over) {
