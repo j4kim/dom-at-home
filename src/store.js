@@ -48,7 +48,8 @@ function initialState () {
     startModalShown: true,
     countdown: 0,
     playing: false,
-    bestScore: +(localStorage['bestScore'] || 0)
+    bestScore: +(localStorage['bestScore'] || 0),
+    bestScoreModalShown: false
   }
 }
 
@@ -187,6 +188,9 @@ var store = new Vuex.Store({
     },
     setPlaying (state, arg) {
       state.playing = arg
+    },
+    showBestScoreModal (state, arg = true) {
+      state.bestScoreModalShown = arg
     }
   },
 
@@ -301,9 +305,10 @@ var store = new Vuex.Store({
         dispatch('newBestScore')
       }
     },
-    newBestScore ({ state }) {
+    newBestScore ({ state, commit }) {
       state.bestScore = state.score
       localStorage['bestScore'] = state.score
+      commit('showBestScoreModal')
       startFireworks()
     },
     KeyM ({ commit }) {
@@ -316,8 +321,16 @@ var store = new Vuex.Store({
       if (getters.canStart) {
         dispatch("startCountdown")
       } else if (state.over) {
-        commit("reset")
+        if (state.bestScoreModalShown) {
+          dispatch('printLabelAndHideBestScoreModal')
+        } else {
+          commit("reset")
+        }
       }
+    },
+    printLabelAndHideBestScoreModal ({ commit }) {
+      // todo: print label here
+      commit('showBestScoreModal', false)
     },
     handleKeydown ({ dispatch }, code) {
       if (code.startsWith('Arrow')) {

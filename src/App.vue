@@ -21,6 +21,14 @@
         Meilleur score du jour: {{ $store.state.bestScore }}
       </p>
     </modal>
+    <modal
+      v-model="$store.state.bestScoreModalShown"
+      title="Bravo !"
+      button="A: Imprimer le bon"
+    >
+      <p>Nouveau meilleur score: {{ $store.state.score }}</p>
+      <p>Félicitations, vous gagnez un bon boisson !</p>
+    </modal>
     <game>
     </game>
     <div
