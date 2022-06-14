@@ -1,11 +1,11 @@
 <template>
   <div id="app" v-fuzz="$store">
     <modal
-      v-model="showStartModal"
-      :button="$store.getters.canPlay ? button : `Insérez un franc ou un gobelet`"
+      v-model="$store.state.startModalShown"
+      :button="$store.getters.startButtonContent"
       title="Dom at Home"
-      @click="start"
-      :disabled="disableButton || !$store.getters.canPlay"
+      @click="$store.dispatch('startCountdown')"
+      :disabled="!$store.getters.canPlay"
     >
       <p>
         Le Locle, été 2021&nbsp;: Pas de fête du Crêt-Vaillant cette année&nbsp;! 😢
@@ -36,26 +36,7 @@ import Game from "@/Game"
 
 export default {
   components: { Game, Modal },
-  data(){
-    return {
-      showStartModal: true,
-      button: "A: Jouer",
-      disableButton: false
-    }
-  },
   methods:{
-    start(){
-      this.$store.state.sounds.startMusic.play()
-      this.button = "2"
-      this.disableButton = true
-      setInterval(() => {
-        this.button--
-      }, 500)
-      setTimeout(() => {
-        this.showStartModal = false
-        this.$store.dispatch('start')
-      }, 1000)
-    },
     resize() {
       let div = document.getElementById('game')
       let h = window.innerHeight

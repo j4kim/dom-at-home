@@ -42,7 +42,9 @@ function initialState () {
     },
     muted,
     vomit: false,
-    credits: 0
+    credits: 0,
+    startModalShown: true,
+    countdown: 0
   }
 }
 
@@ -103,8 +105,13 @@ var store = new Vuex.Store({
       if (over) return 0
       return Math.min(3, Math.floor(drunkenness / 3))
     },
-    canPlay: ({ musicIsLoaded, credits }) => {
-      return musicIsLoaded && credits
+    canPlay: ({ musicIsLoaded, credits, countdown }) => {
+      return musicIsLoaded && credits && countdown === 0
+    },
+    startButtonContent: ({ countdown }, getters) => {
+      if (countdown) return countdown
+      if (getters.canPlay) return "A: Jouer"
+      return "Insérez un franc ou un gobelet"
     }
   },
 
@@ -164,6 +171,15 @@ var store = new Vuex.Store({
     },
     addCredit (state, increment = 1) {
       state.credits += increment
+    },
+    hideStartModal (state) {
+      state.startModalShown = false
+    },
+    initCountdown (state) {
+      state.countdown = 2
+    },
+    decreaseCountdown (state) {
+      state.countdown--
     }
   },
 
@@ -287,6 +303,18 @@ var store = new Vuex.Store({
       if (bindings[code]) {
         commit(...bindings[code])
       }
+    },
+    startCountdown ({ state, commit, dispatch }) {
+      state.sounds.startMusic.play()
+      commit("initCountdown")
+      var interval = setInterval(() => {
+        commit("decreaseCountdown")
+        if (state.countdown === 0) {
+          clearInterval(interval)
+          dispatch("start")
+          commit("hideStartModal")
+        }
+      }, 500)
     }
   }
 })
