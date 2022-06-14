@@ -174,10 +174,6 @@ var store = new Vuex.Store({
       dispatch('scheduleFoodSpawn')
       state.sounds.music.play()
     },
-    restart ({ commit, dispatch }) {
-      commit('reset')
-      dispatch('start')
-    },
     frame ({ state, getters, dispatch }) {
       if (state.over) { return }
       let sin = 1

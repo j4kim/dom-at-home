@@ -31,7 +31,7 @@
           <button
             class="arcade-font"
             v-if="$store.state.over"
-            @click="$store.dispatch('restart')"
+            @click="$store.commit('reset')"
           >
             A: Retour
           </button>
