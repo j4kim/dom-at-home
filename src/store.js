@@ -286,7 +286,6 @@ var store = new Vuex.Store({
       clearTimeout(foodTimeout)
       clearTimeout(frameTimeout)
       state.over = true
-      commit('addCredit', -1)
       commit('stopMusic')
       commit('playSoundEffect', 'onDeath')
       if (getters.drunkLevel >= 2) {
@@ -321,6 +320,7 @@ var store = new Vuex.Store({
     startCountdown ({ state, commit, dispatch }) {
       state.sounds.startMusic.play()
       commit("initCountdown")
+      commit('addCredit', -1)
       var interval = setInterval(() => {
         commit("decreaseCountdown")
         if (state.countdown === 0) {
