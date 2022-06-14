@@ -26,11 +26,6 @@
       </p>
     </modal>
     <game>
-      <transition name="fade">
-        <div v-if="showHelper" class="helper">
-          <img src="@/assets/arrows-helper.gif">
-        </div>
-      </transition>
     </game>
   </div>
 </template>
@@ -44,7 +39,6 @@ export default {
   data(){
     return {
       showStartModal: true,
-      showHelper: false,
       button: "A: Jouer",
       disableButton: false
     }
@@ -60,8 +54,6 @@ export default {
       setTimeout(() => {
         this.showStartModal = false
         this.$store.dispatch('start')
-        this.showHelper = true
-        setTimeout(() => this.showHelper = false, 2000)
       }, 1000)
     },
     resize() {
