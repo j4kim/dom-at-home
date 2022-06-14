@@ -106,8 +106,8 @@ var store = new Vuex.Store({
       if (over) return 0
       return Math.min(3, Math.floor(drunkenness / 3))
     },
-    canStart: ({ musicIsLoaded, credits, countdown, playing }) => {
-      return musicIsLoaded && credits && countdown === 0 && !playing
+    canStart: ({ musicIsLoaded, credits, countdown, playing, over }) => {
+      return musicIsLoaded && credits && countdown === 0 && !playing && !over
     },
     startButtonContent: ({ countdown }, getters) => {
       if (countdown) return countdown
