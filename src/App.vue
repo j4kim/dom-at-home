@@ -9,17 +9,10 @@
     >
       <p>
         Le Locle, été 2021&nbsp;: Pas de fête du Crêt-Vaillant cette année&nbsp;! 😢
-        Du coup, Dom reste chez lui et bois des pastis quoi...
+        Du coup, Domingos – la mascotte du Camping Vaillant – reste chez lui et bois des pastis...
         Et plus il boit, plus sa barbe pousse, oui c'est étrange.
-      </p>
-      <p>
         Vous l'aurez compris, le but du jeu est de boire le plus de pastis
         possible, sans manger sa barbe.
-      </p>
-      <p>
-        Attention tout de même à ne pas abuser, quand il est bourré,
-        Dom se met à faire n'importe quoi&nbsp;!
-        Dans ces cas, un petit cervelas ne fait pas de mal.
       </p>
       <p :style="{ fontWeight: 600, textAlign: 'center' }">
         Crédits: {{ $store.state.credits }}
