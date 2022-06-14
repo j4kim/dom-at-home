@@ -296,19 +296,26 @@ var store = new Vuex.Store({
         }, 750)
       }
     },
-    handleKeydown ({ commit, dispatch }, code) {
+    KeyC ({ commit }) {
+      commit("addCredit", 1)
+    },
+    KeyG ({ commit }) {
+      commit("addCredit", 2)
+    },
+    KeyA ({ state, getters, commit, dispatch }) {
+      if (getters.canStart) {
+        dispatch("startCountdown")
+      } else if (state.over) {
+        commit("reset")
+      }
+    },
+    handleKeydown ({ dispatch }, code) {
       if (code.startsWith('Arrow')) {
         // 'ArrowLeft' --> 'left'
         let dir = code.substring(5).toLowerCase()
         return dispatch('changeDirection',dir)
       }
-      const bindings = {
-        "KeyC": ["addCredit", 1],
-        "KeyG": ["addCredit", 2],
-      }
-      if (bindings[code]) {
-        commit(...bindings[code])
-      }
+      dispatch(code)
     },
     startCountdown ({ state, commit, dispatch }) {
       state.sounds.startMusic.play()
