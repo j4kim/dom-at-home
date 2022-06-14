@@ -2,12 +2,17 @@ import { Fireworks } from 'fireworks-js'
 
 export var fireworks
 
-export function start () {
+export function startFireworks () {
+  console.log("startFireworks")
   if (!fireworks) {
     fireworks = new Fireworks(
       document.querySelector('.fireworks-container')
     )
   }
   fireworks.start()
-  setTimeout(() => fireworks.stop(), 10000)
+}
+
+export function stopFireworks () {
+  console.log("stopFireworks")
+  fireworks.stop()
 }

@@ -8,7 +8,7 @@ import { sample, range, difference, product, random } from 'lodash'
 
 import { BodyPart, Head, Drink, Food } from '@/GameObjects'
 
-import { start as startFireworks } from '@/fireworks'
+import { startFireworks, stopFireworks } from '@/fireworks'
 
 let muted = localStorage.muted === 'true'
 mute(muted)
@@ -330,6 +330,7 @@ var store = new Vuex.Store({
     },
     printLabelAndHideBestScoreModal ({ commit }) {
       // todo: print label here
+      stopFireworks()
       commit('showBestScoreModal', false)
     },
     handleKeydown ({ dispatch }, code) {
