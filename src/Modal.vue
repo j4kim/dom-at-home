@@ -1,5 +1,5 @@
 <template>
-  <div class="modal" v-if="value">
+  <div class="modal">
     <div class="box">
       <div class="inner">
         <h2 class="arcade-font">{{ title }}</h2>
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  props: ["value", "title", "button", "disabled"]
+  props: ["title", "button", "disabled"]
 }
 </script>
 

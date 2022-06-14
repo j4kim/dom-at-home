@@ -1,7 +1,7 @@
 <template>
   <div id="app" v-fuzz="$store">
     <modal
-      v-model="$store.state.startModalShown"
+      v-if="$store.state.startModalShown"
       :button="$store.getters.startButtonContent"
       title="Dom at Home"
       @click="$store.dispatch('startCountdown')"
@@ -22,7 +22,7 @@
       </p>
     </modal>
     <modal
-      v-model="$store.state.bestScoreModalShown"
+      v-if="$store.state.bestScoreModalShown"
       title="Bravo !"
       button="A: Imprimer le bon"
     >
