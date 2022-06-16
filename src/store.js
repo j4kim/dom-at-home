@@ -331,6 +331,9 @@ var store = new Vuex.Store({
       commit("playSoundEffect", "onCredit")
       commit("playSoundEffect", "onEat")
     },
+    KeyB ({ dispatch }) {
+      dispatch('changeVolume')
+    },
     KeyA ({ state, getters, commit, dispatch }) {
       if (getters.canStart) {
         dispatch("startCountdown")
