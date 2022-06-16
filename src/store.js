@@ -373,6 +373,13 @@ var store = new Vuex.Store({
           commit("hideStartModal")
         }
       }, 500)
+    },
+    changeVolume ({ state, commit }) {
+      let volumes = ['1', '0.3', '0']
+      let index = volumes.findIndex(v => v == state.volume)
+      let newIndex = (index + 1) % volumes.length
+      let newVolume = volumes[newIndex]
+      commit('setVolume', newVolume)
     }
   }
 })

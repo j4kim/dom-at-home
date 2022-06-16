@@ -1,5 +1,5 @@
 <template>
-  <svg class="volume-icon" viewBox="0 0 24 24" @click="changeVolume">
+  <svg class="volume-icon" viewBox="0 0 24 24" @click="$store.dispatch('changeVolume')">
     <path fill="white" :d="d" />
   </svg>
 </template>
@@ -19,15 +19,6 @@ export default {
     },
     d () {
       return this.pathData[`volume-${this.volume}`]
-    }
-  },
-  methods: {
-    changeVolume () {
-      let volumes = ['1', '0.3', '0']
-      let index = volumes.findIndex(v => v == this.volume)
-      let newIndex = (index + 1) % volumes.length
-      let newVolume = volumes[newIndex]
-      this.$store.commit('setVolume', newVolume)
     }
   }
 }
