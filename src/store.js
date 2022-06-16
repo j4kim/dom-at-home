@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-import { load, many, mute } from '@/sounds'
+import { load, many } from '@/sounds'
 
 import { sample, range, difference, product, random } from 'lodash'
 
@@ -11,9 +11,6 @@ import { BodyPart, Head, Drink, Food } from '@/GameObjects'
 import { startFireworks, stopFireworks } from '@/fireworks'
 
 import cheatcode from '@/cheatcode'
-
-let muted = localStorage.muted === 'true'
-mute(muted)
 
 function initialState () { 
   return {
@@ -46,7 +43,6 @@ function initialState () {
         onBestScore: many('ole', 'ouais', 'bravo', 'tada'),
       }
     },
-    muted,
     vomit: false,
     credits: 0,
     startModalShown: true,
@@ -54,7 +50,8 @@ function initialState () {
     playing: false,
     bestScore: +(localStorage['bestScore'] || 0),
     bestScoreModalShown: false,
-    keysHistory: []
+    keysHistory: [],
+    volume: localStorage.volume || 1
   }
 }
 
@@ -158,20 +155,20 @@ var store = new Vuex.Store({
       let dim = 0.5 + state.drunkenness / 6
       state.drunkenness = Math.max(0, state.drunkenness - dim)
     },
-    stopMusic ({ sounds }) {
+    stopMusic ({ sounds, volume }) {
       var rate = 1
       var slowDown = setInterval(() => {
         rate = rate - rate/5
         sounds.music.rate(rate)
       }, 50)
       setTimeout(() => {
-        sounds.music.fade(1, 0, 200)
+        sounds.music.fade(volume, 0, 200)
         clearInterval(slowDown)
       }, 800)
     },
-    mute (state, muted) {
-      mute(muted)
-      state.muted = localStorage.muted = muted
+    setVolume (state, volume) {
+      state.sounds.music.fade(state.volume, volume, 500)
+      state.volume = localStorage.volume = volume
     },
     playSoundEffect ({ sounds }, effectType) {
       sample(sounds.effects[effectType]).play()

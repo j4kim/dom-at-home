@@ -1,10 +1,11 @@
-import { Howl, Howler } from 'howler'
+import { Howl } from 'howler'
 
 function load (name, loop = false, onload) {
   return new Howl({
     src: `sounds/${name}.mp3`,
     loop,
-    onload
+    onload,
+    volume: localStorage.volume || 1
   })
 }
 
@@ -16,6 +17,4 @@ function many (...names) {
   return sounds
 }
 
-const mute = Howler.mute
-
-export { load, many, mute }
+export { load, many }
