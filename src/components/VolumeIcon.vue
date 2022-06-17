@@ -1,7 +1,10 @@
 <template>
+<div class="volume-icon-wrapper">
+  <span class="arcade-font">B:</span>
   <svg class="volume-icon" viewBox="0 0 24 24" @click="$store.dispatch('changeVolume')">
     <path fill="white" :d="d" />
   </svg>
+</div>
 </template>
 
 <script>
@@ -28,5 +31,10 @@ export default {
 .volume-icon {
   width: 30%;
   cursor: pointer;
+}
+.volume-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
