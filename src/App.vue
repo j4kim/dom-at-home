@@ -18,7 +18,7 @@
         Crédits: {{ $store.state.credits }}
       </p>
       <p :style="{ textAlign: 'center', fontStyle: 'italic', fontSize: '.8em' }">
-        Meilleur score du jour: {{ $store.state.bestScore }}
+        Meilleur score: {{ $store.state.bestScore }}
       </p>
     </modal>
     <modal
