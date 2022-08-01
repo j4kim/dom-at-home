@@ -1,5 +1,5 @@
 <template>
-  <div id="app" v-fuzz="$store">
+  <div id="app" v-fuzz="$store" style="cursor:hide">
     <modal
       v-if="$store.state.startModalShown"
       :button="$store.getters.startButtonContent"
