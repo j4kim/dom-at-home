@@ -48,7 +48,16 @@ function initialState () {
     playing: false,
     bestScore: +(localStorage['bestScore'] || 0),
     bestScoreModalShown: false,
-    volume: localStorage.volume || 1
+    volume: localStorage.volume || 1,
+    bindings: {
+      'ArrowUp': ['changeDirection', 'up'],
+      'ArrowDown': ['changeDirection', 'down'],
+      'ArrowLeft': ['changeDirection', 'left'],
+      'ArrowRight': ['changeDirection', 'right'],
+      'KeyA': ['handleKeyA'],
+      'KeyB': ['changeVolume'],
+      'KeyX': ['handleCredit']
+    }
   }
 }
 
@@ -311,19 +320,11 @@ var store = new Vuex.Store({
       commit('playSoundEffect', 'onBestScore')
       startFireworks()
     },
-    KeyM ({ commit }) {
+    handleCredit ({ commit }) {
       commit("addCredit", 1)
       commit("playSoundEffect", "onCredit")
     },
-    KeyC ({ commit }) {
-      commit("addCredit", 2)
-      commit("playSoundEffect", "onCredit")
-      commit("playSoundEffect", "onEat")
-    },
-    KeyB ({ dispatch }) {
-      dispatch('changeVolume')
-    },
-    KeyA ({ state, getters, commit, dispatch }) {
+    handleKeyA ({ state, getters, commit, dispatch }) {
       if (getters.canStart) {
         dispatch("startCountdown")
       } else if (state.over) {
@@ -344,13 +345,11 @@ var store = new Vuex.Store({
       stopFireworks()
       commit('showBestScoreModal', false)
     },
-    handleKeydown ({ dispatch }, code) {
-      if (code.startsWith('Arrow')) {
-        // 'ArrowLeft' --> 'left'
-        let dir = code.substring(5).toLowerCase()
-        return dispatch('changeDirection',dir)
+    handleKeydown ({ state, dispatch }, code) {
+      let args = state.bindings[code]
+      if (args) {
+        return dispatch(...args)
       }
-      dispatch(code)
     },
     startCountdown ({ state, commit, dispatch }) {
       state.sounds.startMusic.play()
