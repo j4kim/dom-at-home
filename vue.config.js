@@ -1,7 +1,5 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/domathome/'
-    : '/',
+  publicPath: '',
 
   pwa: {
     name: 'Dom at Home',
