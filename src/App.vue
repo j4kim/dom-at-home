@@ -1,5 +1,5 @@
 <template>
-  <div id="app" v-fuzz="$store">
+  <div id="app" v-fuzz="$store" style="cursor:hide">
     <modal
       v-if="$store.state.startModalShown"
       :button="$store.getters.startButtonContent"
@@ -18,7 +18,7 @@
         Crédits: {{ $store.state.credits }}
       </p>
       <p :style="{ textAlign: 'center', fontStyle: 'italic', fontSize: '.8em' }">
-        Meilleur score du jour: {{ $store.state.bestScore }}
+        Meilleur score: {{ $store.state.bestScore }}
       </p>
     </modal>
     <modal
